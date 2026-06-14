@@ -3,19 +3,22 @@
 </p>
 
 <p align="center">
-<a aria-label="Join the Pyrodactyl community on Discord" href="https://discord.gg/mnTJVSSaKp?utm_source=githubreadme&utm_medium=readme&utm_campaign=OSSLAUNCH&utm_id=OSSLAUNCH"><img alt="" src="https://i.imgur.com/qSfKisV.png"></a>
+<a aria-label="Join the Pyrodactyl community on Discord" href="https://discord.gg/mnTJVSSaKp?utm_source=githubreadme&utm_medium=readme&utm_campaign=OSSLAUNCH&utm_id=OSSLAUNCH"><img alt="" src=".github/banner.png"></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/pyrodactyl-oss/pyrodactyl/actions/workflows/dev-build.yaml">
-    <img src="https://github.com/pyrodactyl-oss/pyrodactyl/actions/workflows/dev-build.yaml/badge.svg" alt="Docker">
+  <a href="https://github.com/BlueprintFramework/pyrodactyl/actions/workflows/dev-build.yaml">
+    <img src="https://github.com/BlueprintFramework/pyrodactyl/actions/workflows/dev-build.yaml/badge.svg" alt="Docker">
   </a>
 </p>
 
 <h1 align="center">Pyrodactyl</h1>
 
 > [!NOTE]
-> All Issues and PRs should be made in the [pyrodactyl-oss repo](https://github.com/pyrodactyl-oss/pyrodactyl).
+> Pyrodactyl does not support blueprint(for now) 
+
+> [!NOTE]
+> All Issues and PRs should be made in the [BlueprintFramework repo](https://github.com/pyrodactyl-oss/pyrodactyl).
 
 > [!WARNING]
 > Pyrodactyl is under development and pre-release. Some UI elements may appear broken, and there might be some bugs.
@@ -24,7 +27,7 @@
 > Please read our documentation at [https://pyrodactyl.dev](https://pyrodactyl.dev/docs/pyrodactyl) before installing.
 
 > [!IMPORTANT]
-> For Pyrodactyl-specific issues, please use the [Pyrodactyl Discord](https://discord.gg/mnTJVSSaKp?utm_source=githubreadme&utm_medium=readme&utm_campaign=OSSLAUNCH&utm_id=OSSLAUNCH) instead of Pterodactyl or Pelican support channels.
+> For Pyrodactyl-specific issues, please use the [Pyrodactyl Discord](https://discord.gg/mnTJVSSaKp?utm_source=githubreadme&utm_medium=readme&utm_campaign=OSSLAUNCH&utm_id=OSSLAUNCH) instead of Pterodactyl or Blueprint support channels.
 
 Pyrodactyl is the Pterodactyl-based game server management panel that focuses on performance enhancements, a reimagined, accessible interface, and top-tier developer experience. Builds faster, compiles smaller: Pyrodactyl is the world's best Pterodactyl.
 
@@ -54,11 +57,11 @@ Pyrodactyl has various effortless ways of starting up a ready-to-use, fully-feat
 
 ## Star History
 
-<a href="https://star-history.com/#pyrodactyl-oss/pyrodactyl&Date">
+<a href="https://star-history.com/#BlueprintFramework/pyrodactyl&Date">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=pyrodactyl-oss/pyrodactyl&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=pyrodactyl-oss/pyrodactyl&type=Date" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=pyrodactyl-oss/pyrodactyl&type=Date" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=BlueprintFramework/pyrodactyl&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=BlueprintFramework/pyrodactyl&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=BlueprintFramework/pyrodactyl&type=Date" />
   </picture>
 </a>
 
@@ -68,6 +71,6 @@ Pterodactyl® Copyright © 2015 - 2022 Dane Everitt and contributors.
 
 Pyrodactyl™ Copyright © 2023-2025 Pyro Inc. and contributors.
 
-Pyrodactyl™ Copyright © 2025-present Pyrodactyl-OSS and contributers. 
+Pyrodactyl™ Copyright © 2025-present Pyrodactyl-oss and contributers. 
 
 Apache-2.0
