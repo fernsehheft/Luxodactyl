@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Pterodactyl\Enums\Daemon\Adapters;
+use Pterodactyl\Enums\BackupAdapter;
 
 /**
  * Backup model
@@ -20,7 +20,7 @@ use Pterodactyl\Enums\Daemon\Adapters;
  * @property string $name
  * @property string[] $ignored_files
  * @property array|null $server_state
- * @property string $disk
+ * @property \Pterodactyl\Enums\BackupAdapter $disk
  * @property string|null $checksum
  * @property int $bytes
  * @property string|null $upload_id
@@ -41,17 +41,6 @@ class Backup extends Model
 
     public const RESOURCE_NAME = 'backup';
 
-    // Backup adapters
-    public const ADAPTER_AWS_S3 = 's3';
-
-    // Wings Adapters
-    public const ADAPTER_WINGS = 'wings';
-
-    // Elytra Backups
-    public const ADAPTER_ELYTRA = 'elytra';
-    public const ADAPTER_RUSTIC_LOCAL = 'rustic_local';
-    public const ADAPTER_RUSTIC_S3 = 'rustic_s3';
-
     protected $table = 'backups';
 
     protected bool $immutableDates = true;
@@ -64,6 +53,7 @@ class Backup extends Model
         'ignored_files' => 'array',
         'server_state' => 'array',
         'bytes' => 'int',
+        'disk' => BackupAdapter::class,
         'completed_at' => 'datetime',
     ];
 
@@ -84,7 +74,7 @@ class Backup extends Model
      */
     public function isRustic(): bool
     {
-        return in_array($this->disk, [self::ADAPTER_RUSTIC_LOCAL, self::ADAPTER_RUSTIC_S3]);
+        return $this->disk instanceof BackupAdapter && $this->disk->isRustic();
     }
 
 
@@ -93,7 +83,7 @@ class Backup extends Model
      */
     public function isLocal(): bool
     {
-        return in_array($this->disk, [self::ADAPTER_WINGS, self::ADAPTER_ELYTRA, self::ADAPTER_RUSTIC_LOCAL]);
+        return $this->disk instanceof BackupAdapter && $this->disk->isLocal();
     }
 
     /**
@@ -101,11 +91,7 @@ class Backup extends Model
      */
     public function getRepositoryType(): ?string
     {
-        return match ($this->disk) {
-            self::ADAPTER_RUSTIC_LOCAL => 'local',
-            self::ADAPTER_RUSTIC_S3 => 's3',
-            default => null,
-        };
+        return $this->disk instanceof BackupAdapter ? $this->disk->getRepositoryType() : null;
     }
 
     /**
@@ -133,7 +119,7 @@ class Backup extends Model
         'name' => 'required|string',
         'ignored_files' => 'array',
         'server_state' => 'nullable|array',
-        'disk' => 'required|string|in:wings,elytra,s3,rustic_local,rustic_s3',
+        'disk' => 'required|string',
         'checksum' => 'nullable|string',
         'snapshot_id' => 'nullable|string|max:64',
         'bytes' => 'numeric',
@@ -167,13 +153,7 @@ class Backup extends Model
      */
     public function getElytraAdapterType(): string
     {
-        return match ($this->disk) {
-            self::ADAPTER_ELYTRA => 'elytra',
-            self::ADAPTER_AWS_S3 => 's3',
-            self::ADAPTER_RUSTIC_LOCAL => 'rustic_local',
-            self::ADAPTER_RUSTIC_S3 => 'rustic_s3',
-            default => $this->disk,
-        };
+        return $this->disk instanceof BackupAdapter ? $this->disk->getElytraAdapterType() : $this->disk;
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace Pterodactyl\Http\Controllers\Api\Client\Servers\Wings;
 
 use Illuminate\Http\Request;
+use Pterodactyl\Enums\BackupAdapter;
 use Pterodactyl\Models\Backup;
 use Pterodactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
@@ -164,7 +165,7 @@ class BackupController extends ClientApiController
             throw new AuthorizationException();
         }
 
-        if ($backup->disk !== Backup::ADAPTER_AWS_S3 && $backup->disk !== Backup::ADAPTER_WINGS) {
+        if ($backup->disk !== BackupAdapter::S3 && $backup->disk !== BackupAdapter::Wings) {
             throw new BadRequestHttpException('The backup requested references an unknown disk driver type and cannot be downloaded.');
         }
 
@@ -208,7 +209,7 @@ class BackupController extends ClientApiController
         $log->transaction(function () use ($backup, $server, $request) {
             // If the backup is for an S3 file we need to generate a unique Download link for
             // it that will allow Wings to actually access the file.
-            if ($backup->disk === Backup::ADAPTER_AWS_S3) {
+            if ($backup->disk === BackupAdapter::S3) {
                 $url = $this->downloadLinkService->handle($backup, $request->user());
             }
 

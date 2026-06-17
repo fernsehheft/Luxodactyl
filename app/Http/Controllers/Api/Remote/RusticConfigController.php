@@ -62,30 +62,30 @@ class RusticConfigController extends Controller
             return rtrim($basePath, '/') . '/' . $server->uuid;
         }
 
-        // For S3, return the actual S3 path that rustic will use
-        $s3Config = config('backups.disks.rustic_s3');
-        $bucket = $s3Config['bucket'] ?? '';
-        $prefix = rtrim($s3Config['prefix'] ?? 'rustic-repos/', '/');
-
-        if (empty($bucket)) {
-            throw new \InvalidArgumentException('S3 bucket not configured for rustic backups');
+        // For S3, use the server's node bucket to build the S3 path
+        $s3Bucket = $server->node->s3Bucket;
+        if (!$s3Bucket) {
+            throw new \InvalidArgumentException('S3 bucket not configured for this server\'s node');
         }
 
-        // Return the full S3 path for this server's repository
-        return sprintf('%s/%s/%s', $bucket, $prefix, $server->uuid);
+        $config = $s3Bucket->toRusticS3Config();
+        $prefix = rtrim($config['prefix'] ?? 'rustic-repos/', '/');
+
+        return sprintf('%s/%s/%s', $config['bucket'], $prefix, $server->uuid);
     }
 
 
     /**
-     * Get S3 credentials for rustic S3 backups from global configuration.
+     * Get S3 credentials for rustic S3 backups from the server's node bucket.
      */
     private function getS3Credentials(Server $server): ?array
     {
-        $config = config('backups.disks.rustic_s3');
-
-        if (empty($config['bucket'])) {
+        $s3Bucket = $server->node->s3Bucket;
+        if (!$s3Bucket) {
             return null;
         }
+
+        $config = $s3Bucket->toRusticS3Config();
 
         return [
             'access_key_id' => $config['key'] ?? '',

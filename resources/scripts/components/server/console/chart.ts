@@ -1,20 +1,20 @@
 import {
-    type ChartData,
-    type ChartDataset,
     Chart as ChartJS,
-    type ChartOptions,
-    Filler,
-    LinearScale,
+    LineController,
     LineElement,
     PointElement,
+    LinearScale,
+    Filler,
 } from 'chart.js';
+import type { ChartData, ChartDataset, ChartOptions } from 'chart.js';
+
 import { deepmerge, deepmergeCustom } from 'deepmerge-ts';
 import { useState } from 'react';
 import type { DeepPartial } from 'ts-essentials';
 
 import { hexToRgba } from '@/lib/helpers';
 
-ChartJS.register(LineElement, PointElement, Filler, LinearScale);
+ChartJS.register(LineController, LineElement, PointElement, LinearScale, Filler);
 
 const options: ChartOptions<'line'> = {
     maintainAspectRatio: false,

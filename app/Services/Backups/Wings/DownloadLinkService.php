@@ -3,6 +3,8 @@
 namespace Pterodactyl\Services\Backups\Wings;
 
 use Carbon\CarbonImmutable;
+use Pterodactyl\Enums\BackupAdapter;
+use Pterodactyl\Enums\Daemon\JwtScope;
 use Pterodactyl\Models\User;
 use Pterodactyl\Models\Backup;
 use Pterodactyl\Services\Nodes\NodeJWTService;
@@ -21,7 +23,7 @@ class DownloadLinkService
      */
     public function handle(Backup $backup, User $user): string
     {
-        if ($backup->disk === Backup::ADAPTER_AWS_S3) {
+        if ($backup->disk === BackupAdapter::S3) {
             return $this->getS3BackupUrl($backup);
         }
 
@@ -43,8 +45,13 @@ class DownloadLinkService
      */
     protected function getS3BackupUrl(Backup $backup): string
     {
+        $s3Bucket = $backup->server->node->s3Bucket;
+        if (!$s3Bucket) {
+            throw new \RuntimeException('No S3 bucket configured for the node associated with this backup.');
+        }
+
         /** @var \Pterodactyl\Extensions\Filesystem\S3Filesystem $adapter */
-        $adapter = $this->backupManager->adapter(Backup::ADAPTER_AWS_S3);
+        $adapter = $this->backupManager->createS3Adapter($s3Bucket->toS3Config());
 
         $request = $adapter->getClient()->createPresignedRequest(
             $adapter->getClient()->getCommand('GetObject', [

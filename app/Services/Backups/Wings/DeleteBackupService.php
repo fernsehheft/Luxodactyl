@@ -3,6 +3,7 @@
 namespace Pterodactyl\Services\Backups\Wings;
 
 use Illuminate\Http\Response;
+use Pterodactyl\Enums\BackupAdapter;
 use Pterodactyl\Models\Backup;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Database\ConnectionInterface;
@@ -37,7 +38,7 @@ class DeleteBackupService
             throw new BackupLockedException();
         }
 
-        if ($backup->disk === Backup::ADAPTER_AWS_S3) {
+        if ($backup->disk === BackupAdapter::S3) {
             $this->deleteFromS3($backup);
 
             return;
@@ -69,8 +70,17 @@ class DeleteBackupService
         $this->connection->transaction(function () use ($backup) {
             $backup->delete();
 
+            $s3Bucket = $backup->server->node->s3Bucket;
+            if (!$s3Bucket) {
+                \Log::warning('Cannot delete S3 backup: no S3 bucket configured for node', [
+                    'backup_uuid' => $backup->uuid,
+                    'node_id' => $backup->server->node_id,
+                ]);
+                return;
+            }
+
             /** @var \Pterodactyl\Extensions\Filesystem\S3Filesystem $adapter */
-            $adapter = $this->manager->adapter(Backup::ADAPTER_AWS_S3);
+            $adapter = $this->manager->createS3Adapter($s3Bucket->toS3Config());
 
             $adapter->getClient()->deleteObject([
                 'Bucket' => $adapter->getBucket(),

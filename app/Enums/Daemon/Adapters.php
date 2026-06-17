@@ -2,7 +2,7 @@
 
 namespace Pterodactyl\Enums\Daemon;
 
-use Illuminate\Support\Facades\Log;
+use Pterodactyl\Enums\BackupAdapter;
 
 enum Adapters: string
 {
@@ -48,5 +48,12 @@ enum Adapters: string
     public static function values(): array
     {
         return array_column(self::cases(), 'value');
+    }
+
+    public static function requiresS3Bucket(string $adapter): bool
+    {
+        $backupAdapter = BackupAdapter::tryFrom($adapter);
+
+        return $backupAdapter !== null && $backupAdapter->requiresS3Bucket();
     }
 }
