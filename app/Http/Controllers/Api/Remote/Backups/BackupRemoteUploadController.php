@@ -61,8 +61,12 @@ class BackupRemoteUploadController extends Controller
       throw new ConflictHttpException('This backup is already in a completed state.');
     }
 
-    // Ensure we are using the S3 adapter.
-    $adapter = $this->backupManager->adapter();
+    // Use the node's configured S3 bucket for this upload.
+    $s3Bucket = $node->s3Bucket;
+    if (!$s3Bucket) {
+      throw new BadRequestHttpException('No S3 bucket is configured for this node.');
+    }
+    $adapter = $this->backupManager->createS3Adapter($s3Bucket->toS3Config());
     if (!$adapter instanceof S3Filesystem) {
       throw new BadRequestHttpException('The configured backup adapter is not an S3 compatible adapter.');
     }

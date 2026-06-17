@@ -4,6 +4,7 @@ namespace Pterodactyl\Tests\Integration\Services\Backups;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use Pterodactyl\Enums\BackupAdapter;
 use Pterodactyl\Models\Backup;
 use GuzzleHttp\Exception\ClientException;
 use Pterodactyl\Extensions\Backups\BackupManager;
@@ -92,14 +93,14 @@ class DeleteBackupServiceTest extends IntegrationTestCase
     {
         $server = $this->createServerModel();
         $backup = Backup::factory()->create([
-            'disk' => Backup::ADAPTER_AWS_S3,
+            'disk' => BackupAdapter::S3->value,
             'server_id' => $server->id,
         ]);
 
         $manager = $this->mock(BackupManager::class);
         $adapter = $this->mock(S3Filesystem::class);
 
-        $manager->expects('adapter')->with(Backup::ADAPTER_AWS_S3)->andReturn($adapter);
+        $manager->expects('adapter')->with(BackupAdapter::S3->value)->andReturn($adapter);
 
         $adapter->expects('getBucket')->andReturn('foobar');
         $adapter->expects('getClient->deleteObject')->with([

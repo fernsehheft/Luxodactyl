@@ -3,6 +3,7 @@
 namespace Pterodactyl\Services\Elytra\Jobs;
 
 use Carbon\CarbonImmutable;
+use Pterodactyl\Enums\BackupAdapter;
 use Pterodactyl\Models\Backup;
 use Pterodactyl\Models\Server;
 use Pterodactyl\Models\ElytraJob;
@@ -226,7 +227,7 @@ class BackupJob implements Job
 
         $downloadUrl = $jobData['download_url'] ?? null;
 
-        if ($backup->disk === Backup::ADAPTER_AWS_S3 && empty($downloadUrl)) {
+        if ($backup->disk === BackupAdapter::S3 && empty($downloadUrl)) {
             try {
                 $downloadUrl = $this->generateS3DownloadUrl($backup);
             } catch (\Exception $e) {
@@ -271,7 +272,7 @@ class BackupJob implements Job
             $server = $job->server;
 
             $actualAdapter = $this->mapElytraAdapterToModel($statusData['adapter'] ?? 'rustic_local');
-            $isRusticBackup = in_array($actualAdapter, [Backup::ADAPTER_RUSTIC_LOCAL, Backup::ADAPTER_RUSTIC_S3]);
+            $isRusticBackup = $actualAdapter->isRustic();
 
             $backupData = [
                 'server_id' => $server->id,
@@ -347,7 +348,7 @@ class BackupJob implements Job
 
             if ($backup) {
                 $server = $backup->server;
-                $isRusticBackup = in_array($backup->disk, [Backup::ADAPTER_RUSTIC_LOCAL, Backup::ADAPTER_RUSTIC_S3]);
+                $isRusticBackup = $backup->disk instanceof BackupAdapter && $backup->disk->isRustic();
 
                 Log::debug("Backup found for deletion", [
                     'backup_uuid' => $backup->uuid,
@@ -435,15 +436,15 @@ class BackupJob implements Job
         return 'Backup at ' . now()->format('Y-m-d Hi');
     }
 
-    private function mapElytraAdapterToModel(string $elytraAdapter): string
+    private function mapElytraAdapterToModel(string $elytraAdapter): BackupAdapter
     {
         return match ($elytraAdapter) {
-            'elytra', 'local' => Backup::ADAPTER_RUSTIC_LOCAL,
-            'rustic_local' => Backup::ADAPTER_RUSTIC_LOCAL,
-            'rustic_s3' => Backup::ADAPTER_RUSTIC_S3,
-            's3' => Backup::ADAPTER_RUSTIC_S3,
-            'wings' => Backup::ADAPTER_WINGS,
-            default => Backup::ADAPTER_RUSTIC_LOCAL,
+            'elytra', 'local' => BackupAdapter::RusticLocal,
+            'rustic_local' => BackupAdapter::RusticLocal,
+            'rustic_s3' => BackupAdapter::RusticS3,
+            's3' => BackupAdapter::RusticS3,
+            'wings' => BackupAdapter::Wings,
+            default => BackupAdapter::RusticLocal,
         };
     }
 
@@ -466,8 +467,13 @@ class BackupJob implements Job
      */
     private function generateS3DownloadUrl(Backup $backup): string
     {
+        $s3Bucket = $backup->server->node->s3Bucket;
+        if (!$s3Bucket) {
+            throw new \RuntimeException('No S3 bucket configured for the node associated with this backup.');
+        }
+
         /** @var \Pterodactyl\Extensions\Filesystem\S3Filesystem $adapter */
-        $adapter = $this->backupManager->adapter(Backup::ADAPTER_AWS_S3);
+        $adapter = $this->backupManager->createS3Adapter($s3Bucket->toS3Config());
 
         $request = $adapter->getClient()->createPresignedRequest(
             $adapter->getClient()->getCommand('GetObject', [

@@ -87,4 +87,35 @@ class S3 extends Model
     {
         return $this->hasMany(Node::class, 'bucket');
     }
+
+    /**
+     * Build a config array compatible with BackupManager::createS3Adapter().
+     */
+    public function toS3Config(): array
+    {
+        return [
+            'key' => $this->access_key,
+            'secret' => $this->secret_key,
+            'bucket' => $this->bucket_name,
+            'region' => 'us-east-1',
+            'endpoint' => $this->endpoint,
+            'use_path_style_endpoint' => $this->use_path_style_endpoint,
+        ];
+    }
+
+    /**
+     * Build a config array for rustic S3 adapter usage.
+     */
+    public function toRusticS3Config(): array
+    {
+        return [
+            'key' => $this->access_key,
+            'secret' => $this->secret_key,
+            'bucket' => $this->bucket_name,
+            'region' => 'us-east-1',
+            'endpoint' => $this->endpoint,
+            'force_path_style' => $this->use_path_style_endpoint,
+            'prefix' => env('RUSTIC_S3_PREFIX', 'rustic-repos/'),
+        ];
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace Pterodactyl\Enums\Daemon;
 
-use Illuminate\Support\Facades\Log;
+use Pterodactyl\Enums\BackupAdapter;
 
 enum Adapters: string
 {
@@ -52,9 +52,8 @@ enum Adapters: string
 
     public static function requiresS3Bucket(string $adapter): bool
     {
-        return in_array($adapter, [
-            self::ADAPTER_WINGS_S3->value,
-            self::ADAPTER_RUSTIC_S3->value,
-        ]);
+        $backupAdapter = BackupAdapter::tryFrom($adapter);
+
+        return $backupAdapter !== null && $backupAdapter->requiresS3Bucket();
     }
 }

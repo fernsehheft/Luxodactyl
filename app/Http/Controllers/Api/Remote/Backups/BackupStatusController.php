@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Pterodactyl\Facades\Activity;
 use Pterodactyl\Exceptions\DisplayException;
 use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Enums\BackupAdapter;
 use Pterodactyl\Extensions\Backups\BackupManager;
 use Pterodactyl\Extensions\Filesystem\S3Filesystem;
 use Pterodactyl\Exceptions\Http\HttpForbiddenException;
@@ -70,11 +71,14 @@ class BackupStatusController extends Controller
                 'completed_at' => CarbonImmutable::now(),
             ])->save();
 
-            // Check if we are using the s3 backup adapter. If so, make sure we mark the backup as
-            // being completed in S3 correctly.
-            $adapter = $this->backupManager->adapter();
-            if ($adapter instanceof S3Filesystem) {
-                $this->completeMultipartUpload($model, $adapter, $successful, $request->input('parts'));
+            // Check if we are using the s3 backup adapter and the backup was actually stored
+            // on S3. If so, make sure we mark the backup as being completed in S3 correctly.
+            if ($model->disk === BackupAdapter::S3) {
+                $s3Bucket = $model->server->node->s3Bucket;
+                if ($s3Bucket) {
+                    $adapter = $this->backupManager->createS3Adapter($s3Bucket->toS3Config());
+                    $this->completeMultipartUpload($model, $adapter, $successful, $request->input('parts'));
+                }
             }
         });
 

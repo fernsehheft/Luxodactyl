@@ -34,7 +34,7 @@ class Elytra implements Daemon
                     'bind_port' => $node->daemonSFTP,
                 ],
                 'backups' => [
-                    'rustic' => $this->getBackupConfiguration(),
+                    'rustic' => $this->getBackupConfiguration($node),
                 ],
             ],
             'allowed_mounts' => $node->mounts->pluck('source')->toArray(),
@@ -45,10 +45,11 @@ class Elytra implements Daemon
         ];
     }
 
-    private function getBackupConfiguration()
+    private function getBackupConfiguration(Node $node)
     {
         $localConfig = config('backups.disks.rustic_local', []);
-        $s3Config = config('backups.disks.rustic_s3', []);
+        $s3Bucket = $node->s3Bucket;
+        $s3Config = $s3Bucket ? $s3Bucket->toRusticS3Config() : [];
         return [
             // Path to rustic binary
             'binary_path' => $localConfig['binary_path'] ?? 'rustic',
