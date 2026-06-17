@@ -18,6 +18,7 @@ import DatabaseRow from '@/components/server/databases/DatabaseRow';
 import { useDeepMemoize } from '@/plugins/useDeepMemoize';
 import useFlash from '@/plugins/useFlash';
 import { ServerContext } from '@/state/server';
+import ServerHeader from '@/components/server/header/ServerHeader';
 
 interface DatabaseValues {
     databaseName: string;
@@ -80,42 +81,30 @@ const DatabasesContainer = () => {
     }, []);
 
     return (
-        <ServerContentBlock title={'Databases'}>
-            <FlashMessageRender byKey={'databases'} />
-            <MainPageHeader
-                direction='column'
-                title={'Databases'}
-                titleChildren={
-                    <Can action={'database.create'}>
-                        <div className='flex flex-col sm:flex-row items-center justify-end gap-4'>
-                            {databaseLimit === null && (
-                                <p className='text-sm text-zinc-300 text-center sm:text-right'>
-                                    {databases.length} databases (unlimited)
-                                </p>
-                            )}
-                            {databaseLimit > 0 && (
-                                <p className='text-sm text-zinc-300 text-center sm:text-right'>
-                                    {databases.length} of {databaseLimit} databases
-                                </p>
-                            )}
-                            {databaseLimit === 0 && (
-                                <p className='text-sm text-red-400 text-center sm:text-right'>Databases disabled</p>
-                            )}
-                            {(databaseLimit === null || (databaseLimit > 0 && databaseLimit !== databases.length)) && (
-                                <ActionButton variant='primary' onClick={() => setCreateModalVisible(true)}>
-                                    New Database
-                                </ActionButton>
-                            )}
-                        </div>
-                    </Can>
-                }
-            >
-                <p className='text-sm text-neutral-400 leading-relaxed'>
-                    Create and manage MySQL databases for your server. Configure database access, manage users, and view
-                    connection details.
-                </p>
-            </MainPageHeader>
-
+        <ServerContentBlock title={'Databases'} showFlashKey={'databases'}>
+            <ServerHeader />
+            <Can action={'database.create'}>
+                <div className='flex flex-col sm:flex-row items-center justify-end gap-4'>
+                    {databaseLimit === null && (
+                        <p className='text-sm text-zinc-300 text-center sm:text-right'>
+                            {databases.length} databases (unlimited)
+                        </p>
+                    )}
+                    {databaseLimit > 0 && (
+                        <p className='text-sm text-zinc-300 text-center sm:text-right'>
+                            {databases.length} of {databaseLimit} databases
+                        </p>
+                    )}
+                    {databaseLimit === 0 && (
+                        <p className='text-sm text-red-400 text-center sm:text-right'>Databases disabled</p>
+                    )}
+                    {(databaseLimit === null || (databaseLimit > 0 && databaseLimit !== databases.length)) && (
+                        <ActionButton variant='secondary' onClick={() => setCreateModalVisible(true)}>
+                            New Database
+                        </ActionButton>
+                    )}
+                </div>
+            </Can>
             <Formik
                 onSubmit={submitDatabase}
                 initialValues={{ databaseName: '', connectionsFrom: '' }}
@@ -164,34 +153,36 @@ const DatabasesContainer = () => {
                 )}
             </Formik>
 
-            {!databases.length && loading ? (
-                <div className='flex items-center justify-center py-12'>
-                    <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-brand'></div>
-                </div>
-            ) : databases.length > 0 ? (
-                <PageListContainer data-pyro-databases>
-                    <For each={databases} memo>
-                        {(database, index) => <DatabaseRow key={database.id} database={database} />}
-                    </For>
-                </PageListContainer>
-            ) : (
-                <div className='flex flex-col items-center justify-center min-h-[60vh] py-12 px-4'>
-                    <div className='text-center'>
-                        <div className='w-16 h-16 mx-auto mb-4 rounded-full bg-[#ffffff11] flex items-center justify-center'>
-                            <Database className='w-8 h-8 text-zinc-400' fill='currentColor' />
-                        </div>
-                        <h3 className='text-lg font-medium text-zinc-200 mb-2'>
-                            {databaseLimit === 0 ? 'Databases unavailable' : 'No databases found'}
-                        </h3>
-                        <p className='text-sm text-zinc-400 max-w-sm'>
-                            {databaseLimit === 0
-                                ? 'Databases cannot be created for this server.'
-                                : 'Your server does not have any databases. Create one to get started.'}
-                        </p>
+            {
+                !databases.length && loading ? (
+                    <div className='flex items-center justify-center py-12'>
+                        <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-brand'></div>
                     </div>
-                </div>
-            )}
-        </ServerContentBlock>
+                ) : databases.length > 0 ? (
+                    <PageListContainer data-pyro-databases>
+                        <For each={databases} memo>
+                            {(database, index) => <DatabaseRow key={database.id} database={database} />}
+                        </For>
+                    </PageListContainer>
+                ) : (
+                    <div className='flex flex-col items-center justify-center min-h-[60vh] py-12 px-4'>
+                        <div className='text-center'>
+                            <div className='w-16 h-16 mx-auto mb-4 rounded-full bg-[#ffffff11] flex items-center justify-center'>
+                                <Database className='w-8 h-8 text-zinc-400' fill='currentColor' />
+                            </div>
+                            <h3 className='text-lg font-medium text-zinc-200 mb-2'>
+                                {databaseLimit === 0 ? 'Databases unavailable' : 'No databases found'}
+                            </h3>
+                            <p className='text-sm text-zinc-400 max-w-sm'>
+                                {databaseLimit === 0
+                                    ? 'Databases cannot be created for this server.'
+                                    : 'Your server does not have any databases. Create one to get started.'}
+                            </p>
+                        </div>
+                    </div>
+                )
+            }
+        </ServerContentBlock >
     );
 };
 
