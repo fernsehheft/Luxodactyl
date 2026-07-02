@@ -1,5 +1,9 @@
 # Just a list of To-do's for the Pyrodactyl Redesign
 
+- [ ] Wings needs to be fully automated, right now you have to change multiple settings
+  - [ ] debug
+  - [ ] machine-id
+
 - [x] Auth Pages
   - [x] Login Page
   - [x] Password Reset
@@ -43,7 +47,8 @@
    - [ ] Option in admin panel to Change how many backups are allowed to be made in a set period
    - [ ] Shift + Click to select a range of backups
   - [ ] Network
-    - [ ] I've got nothing tbh, just needs to have color changes and the range of fixes I do to pages
+    - [x] I've got nothing tbh, just needs to have color changes and the range of fixes I do to pages
+    - [ ] Dropdown for Subdomain Management
   - [ ] Users
     - [ ] Permission Groups
     - [ ] Permission "Presets"
