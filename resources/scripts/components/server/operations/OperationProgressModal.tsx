@@ -2,9 +2,9 @@ import { TriangleExclamation } from '@gravity-ui/icons';
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import { type ServerOperation, useOperationPolling } from '@/api/server/serverOperations';
-import ActionButton from '@/components/elements/ActionButton';
 import { Dialog } from '@/components/elements/dialog';
 import Spinner from '@/components/elements/Spinner';
+import { Button } from '@/components/ui/button';
 import {
     canCloseOperation,
     formatOperationId,
@@ -243,12 +243,12 @@ const OperationProgressModal: React.FC<Props> = ({
 
             {canClose && (
                 <Dialog.Footer>
-                    <ActionButton onClick={handleClose} variant='secondary' className='mr-3'>
+                    <Button onClick={handleClose} variant='secondary'>
                         Cancel
-                    </ActionButton>
-                    <ActionButton onClick={handleClose} variant='primary'>
+                    </Button>
+                    <Button onClick={handleClose} variant='attention'>
                         {operation?.is_completed ? 'Done' : 'Close'}
-                    </ActionButton>
+                    </Button>
                 </Dialog.Footer>
             )}
         </Dialog>

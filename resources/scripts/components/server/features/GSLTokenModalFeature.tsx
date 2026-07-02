@@ -1,11 +1,11 @@
 import { Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import updateStartupVariable from '@/api/server/updateStartupVariable';
-import ActionButton from '@/components/elements/ActionButton';
 import Field from '@/components/elements/Field';
 import Modal from '@/components/elements/Modal';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { SocketEvent, SocketRequest } from '@/components/server/events';
+import { Button } from '@/components/ui/button';
 import useFlash from '@/plugins/useFlash';
 import { ServerContext } from '@/state/server';
 
@@ -89,9 +89,9 @@ const GSLTokenModalFeature = () => {
                         />
                     </div>
                     <div className={`my-6 sm:flex items-center justify-end`}>
-                        <ActionButton variant='primary' type={'submit'}>
+                        <Button variant='attention' type={'submit'}>
                             Update GSL Token
-                        </ActionButton>
+                        </Button>
                     </div>
                 </Form>
             </Modal>

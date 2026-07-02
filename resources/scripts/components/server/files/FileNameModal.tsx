@@ -1,10 +1,9 @@
 import { Form, Formik, type FormikHelpers } from 'formik';
 import { join } from 'pathe';
 import { object, string } from 'yup';
-
-import ActionButton from '@/components/elements/ActionButton';
 import Field from '@/components/elements/Field';
 import Modal, { type RequiredModalProps } from '@/components/elements/Modal';
+import { Button } from '@/components/ui/button';
 
 import { ServerContext } from '@/state/server';
 
@@ -50,7 +49,9 @@ const FileNameModal = ({ onFileNamed, onDismissed, ...props }: Props) => {
                             autoFocus
                         />
                         <div className={`flex justify-end w-full my-4`}>
-                            <ActionButton variant='primary'>Create File</ActionButton>
+                            <Button variant='attention' type='submit'>
+                                Create File
+                            </Button>
                         </div>
                     </Form>
                 </Modal>

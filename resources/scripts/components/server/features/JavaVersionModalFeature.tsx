@@ -2,8 +2,6 @@ import { ChevronDown, ChevronUp } from '@gravity-ui/icons';
 import { useEffect, useState } from 'react';
 import setSelectedDockerImage from '@/api/server/setSelectedDockerImage';
 import getServerStartup from '@/api/swr/getServerStartup';
-import ActionButton from '@/components/elements/ActionButton';
-// import { Options } from '@/components/elements/button/types';
 import Can from '@/components/elements/Can';
 import {
     DropdownMenu,
@@ -15,6 +13,7 @@ import {
 import Modal from '@/components/elements/Modal';
 import Spinner from '@/components/elements/Spinner';
 import { SocketEvent, SocketRequest } from '@/components/server/events';
+import { Button } from '@/components/ui/button';
 import useFlash from '@/plugins/useFlash';
 import useWebsocketEvent from '@/plugins/useWebsocketEvent';
 import { ServerContext } from '@/state/server';
@@ -131,9 +130,9 @@ const JavaVersionModalFeature = () => {
                         Cancel
                     </Button> */}
                     <Can action={'startup.docker-image'}>
-                        <ActionButton variant='primary' onClick={updateJava} className={`w-full sm:w-auto`}>
+                        <Button variant='attention' onClick={updateJava} className={`w-full sm:w-auto`}>
                             Update
-                        </ActionButton>
+                        </Button>
                     </Can>
                 </div>
             </div>
