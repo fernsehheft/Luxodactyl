@@ -32,7 +32,7 @@ function ScheduleContainer() {
     return (
         <ServerContentBlock title={'Schedules'} className='p-0!' showFlashKey={'server:schedules'}>
             <ServerHeader />
-            <div className='rounded-xl shadow-sm px-14 py-14 w-full'>
+            <div className='rounded-xl shadow-sm px-4 py-8 sm:px-14 sm:py-14 w-full'>
                 <div className='flex items-center justify-between mb-2'>
                     {!loading && (
                         <Can action={'schedule.create'}>

@@ -44,48 +44,51 @@ const ScheduleRow = ({ schedule, onDeleted }: Props) => {
 
     return (
         <>
-            <div className='flex items-center justify-between gap-3 w-full'>
-                <div className='flex flex-row flex-1 align-middle items-center gap-3'>
-                    <Calendar width={25} height={25} className='flex-none w-9 h-9' fill='currentColor' />
-                    <div>
-                        <div className='flex flex-row items-center gap-2 text-lg'>
-                            <p>{schedule.name}</p>
+            <div className='flex flex-col gap-3 w-full'>
+                <div className='flex items-center justify-between gap-3 w-full'>
+                    <div className='flex flex-row flex-1 align-middle items-center gap-3 min-w-0'>
+                        <Calendar width={25} height={25} className='flex-none w-9 h-9' fill='currentColor' />
+                        <div className='min-w-0'>
+                            <div className='flex flex-row items-center gap-2 text-lg'>
+                                <p className='truncate'>{schedule.name}</p>
+                            </div>
+                            <p className='text-xs text-zinc-400'>
+                                Last run at:{' '}
+                                {schedule.lastRunAt ? format(schedule.lastRunAt, "MMM do 'at' h:mma") : 'N/A'}
+                            </p>
                         </div>
-                        <p className='text-xs text-zinc-400'>
-                            Last run at: {schedule.lastRunAt ? format(schedule.lastRunAt, "MMM do 'at' h:mma") : 'N/A'}
-                        </p>
+                        <div className='flex-none w-20 sm:ml-2 flex items-center align-middle justify-center ml-auto'>
+                            <p className='rounded-full px-2 py-px text-xs uppercase bg-neutral-600 text-white'>
+                                {schedule.isProcessing ? 'Processing' : schedule.isActive ? 'Active' : 'Inactive'}
+                            </p>
+                        </div>
                     </div>
-                    <ScheduleCronRow cron={schedule.cron} />
-                    <div className='flex-none w-20 sm:ml-2 flex items-center align-middle justify-center'>
-                        <p className='rounded-full px-2 py-px text-xs uppercase bg-neutral-600 text-white'>
-                            {schedule.isProcessing ? 'Processing' : schedule.isActive ? 'Active' : 'Inactive'}
-                        </p>
+                    <div className='flex-shrink-0 flex items-center gap-2 min-w-[68px] justify-end'>
+                        <Can action={'schedule.update'}>
+                            <Button
+                                variant='secondary'
+                                size='sm'
+                                className={`p-2 border transition-colors`}
+                                title='Edit Schedule'
+                                onClick={() => navigate(`/server/${serverId}/schedules/${schedule.id}`)}
+                            >
+                                <Pencil width={22} height={22} fill='currentColor' />
+                            </Button>
+                        </Can>
+                        <Can action={'schedule.delete'}>
+                            <Button
+                                variant='attention'
+                                size='sm'
+                                className={`p-2 border transition-colors`}
+                                title='Delete Schedule'
+                                onClick={() => setVisible(true)}
+                            >
+                                <TrashBin width={22} height={22} fill='currentColor' />
+                            </Button>
+                        </Can>
                     </div>
                 </div>
-                <div className='flex-shrink-0 flex items-center gap-2 min-w-[68px] justify-end'>
-                    <Can action={'schedule.update'}>
-                        <Button
-                            variant='secondary'
-                            size='sm'
-                            className={`p-2 border transition-colors`}
-                            title='Edit Schedule'
-                            onClick={() => navigate(`/server/${serverId}/schedules/${schedule.id}`)}
-                        >
-                            <Pencil width={22} height={22} fill='currentColor' />
-                        </Button>
-                    </Can>
-                    <Can action={'schedule.delete'}>
-                        <Button
-                            variant='attention'
-                            size='sm'
-                            className={`p-2 border transition-colors`}
-                            title='Delete Schedule'
-                            onClick={() => setVisible(true)}
-                        >
-                            <TrashBin width={22} height={22} fill='currentColor' />
-                        </Button>
-                    </Can>
-                </div>
+                <ScheduleCronRow cron={schedule.cron} className='sm:ml-12' />
             </div>
 
             <Dialog.Confirm

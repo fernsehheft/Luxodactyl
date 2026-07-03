@@ -16,14 +16,16 @@ const ServerHeader = (props: headerProps) => {
 
     const buttonsSection = useMemo(
         () => (
-            <PowerButtons className={`flex gap-2 items-center justify-center ${props.powerButtons ? '' : 'hidden'}`} />
+            <PowerButtons
+                className={`hidden lg:flex gap-2 items-center justify-center ${props.powerButtons ? '' : 'lg:hidden'}`}
+            />
         ),
         [props.powerButtons],
     );
 
     const statusSection = useMemo(
         () => (
-            <HeaderCentered className='flex items-center gap-6'>
+            <HeaderCentered className='hidden lg:flex items-center gap-6'>
                 <div className='flex items-center gap-3'>
                     <StatusPillHeader />
                     <span className='xl:max-w-[20vw] min-w-0 truncate'>{name}</span>

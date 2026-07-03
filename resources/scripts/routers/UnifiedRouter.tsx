@@ -27,6 +27,7 @@ import MainWrapper from '@/components/elements/MainWrapper';
 import PermissionRoute from '@/components/elements/PermissionRoute';
 import { NotFound, ServerError } from '@/components/elements/ScreenBlock';
 import AppHeader from '@/components/layout/header/AppHeader';
+import MobileSidebar from '@/components/layout/sidebar/MobileSidebar';
 import Sidebar from '@/components/layout/sidebar/Sidebar';
 import ConflictStateRenderer from '@/components/server/ConflictStateRenderer';
 import InstallListener from '@/components/server/InstallListener';
@@ -311,8 +312,9 @@ const UnifiedRouter = () => {
                     <div className='flex flex-col w-full h-full relative'>
                         <AppHeader serverId={isServerRoute ? serverInternalId?.toString() : undefined} />
 
-                        <div className='flex h-full w-full overflow-hidden relative'>
-                            <Sidebar navItems={navItems} />
+                        <div className='flex flex-col lg:flex-row h-full w-full overflow-hidden relative'>
+                            <Sidebar navItems={navItems} className='hidden lg:flex' />
+                            <MobileSidebar navItems={navItems} />
 
                             {/* server-specific components - only render when we have server data */}
                             {isServerRoute && uuid && id && (

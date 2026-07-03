@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { useHeader } from '@/contexts/HeaderContext';
 import { useSidebar } from '@/contexts/SidebarContext';
 
+import { MobileSidebarToggle } from '../sidebar/MobileSidebar';
 import '../sidebar/sidebar-modern.css';
 import UserDropdown from './UserDropdown';
 
@@ -57,7 +58,7 @@ ToggleButton.displayName = 'ToggleButton';
 
 const SidebarLogo = memo(() => {
     return (
-        <div className='sidebar-logo-container h-[48px] items-center justify-between mx-8 flex flex-none'>
+        <div className='sidebar-logo-container hidden lg:flex h-[48px] items-center justify-between mx-8 flex-none'>
             <LogoSection />
             <ToggleButton />
         </div>
@@ -84,7 +85,10 @@ StaticButtons.displayName = 'StaticButtons';
 const AppHeader = ({ serverId }: AppHeaderProps) => {
     return (
         <div className='h-[64px] w-full py-4 pr-2 flex align-middle items-center justify-between'>
-            <SidebarLogo />
+            <div className='flex items-center gap-2'>
+                <MobileSidebarToggle />
+                <SidebarLogo />
+            </div>
             <div className='flex items-center gap-2 h-full w-full justify-end'>
                 <HeaderActions />
                 <StaticButtons serverId={serverId} />

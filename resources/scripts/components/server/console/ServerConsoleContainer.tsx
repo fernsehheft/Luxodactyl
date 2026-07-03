@@ -8,6 +8,7 @@ import PageContentBlock from '@/components/elements/PageContentBlock';
 import Spinner from '@/components/elements/Spinner';
 import Console from '@/components/server/console/Console';
 import StatGraphs from '@/components/server/console/StatGraphs';
+import PowerButtons from '@/components/server/header/PowerButtons';
 import { ServerContext } from '@/state/server';
 import ServerHeader from '../header/ServerHeader';
 
@@ -21,9 +22,10 @@ const ServerConsoleContainer = () => {
 
     return (
         <PageContentBlock title={'Console'} background={false} className='overflow-y-visible'>
-            <div className='w-full h-full flex gap-4'>
+            <div className='w-full h-full flex flex-col lg:flex-row gap-4'>
                 <div className='flex flex-col flex-1 gap-4'>
                     <ServerHeader powerButtons={true} />
+                    <PowerButtons className='flex lg:hidden gap-2 items-center justify-center' />
                     {(isNodeUnderMaintenance || isInstalling || isTransferring) && (
                         <Alert type={'warning'} className={''}>
                             {isNodeUnderMaintenance
@@ -35,7 +37,7 @@ const ServerConsoleContainer = () => {
                     )}
                     <Console />
                 </div>
-                <div className='relative w-(--sidebar-full-width) overflow-y-auto overflow-x-visible flex-none -mb-(--main-wrapper-spacing) pb-(--main-wrapper-spacing)'>
+                <div className='relative w-full lg:w-(--sidebar-full-width) overflow-y-auto overflow-x-visible lg:flex-none lg:-mb-(--main-wrapper-spacing) lg:pb-(--main-wrapper-spacing)'>
                     <div className='flex flex-col gap-4'>
                         <Spinner.Suspense>
                             <StatGraphs />
