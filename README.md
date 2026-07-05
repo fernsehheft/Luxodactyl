@@ -33,7 +33,7 @@ cp .env.example .env
 docker compose up -d
 ```
 
-See the [Installation Guide](https://hydrodactyl.dev/docs/hydrodactyl/installation) and [Local Development Guide](https://hydrodactyl.dev/docs/pyrodactyl/local-development) for detailed instructions. Windows is supported for local development only.
+See the [Installation Guide](https://hydrodactyl.dev/docs/hydrodactyl/installation) and [Local Development Guide](https://hydrodactyl.dev/docs/hydrodactyl/local-development) for detailed instructions. Windows is supported for local development only.
 
 ![Dashboard Image](./.github/dashboard.jpeg)
 

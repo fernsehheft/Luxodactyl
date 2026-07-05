@@ -1,4 +1,4 @@
-# Just a list of To-do's for the Pyrodactyl Redesign
+# Just a list of To-do's for the Hydrodactyl Redesign
 
 - [ ] Wings needs to be fully automated, right now you have to change multiple settings
   - [ ] debug

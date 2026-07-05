@@ -40,7 +40,7 @@
         @section('user-data')
             @if(!is_null(Auth::user()))
                 <script>
-                    window.PyrodactylUser = {!! json_encode(Auth::user()->toVueObject()) !!};
+                    window.HydrodactylUser = {!! json_encode(Auth::user()->toVueObject()) !!};
                 </script>
             @endif
             @if(!empty($siteConfiguration))

@@ -53,7 +53,7 @@ class SoftwareVersionService
      */
     public function getDonations(): string
     {
-        return Arr::get(self::$result, 'donations') ?? 'https://liberapay.com/pyro';
+        return Arr::get(self::$result, 'donations') ?? 'https://ko-fi.com/naterfute';
     }
 
     /**
