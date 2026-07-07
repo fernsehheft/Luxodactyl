@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import type { Server } from '@/api/server/getServer';
@@ -63,18 +63,20 @@ position: relative;
     }
 `;
 
-type Timer = ReturnType<typeof setInterval>;
-
 const ServerRow = ({ server, className }: { server: Server; className?: string }) => {
-    const interval = useRef<Timer>(null) as React.MutableRefObject<Timer>;
     const [isSuspended, setIsSuspended] = useState(server.status === 'suspended');
     const [isInstalling, setIsInstalling] = useState(server.status === 'installing');
     const [stats, setStats] = useState<ServerStats | null>(null);
 
-    const getStats = () =>
+    // Memoized so its identity is stable across renders. Using an inline function
+    // here as a useEffect dependency makes the polling effect re-fire every render
+    // -> setStats -> re-render -> re-fire, i.e. a setState-in-useEffect infinite
+    // loop ("Maximum update depth exceeded").
+    const getStats = useCallback(() => {
         getServerResourceUsage(server.uuid)
             .then((data) => setStats(data))
             .catch((error) => console.error(error));
+    }, [server.uuid]);
 
     useEffect(() => {
         setIsSuspended(stats?.isSuspended || server.status === 'suspended');
@@ -89,14 +91,10 @@ const ServerRow = ({ server, className }: { server: Server; className?: string }
         // the server is suspended.
         if (isSuspended) return;
 
-        getStats().then(() => {
-            interval.current = setInterval(() => getStats(), 30000);
-        });
+        getStats();
+        const interval = setInterval(getStats, 30000);
 
-        return () => {
-            if (interval.current) clearInterval(interval.current);
-        };
-        // biome-ignore lint/correctness/useExhaustiveDependencies: getStats is intentionally recreated each render
+        return () => clearInterval(interval);
     }, [isSuspended, getStats]);
 
     const alarms = { cpu: false, memory: false, disk: false };
