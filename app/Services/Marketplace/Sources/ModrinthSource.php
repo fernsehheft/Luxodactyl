@@ -78,6 +78,51 @@ class ModrinthSource extends AbstractMarketplaceSource
         return $names;
     }
 
+    public function gameVersions(): array
+    {
+        $cacheKey = 'marketplace:modrinth:game-version-tags';
+
+        $cached = Cache::get($cacheKey);
+        if (is_array($cached)) {
+            return $cached;
+        }
+
+        try {
+            $response = Http::withHeaders(['User-Agent' => $this->userAgent(), 'Accept' => 'application/json'])
+                ->timeout($this->timeout())
+                ->get($this->url('/tag/game_version'));
+        } catch (ConnectionException) {
+            return [];
+        }
+
+        if ($response->failed()) {
+            return [];
+        }
+
+        $grouped = [];
+        foreach (($response->json() ?? []) as $tag) {
+            if (!is_array($tag)) {
+                continue;
+            }
+            $version = $tag['version'] ?? null;
+            $type = $tag['version_type'] ?? 'unknown';
+            if (!is_string($version) || $version === '' || !is_string($type) || $type === '') {
+                continue;
+            }
+            $grouped[$type][] = $version;
+        }
+
+        foreach ($grouped as $type => $versions) {
+            $grouped[$type] = array_values(array_unique($versions));
+        }
+
+        if ($grouped !== []) {
+            Cache::put($cacheKey, $grouped, 300);
+        }
+
+        return $grouped;
+    }
+
     public function search(string $type, array $filters): array
     {
         $facets = [['project_type:' . $type]];
@@ -221,7 +266,7 @@ class ModrinthSource extends AbstractMarketplaceSource
      */
     private function pickPrimaryFile(array $files): ?array
     {
-        $files = array_values(array_filter($files, fn ($f) => is_array($f)));
+        $files = array_values(array_filter($files, fn($f) => is_array($f)));
         if ($files === []) {
             return null;
         }

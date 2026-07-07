@@ -56,4 +56,12 @@ interface MarketplaceSource
      * @return string[]
      */
     public function loaders(): array;
+
+    /**
+     * Minecraft release tags fetched via the modrinth api
+     * (release, snapshot, beta, alpha, ...).
+     *
+     * @return array<string, string[]>
+     */
+    public function gameVersions(): array;
 }

@@ -1,15 +1,23 @@
-import { Funnel, Magnifier, TrashBin } from '@gravity-ui/icons';
+import { ChevronDown, Funnel, Magnifier, TrashBin } from '@gravity-ui/icons';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { httpErrorToHuman } from '@/api/http';
 import deleteFiles from '@/api/server/files/deleteFiles';
-import type { MarketplaceProject, MarketplaceSourceMeta, MarketplaceType } from '@/api/server/marketplace';
-import { getMarketplaceLoaders, searchMarketplace } from '@/api/server/marketplace';
+import type { GameVersions, MarketplaceProject, MarketplaceSourceMeta, MarketplaceType } from '@/api/server/marketplace';
+import { getMarketplaceGameVersions, getMarketplaceLoaders, searchMarketplace } from '@/api/server/marketplace';
 import { MainPageHeader } from '@/components/elements/MainPageHeader';
 import ServerContentBlock from '@/components/elements/ServerContentBlock';
 import Spinner from '@/components/elements/Spinner';
 import ServerHeader from '@/components/server/header/ServerHeader';
 import { Button } from '@/components/ui/button';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuRadioGroup,
+    DropdownMenuRadioItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
 import { ServerContext } from '@/state/server';
 import { destinationFolder, isMinecraftCapable, loadersFor } from './eggFeatures';
@@ -46,6 +54,73 @@ const readSavedTab = (): MarketplaceType | null => {
     return null;
 };
 
+const VersionDropdown = ({ versions, value, onChange }: { versions: string[]; value: string | null; onChange: (v: string | null) => void }) => {
+    const [open, setOpen] = useState(false);
+    const [filter, setFilter] = useState('');
+    const parentRef = useRef<HTMLDivElement>(null);
+
+    const filtered = filter ? versions.filter((v) => v.toLowerCase().includes(filter.toLowerCase())) : versions;
+
+    const virtualizer = useVirtualizer({
+        count: filtered.length,
+        getScrollElement: () => parentRef.current,
+        estimateSize: () => 36,
+        overscan: 15,
+    });
+
+    useEffect(() => {
+        if (open) requestAnimationFrame(() => virtualizer.measure());
+    }, [open, virtualizer]);
+
+    return (
+        <DropdownMenu open={open} onOpenChange={(next) => { setOpen(next); if (!next) setFilter(''); }}>
+            <DropdownMenuTrigger asChild>
+                <button className='inline-flex items-center gap-2 rounded-xl border border-mocha-300/50 bg-mocha-400/50 px-3 py-3 text-sm text-cream-400 focus:border-brand-400/60 focus:outline-none'>
+                    {value ?? 'Any'}
+                    <ChevronDown width={14} height={14} fill='currentColor' className='text-cream-400/40' />
+                </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align='end' className='flex flex-col p-0'>
+                <div className='shrink-0 border-b border-mocha-400 p-2'>
+                    <input
+                        type='text'
+                        placeholder='Filter versions…'
+                        className='w-full rounded-lg border border-mocha-400 bg-mocha-500 px-2 py-1 text-xs text-cream-400 placeholder:text-cream-400/40 focus:outline-none'
+                        value={filter}
+                        onChange={(e) => setFilter(e.target.value)}
+                        onMouseDown={(e) => e.stopPropagation()}
+                    />
+                </div>
+                <div ref={parentRef} className='max-h-60 overflow-y-auto p-1'>
+                    <div style={{ height: virtualizer.getTotalSize(), position: 'relative' }}>
+                        {virtualizer.getVirtualItems().map((virtualRow) => {
+                            const v = filtered[virtualRow.index];
+                            return (
+                                <div
+                                    key={v}
+                                    style={{
+                                        height: virtualRow.size,
+                                        transform: `translateY(${virtualRow.start}px)`,
+                                        position: 'absolute',
+                                        insetInline: 0,
+                                    }}
+                                    className='flex cursor-default items-center rounded-xl px-2 py-1.5 text-sm outline-none select-none hover:bg-mocha-400 data-[selected=true]:bg-mocha-400'
+                                    data-selected={v === value}
+                                    role='option'
+                                    aria-selected={v === value}
+                                    onMouseDown={() => { onChange(v); setOpen(false); setFilter(''); }}
+                                >
+                                    {v}
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </DropdownMenuContent>
+        </DropdownMenu>
+    );
+};
+
 interface PickerCtx {
     project: MarketplaceProject;
     type: MarketplaceType;
@@ -57,6 +132,7 @@ interface PickerCtx {
 const InstallerContainer = () => {
     const uuid = ServerContext.useStoreState((state) => state.server.data?.uuid);
     const eggFeatures = ServerContext.useStoreState((state) => state.server.data?.eggFeatures ?? []);
+    const variables = ServerContext.useStoreState((state) => state.server.data?.variables ?? []);
 
     const [view, setView] = useState<'browse' | 'installed'>('browse');
     const [tab, setTabState] = useState<MarketplaceType>(() => readSavedTab() ?? 'plugin');
@@ -89,6 +165,10 @@ const InstallerContainer = () => {
     const knownLoadersRef = useRef(knownLoaders);
     knownLoadersRef.current = knownLoaders;
 
+    const [gameVersions, setGameVersions] = useState<GameVersions>({});
+    const [releaseType, setReleaseType] = useState<string>('');
+    const [gameVersion, setGameVersion] = useState<string | null>(null);
+
     const directory = destinationFolder(tab);
 
     const refreshInstalled = useCallback(() => {
@@ -120,6 +200,57 @@ const InstallerContainer = () => {
             .catch(() => setKnownLoaders([]));
     }, [uuid]);
 
+    const findEggVersion = useCallback(
+        (versions: GameVersions): { version: string | null; type: string } | null => {
+            // Collect candidate env var names from egg features' loaders + common patterns
+            const candidates = new Set(loadersFor(eggFeatures, tab, knownLoaders).map((l) => `${l.toUpperCase()}_VERSION`));
+            for (const v of ['MINECRAFT_VERSION', 'VANILLA_VERSION', 'MC_VERSION']) {
+                candidates.add(v);
+            }
+
+            for (const candidate of candidates) {
+                const eggVar = variables.find((v) => v.envVariable === candidate);
+                if (!eggVar) continue;
+                const raw = eggVar.serverValue || eggVar.defaultValue || '';
+                if (raw === 'latest') {
+                    const releases = versions['release'];
+                    if (releases && releases.length > 0) {
+                        return { version: releases[0], type: 'release' };
+                    }
+                    continue;
+                }
+                for (const [type, list] of Object.entries(versions)) {
+                    if (list.includes(raw)) {
+                        return { version: raw, type };
+                    }
+                }
+            }
+            return null;
+        },
+        [variables, eggFeatures, tab, knownLoaders],
+    );
+
+    // Fetch Modrinth game versions grouped by release type on mount.
+    useEffect(() => {
+        if (!uuid) return;
+        getMarketplaceGameVersions(uuid)
+            .then((versions) => {
+                setGameVersions(versions);
+                const types = Object.keys(versions);
+                if (types.length > 0) {
+                    const egg = findEggVersion(versions);
+                    if (egg) {
+                        setReleaseType(egg.type);
+                        setGameVersion(egg.version);
+                    } else {
+                        setReleaseType(types[0]);
+                        setGameVersion(versions[types[0]][0] ?? null);
+                    }
+                }
+            })
+            .catch(() => setGameVersions({}));
+    }, [uuid, findEggVersion]);
+
     const installedEntryFor = useCallback(
         (project: MarketplaceProject): InstalledEntry | undefined =>
             installedItems.find((i) => i.source === project.source && i.projectId === project.id)?.entry,
@@ -135,7 +266,18 @@ const InstallerContainer = () => {
         setSources([]);
         setResults([]);
         setError(null);
-    }, [tab, eggFeatures]);
+        const types = Object.keys(gameVersions);
+        if (types.length > 0) {
+            const egg = findEggVersion(gameVersions);
+            if (egg) {
+                setReleaseType(egg.type);
+                setGameVersion(egg.version);
+            } else {
+                setReleaseType(types[0]);
+                setGameVersion(gameVersions[types[0]][0] ?? null);
+            }
+        }
+    }, [tab, eggFeatures, findEggVersion]);
 
     // Debounced, cancellable search. "all" fans out across every enabled
     // provider on the backend; a specific provider queries just that one.
@@ -147,7 +289,9 @@ const InstallerContainer = () => {
         const handle = setTimeout(() => {
             setLoading(true);
             setError(null);
-            searchMarketplace(uuid, { type: tab, source, query: query.trim() || undefined, loader, limit: PAGE_SIZE })
+            searchMarketplace(uuid, {
+                type: tab, source, query: query.trim() || undefined, loader, game_version: gameVersion, limit: PAGE_SIZE,
+            })
                 .then((data) => {
                     if (id !== requestId.current) return;
                     if (data.sources.length > 0) setSources(data.sources);
@@ -166,7 +310,7 @@ const InstallerContainer = () => {
         }, 350);
 
         return () => clearTimeout(handle);
-    }, [uuid, tab, source, query, loader]);
+    }, [uuid, tab, source, query, loader, gameVersion]);
 
     const loadMore = useCallback(() => {
         if (!uuid || loadingMore || !hasMore) return;
@@ -177,6 +321,7 @@ const InstallerContainer = () => {
             source,
             query: query.trim() || undefined,
             loader,
+            game_version: gameVersion,
             limit: PAGE_SIZE,
             offset: nextOffset,
         })
@@ -189,7 +334,7 @@ const InstallerContainer = () => {
             })
             .catch((err) => toast.error(httpErrorToHuman(err) || 'Failed to load more results.'))
             .finally(() => setLoadingMore(false));
-    }, [uuid, loadingMore, hasMore, results, tab, source, query, loader]);
+    }, [uuid, loadingMore, hasMore, results, tab, source, query, loader, gameVersion]);
 
     const tabLoaders = useMemo(() => loadersFor(eggFeatures, tab, knownLoaders), [eggFeatures, tab, knownLoaders]);
 
@@ -234,14 +379,7 @@ const InstallerContainer = () => {
     }, [picker, installedItems]);
 
     if (!isMinecraftCapable(eggFeatures)) {
-        return (
-            <ServerContentBlock title='Installer'>
-                <ServerHeader />
-                <div className='rounded-2xl border border-mocha-300/50 bg-mocha-400/50 p-8 text-center text-cream-400/70'>
-                    The installer is only available for Minecraft servers that support mods or plugins.
-                </div>
-            </ServerContentBlock>
-        );
+        return null;
     }
 
     return (
@@ -311,21 +449,26 @@ const InstallerContainer = () => {
                                 />
                             </div>
 
-                            <select
-                                value={source}
-                                onChange={(e) => setSource(e.target.value)}
-                                className='rounded-xl border border-mocha-300/50 bg-mocha-400/50 px-3 py-3 text-sm text-cream-400 focus:border-brand-400/60 focus:outline-none'
-                                aria-label='Provider'
-                            >
-                                <option value={ALL_PROVIDERS} className='bg-mocha-500'>
-                                    All Providers
-                                </option>
-                                {sources.map((s) => (
-                                    <option key={s.key} value={s.key} className='bg-mocha-500'>
-                                        {sourceLabel(s.key)}
-                                    </option>
-                                ))}
-                            </select>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <button className='inline-flex items-center gap-2 rounded-xl border border-mocha-300/50 bg-mocha-400/50 px-3 py-3 text-sm text-cream-400 focus:border-brand-400/60 focus:outline-none'>
+                                        {source === ALL_PROVIDERS ? 'All Providers' : sourceLabel(source)}
+                                        <ChevronDown width={14} height={14} fill='currentColor' className='text-cream-400/40' />
+                                    </button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align='end'>
+                                    <DropdownMenuRadioGroup value={source} onValueChange={setSource}>
+                                        <DropdownMenuRadioItem value={ALL_PROVIDERS}>
+                                            All Providers
+                                        </DropdownMenuRadioItem>
+                                        {sources.map((s) => (
+                                            <DropdownMenuRadioItem key={s.key} value={s.key}>
+                                                {sourceLabel(s.key)}
+                                            </DropdownMenuRadioItem>
+                                        ))}
+                                    </DropdownMenuRadioGroup>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
 
                             {tabLoaders.length > 1 && (
                                 <div className='flex items-center gap-2 rounded-xl border border-mocha-300/50 bg-mocha-400/50 px-3 py-2'>
@@ -343,6 +486,47 @@ const InstallerContainer = () => {
                                         ))}
                                     </select>
                                 </div>
+                            )}
+
+                            {Object.keys(gameVersions).length > 0 && (
+                                <>
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                            <button className='inline-flex items-center gap-2 rounded-xl border border-mocha-300/50 bg-mocha-400/50 px-3 py-3 text-sm text-cream-400 focus:border-brand-400/60 focus:outline-none'>
+                                                {releaseType.charAt(0).toUpperCase() + releaseType.slice(1)}
+                                                <ChevronDown width={14} height={14} fill='currentColor' className='text-cream-400/40' />
+                                            </button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent align='end'>
+                                            <DropdownMenuRadioGroup
+                                                value={releaseType}
+                                                onValueChange={(t) => {
+                                                    setReleaseType(t);
+                                                    setGameVersion((gameVersions[t] ?? [])[0] ?? null);
+                                                }}
+                                            >
+                                                {['release', 'snapshot', 'beta', 'alpha']
+                                                    .filter((t) => gameVersions[t])
+                                                    .concat(
+                                                        Object.keys(gameVersions)
+                                                            .filter((t) => !['release', 'snapshot', 'beta', 'alpha'].includes(t))
+                                                            .sort(),
+                                                    )
+                                                    .map((t) => (
+                                                        <DropdownMenuRadioItem key={t} value={t}>
+                                                            {t.charAt(0).toUpperCase() + t.slice(1)}
+                                                        </DropdownMenuRadioItem>
+                                                    ))}
+                                            </DropdownMenuRadioGroup>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+
+                                    <VersionDropdown
+                                        versions={gameVersions[releaseType] ?? []}
+                                        value={gameVersion}
+                                        onChange={setGameVersion}
+                                    />
+                                </>
                             )}
                         </div>
 

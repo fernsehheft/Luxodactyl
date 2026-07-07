@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
 use Pterodactyl\Http\Requests\Api\Client\Servers\Marketplace\DestroyInstallRequest;
+use Pterodactyl\Http\Requests\Api\Client\Servers\Marketplace\GameVersionsRequest;
 use Pterodactyl\Http\Requests\Api\Client\Servers\Marketplace\GetProjectRequest;
 use Pterodactyl\Http\Requests\Api\Client\Servers\Marketplace\ListInstallsRequest;
 use Pterodactyl\Http\Requests\Api\Client\Servers\Marketplace\LoadersRequest;
@@ -61,7 +62,7 @@ class MarketplaceController extends ClientApiController
                 : $this->singleSourceSearch((string) $sourceKey, $type, $filters);
 
             return response()->json([
-                'results' => collect($projects)->map(fn ($p) => $p->toArray())->values()->all(),
+                'results' => collect($projects)->map(fn($p) => $p->toArray())->values()->all(),
                 'sources' => $this->availableSources($type),
             ]);
         });
@@ -107,7 +108,7 @@ class MarketplaceController extends ClientApiController
             }
         }
 
-        usort($merged, fn ($a, $b) => $b->downloads <=> $a->downloads);
+        usort($merged, fn($a, $b) => $b->downloads <=> $a->downloads);
 
         return $merged;
     }
@@ -133,7 +134,7 @@ class MarketplaceController extends ClientApiController
             ]);
 
             return response()->json([
-                'versions' => collect($versions)->map(fn ($v) => $v->toArray())->values()->all(),
+                'versions' => collect($versions)->map(fn($v) => $v->toArray())->values()->all(),
             ]);
         });
     }
@@ -182,7 +183,7 @@ class MarketplaceController extends ClientApiController
             ->get();
 
         return response()->json([
-            'installs' => $installs->map(fn (MarketplaceInstall $i) => $this->serializeInstall($i))->values()->all(),
+            'installs' => $installs->map(fn(MarketplaceInstall $i) => $this->serializeInstall($i))->values()->all(),
         ]);
     }
 
@@ -263,6 +264,16 @@ class MarketplaceController extends ClientApiController
     }
 
     /**
+     * What is, documenting your code?
+     */
+    public function gameVersions(GameVersionsRequest $request): JsonResponse
+    {
+        $versions = $this->sources->get('modrinth')?->gameVersions() ?? [];
+
+        return response()->json(['game_versions' => $versions]);
+    }
+
+    /**
      * Wrap a handler so any upstream provider failure becomes a clean 502.
      * Clients receive a generic message (never raw upstream status codes or
      * internal host details); the full detail is logged server-side.
@@ -289,8 +300,8 @@ class MarketplaceController extends ClientApiController
     protected function availableSources(string $type): array
     {
         return Collection::make($this->sources->all())
-            ->filter(fn (MarketplaceSource $source) => $source->supports($type))
-            ->map(fn (MarketplaceSource $source) => ['key' => $source->key(), 'label' => $source->label()])
+            ->filter(fn(MarketplaceSource $source) => $source->supports($type))
+            ->map(fn(MarketplaceSource $source) => ['key' => $source->key(), 'label' => $source->label()])
             ->values()
             ->all();
     }

@@ -297,6 +297,16 @@ abstract class AbstractMarketplaceSource implements MarketplaceSource
     }
 
     /**
+     * Returns a list of Minecraft game versions fetched via the modrinth api
+     *
+     * @return array<string, string[]>
+     */
+    public function gameVersions(): array
+    {
+        return [];
+    }
+
+    /**
      * Normalize a loader identifier against the canonical marketplace names.
      */
     protected function normalizeLoader(?string $loader): ?string

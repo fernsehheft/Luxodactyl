@@ -107,6 +107,9 @@ Route::group([
         // against the live set instead of a hard-coded list.
         Route::get('/loaders', [MarketplaceController::class, 'loaders'])
             ->name('api.client.servers.marketplace.loaders');
+
+        Route::get('/game-versions', [MarketplaceController::class, 'gameVersions'])
+            ->name('api.client.servers.marketplace.game-versions');
     });
 });
 

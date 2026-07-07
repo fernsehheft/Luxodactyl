@@ -148,3 +148,13 @@ export const getMarketplaceLoaders = async (uuid: string): Promise<string[]> => 
 
     return Array.isArray((data as { loaders?: string[] })?.loaders) ? data.loaders : [];
 };
+
+export interface GameVersions {
+    [type: string]: string[];
+}
+
+export const getMarketplaceGameVersions = async (uuid: string): Promise<GameVersions> => {
+    const { data } = await http.get(`/api/client/servers/${uuid}/marketplace/game-versions`);
+
+    return (data as { game_versions?: GameVersions })?.game_versions ?? {};
+};
