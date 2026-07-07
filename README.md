@@ -45,20 +45,38 @@ See the [Installation Guide](https://hydrodactyl.dev/docs/hydrodactyl/installati
 
 ![Dashboard Image](./.github/dashboard.jpeg)
 
-## Support
-
-- [Donate on Ko-Fi](https://ko-fi.com/naterfute) — supports the maintainer
-- [Donate to Blueprint](https://bpfw.io/donate) — the nonprofit funding Hydrodactyl
-- [Join the Discord](https://discord.gg/sK686yHdaK)
-- Star the repo and share it with someone who might find it useful!
-
-[![BlueprintFramework/hydrodactyl contributors](https://shieldcn.dev/contributors/BlueprintFramework/hydrodactyl.svg?preset=grid&names=true&bots=true&titleAlign=center&mode=dark&watermark=true)](https://github.com/BlueprintFramework/hydrodactyl/graphs/contributors)
-
 ## License
 
-- Pterodactyl® Copyright © 2015 - 2022 Dane Everitt and contributors.
-- Pyrodactyl™ Copyright © 2023-2025 Pyro Inc. and contributors.
-- Pyrodactyl™ Copyright © 2025-2026 Pyrodactyl-oss and contributors.
-- Hydrodactyl Copyright © 2026-present Naterfute, Blueprint Framework and contributors.
+Hydrodactyl is open-source software licensed under the **Apache License 2.0**.
 
-Apache-2.0
+You are free to use, modify, and redistribute Hydrodactyl under the terms of the license. A copy of the full license text is available in the [LICENSE](./LICENSE) file included in this repository.
+
+### Copyright & Attribution
+
+Hydrodactyl is built upon the work of previous open-source projects and their contributors:
+
+- **Pterodactyl®**: Copyright © 2015–2022 Dane Everitt and contributors.
+- **Pyrodactyl™**: Copyright © 2023–2025 Pyro Inc. and contributors.
+- **Pyrodactyl™**: Copyright © 2025–2026 Pyrodactyl-oss and contributors.
+- **Hydrodactyl**: Copyright © 2026–present Naterfute, Blueprint Framework, and contributors.
+
+All original copyright notices, license notices, and attributions must remain intact when redistributing this software.
+
+Unless explicitly stated otherwise, all source code within this repository is licensed under the **Apache License 2.0**.
+
+## Support
+
+Help Hydrodactyl grow by supporting the project:
+
+- [Donate on Ko-fi](https://ko-fi.com/naterfute): support the maintainer.
+- [Donate to Blueprint Framework](https://bpfw.io/donate): support the nonprofit funding Hydrodactyl.
+- [Join the Discord](https://discord.gg/sK686yHdaK): chat with the community and get support.
+- Star the repository and share it with others: it helps more people discover Hydrodactyl.
+
+<br>
+
+<p align="center">
+    <a href="https://github.com/BlueprintFramework/hydrodactyl/graphs/contributors">
+        <img src="https://shieldcn.dev/contributors/BlueprintFramework/hydrodactyl.svg?preset=grid&names=true&bots=true&titleAlign=center&mode=dark&watermark=true" alt="BlueprintFramework/hydrodactyl contributors">
+    </a>
+</p>
