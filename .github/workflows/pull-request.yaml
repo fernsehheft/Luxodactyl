@@ -19,14 +19,5 @@ jobs:
           version: latest
 
       - name: Run Biome
-        run: biome check --write .
+        run: biome check .
 
-      - name: Commit and push fixes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git diff --quiet && git diff --staged --quiet || (
-            git add .
-            git commit -m "style: apply Biome auto-fixes"
-            git push
-          )
