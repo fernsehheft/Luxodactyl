@@ -47,7 +47,7 @@ class AllocationRepository extends EloquentRepository implements AllocationRepos
         }
 
         return $query->whereNotNull('server_id')
-            ->groupByRaw('CONCAT(node_id, ip)')
+            ->groupByRaw('node_id, ip')
             ->get()
             ->pluck('result')
             ->toArray();
