@@ -162,7 +162,7 @@ const DatabasesContainer = () => {
                     <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-brand'></div>
                 </div>
             ) : databases.length > 0 ? (
-                <PageListContainer data-hydrodactyl-databases>
+                <PageListContainer data-luxodactyl-databases>
                     <For each={databases} memo>
                         {(database, _index) => <DatabaseRow key={database.id} database={database} />}
                     </For>

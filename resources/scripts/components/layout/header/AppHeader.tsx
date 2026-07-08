@@ -34,7 +34,7 @@ const HeaderActions = memo(() => {
 HeaderActions.displayName = 'HeaderActions';
 
 const LogoSection = memo(() => (
-    <NavLink to={'/'} className='flex items-center shrink-0 h-8 w-fit hydrodactyl-logo' aria-label='Home page'>
+    <NavLink to={'/'} className='flex items-center shrink-0 h-8 w-fit luxodactyl-logo' aria-label='Home page'>
         <Logo />
     </NavLink>
 ));

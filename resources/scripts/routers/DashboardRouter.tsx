@@ -145,7 +145,7 @@ const DashboardRouter = () => {
                         </DropdownMenu>
                     </div>
                     <div aria-hidden className='mt-8 mb-4 bg-[#ffffff33] min-h-[1px] w-6'></div>
-                    <ul data-hydrodactyl-subnav-routes-wrapper='' className='hydrodactyl-subnav-routes-wrapper'>
+                    <ul data-luxodactyl-subnav-routes-wrapper='' className='luxodactyl-subnav-routes-wrapper'>
                         <NavLink to={'/'} end className='flex flex-row items-center' ref={NavigationHome}>
                             <House width={22} height={22} fill='currentColor' />
                             <p>Servers</p>
@@ -168,8 +168,8 @@ const DashboardRouter = () => {
                 <Suspense fallback={null}>
                     <MainWrapper className='w-full'>
                         <main
-                            data-hydrodactyl-main=''
-                            data-hydrodactyl-transitionrouter=''
+                            data-luxodactyl-main=''
+                            data-luxodactyl-transitionrouter=''
                             className='relative inset-[1px] w-full h-full overflow-y-auto overflow-x-hidden rounded-md bg-[#08080875]'
                         >
                             <Routes>

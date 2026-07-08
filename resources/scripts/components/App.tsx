@@ -18,7 +18,7 @@ import { store } from '@/state';
 import { ServerContext } from '@/state/server';
 import type { SiteSettings } from '@/state/settings';
 
-import HydrodactylProvider from './HydrodactylProvider';
+import LuxodactylProvider from './LuxodactylProvider';
 
 // const DashboardRouter = lazy(() => import('@/routers/DashboardRouter'));
 // const ServerRouter = lazy(() => import('@/routers/ServerRouter'));
@@ -29,7 +29,7 @@ const SetupRouter = lazy(() => import('@/routers/SetupRouter'));
 interface ExtendedWindow extends Window {
     SiteConfiguration?: SiteSettings;
     SetupRequired?: boolean;
-    HydrodactylUser?: {
+    LuxodactylUser?: {
         uuid: string;
         username: string;
         email: string;
@@ -43,17 +43,17 @@ interface ExtendedWindow extends Window {
 }
 
 const App = () => {
-    const { HydrodactylUser, SiteConfiguration } = window as ExtendedWindow;
-    if (HydrodactylUser && !store.getState().user.data) {
+    const { LuxodactylUser, SiteConfiguration } = window as ExtendedWindow;
+    if (LuxodactylUser && !store.getState().user.data) {
         store.getActions().user.setUserData({
-            uuid: HydrodactylUser.uuid,
-            username: HydrodactylUser.username,
-            email: HydrodactylUser.email,
-            language: HydrodactylUser.language,
-            rootAdmin: HydrodactylUser.root_admin,
-            useTotp: HydrodactylUser.use_totp,
-            createdAt: new Date(HydrodactylUser.created_at),
-            updatedAt: new Date(HydrodactylUser.updated_at),
+            uuid: LuxodactylUser.uuid,
+            username: LuxodactylUser.username,
+            email: LuxodactylUser.email,
+            language: LuxodactylUser.language,
+            rootAdmin: LuxodactylUser.root_admin,
+            useTotp: LuxodactylUser.use_totp,
+            createdAt: new Date(LuxodactylUser.created_at),
+            updatedAt: new Date(LuxodactylUser.updated_at),
         });
     }
 
@@ -67,9 +67,9 @@ const App = () => {
         <>
             <GlobalStylesheet />
             <StoreProvider store={store}>
-                <HydrodactylProvider>
+                <LuxodactylProvider>
                     <div
-                        data-hydrodactyl-routerwrap=''
+                        data-luxodactyl-routerwrap=''
                         className='relative w-full h-full flex flex-row p-2 overflow-hidden rounded-lg'
                     >
                         <Toaster
@@ -128,7 +128,7 @@ const App = () => {
                             </Routes>
                         </BrowserRouter>
                     </div>
-                </HydrodactylProvider>
+                </LuxodactylProvider>
             </StoreProvider>
         </>
     );

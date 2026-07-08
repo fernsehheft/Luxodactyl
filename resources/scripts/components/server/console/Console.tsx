@@ -50,7 +50,7 @@ const terminalProps: ITerminalOptions = {
 };
 
 const Console = () => {
-    const TERMINAL_PRELUDE = '\u001b[1m\u001b[33mcontainer@hydrodactyl~ \u001b[0m';
+    const TERMINAL_PRELUDE = '\u001b[1m\u001b[33mcontainer@luxodactyl~ \u001b[0m';
     const ref = useRef<HTMLDivElement>(null);
     const resizeObserverRef = useRef<ResizeObserver | null>(null);
     const terminal = useMemo(() => new Terminal({ ...terminalProps, rows: 30 }), []);

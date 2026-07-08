@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ==========================================
-# Hydrodactyl/Luxodactyl Installation Wizard
+# Luxodactyl/Luxodactyl Installation Wizard
 # ==========================================
 # Supported OS: Ubuntu 22.04, Ubuntu 24.04, Debian 11, Debian 12
 # Built for PHP 8.4 & Nginx & Wings
@@ -69,7 +69,7 @@ show_banner() {
 
 show_menu() {
     echo -e "\n${BOLD}Bitte wähle eine Option aus:${NC}"
-    echo -e "  1) ${CYAN}Hydrodactyl Panel${NC} installieren"
+    echo -e "  1) ${CYAN}Luxodactyl Panel${NC} installieren"
     echo -e "  2) ${CYAN}Pterodactyl Wings (Daemon)${NC} installieren"
     echo -e "  3) ${CYAN}Beides (Panel & Wings)${NC} auf diesem Server installieren"
     echo -e "  4) Let's Encrypt SSL-Zertifikat konfigurieren"
@@ -134,8 +134,8 @@ install_dependencies() {
 
 setup_database() {
     log_info "Konfiguriere MariaDB Datenbank..."
-    DB_NAME="hydrodactyl"
-    DB_USER="hydrodactyl"
+    DB_NAME="luxodactyl"
+    DB_USER="luxodactyl"
     DB_PASS=$(generate_password)
 
     mysql -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME};"
@@ -151,13 +151,13 @@ setup_database() {
 }
 
 setup_panel() {
-    log_info "Richte das Hydrodactyl Panel unter /var/www/hydrodactyl ein..."
-    mkdir -p /var/www/hydrodactyl
-    cd /var/www/hydrodactyl
+    log_info "Richte das Luxodactyl Panel unter /var/www/luxodactyl ein..."
+    mkdir -p /var/www/luxodactyl
+    cd /var/www/luxodactyl
 
-    # Clone hydrodactyl repository
+    # Clone luxodactyl repository
     log_info "Klone Repository..."
-    git clone https://github.com/BlueprintFramework/hydrodactyl.git .
+    git clone https://github.com/BlueprintFramework/luxodactyl.git .
     git checkout canary # We use main/canary branch
 
     # Copy env and set permissions
@@ -196,21 +196,21 @@ setup_panel() {
     php artisan p:user:make --admin
 
     # Set permissions
-    chown -R www-data:www-data /var/www/hydrodactyl/*
+    chown -R www-data:www-data /var/www/luxodactyl/*
     chmod -R 755 bootstrap/cache storage
 
     # Install Queue Worker
     log_info "Erstelle systemd Service für den Queue-Worker..."
-    cat <<EOF > /etc/systemd/system/hydrodactyl.service
+    cat <<EOF > /etc/systemd/system/luxodactyl.service
 [Unit]
-Description=Hydrodactyl Queue Worker
+Description=Luxodactyl Queue Worker
 After=network.target
 
 [Service]
 User=www-data
 Group=www-data
 Restart=always
-ExecStart=/usr/bin/php /var/www/hydrodactyl/artisan queue:work --queue=high,standard,low --sleep=3 --tries=3
+ExecStart=/usr/bin/php /var/www/luxodactyl/artisan queue:work --queue=high,standard,low --sleep=3 --tries=3
 LimitNOFILE=65535
 
 [Install]
@@ -218,20 +218,20 @@ WantedBy=multi-user.target
 EOF
 
     systemctl daemon-reload
-    systemctl enable --now hydrodactyl.service
+    systemctl enable --now luxodactyl.service
 
     # Setup Cronjob
     log_info "Richte Cronjob für den Laravel Scheduler ein..."
-    (crontab -u www-data -l 2>/dev/null; echo "* * * * * /usr/bin/php /var/www/hydrodactyl/artisan schedule:run >> /dev/null 2>&1") | crontab -u www-data -
+    (crontab -u www-data -l 2>/dev/null; echo "* * * * * /usr/bin/php /var/www/luxodactyl/artisan schedule:run >> /dev/null 2>&1") | crontab -u www-data -
 
     # Setup Nginx Configuration
     log_info "Erstelle Nginx-Konfiguration..."
-    cat <<EOF > /etc/nginx/sites-available/hydrodactyl.conf
+    cat <<EOF > /etc/nginx/sites-available/luxodactyl.conf
 server {
     listen 80;
     server_name ${PANEL_URL};
     
-    root /var/www/hydrodactyl/public;
+    root /var/www/luxodactyl/public;
     index index.html index.htm index.php;
     charset utf-8;
 
@@ -243,7 +243,7 @@ server {
     location = /robots.txt  { access_log off; log_not_found off; }
 
     access_log off;
-    error_log  /var/log/nginx/hydrodactyl.app-error.log error;
+    error_log  /var/log/nginx/luxodactyl.app-error.log error;
 
     client_max_body_size 100m;
     client_body_timeout 120s;
@@ -276,7 +276,7 @@ server {
 }
 EOF
 
-    ln -sf /etc/nginx/sites-available/hydrodactyl.conf /etc/nginx/sites-enabled/
+    ln -sf /etc/nginx/sites-available/luxodactyl.conf /etc/nginx/sites-enabled/
     rm -f /etc/nginx/sites-enabled/default
 
     systemctl restart nginx
@@ -353,7 +353,7 @@ show_menu
 
 case $OPTION in
     1)
-        log_info "Starte Hydrodactyl Panel Installation..."
+        log_info "Starte Luxodactyl Panel Installation..."
         install_dependencies
         setup_database
         setup_panel

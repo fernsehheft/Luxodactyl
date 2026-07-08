@@ -1,6 +1,6 @@
 {
-    "name": "blueprintframework/hydrodactyl",
-    "description": "Hydrodactyl is the Pterodactyl-based game server panel that's faster, smaller, safer, and more accessible.",
+    "name": "blueprintframework/luxodactyl",
+    "description": "Luxodactyl is the Pterodactyl-based game server panel that's faster, smaller, safer, and more accessible.",
     "license": "Apache-2.0",
     "authors": [
         {
@@ -63,7 +63,7 @@
         "files": ["app/helpers.php"],
         "psr-4": {
             "Pterodactyl\\": "app/",
-            "Hydrodactyl\\": "app/",
+            "Luxodactyl\\": "app/",
             "Database\\Factories\\": "database/Factories/",
             "Database\\Seeders\\": "database/Seeders/"
         }
@@ -71,7 +71,7 @@
     "autoload-dev": {
         "psr-4": {
             "Pterodactyl\\Tests\\": "tests/",
-            "Hydrodactyl\\Tests\\": "tests/"
+            "Luxodactyl\\Tests\\": "tests/"
         }
     },
     "config": {

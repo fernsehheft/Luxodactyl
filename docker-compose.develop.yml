@@ -53,7 +53,7 @@ services:
             context: .
             args:
                 DEV: "true"
-        image: hydrodactyl:develop
+        image: luxodactyl:develop
         restart: always
         ports:
             - '3000:80'
@@ -94,7 +94,7 @@ services:
             HASHIDS_LENGTH: 8
             WINGS_INTERNAL_IP: 'elytra'
             WINGS_DIR: '${PWD}/srv/'
-            HYDRODACTYL_DOCKER_DEV: 'true'
+            LUXODACTYL_DOCKER_DEV: 'true'
             MAIL_HOST: 'mailhog'
             MAIL_PORT: 1025
             MAIL_DRIVER: 'smtp'
@@ -102,7 +102,7 @@ services:
             AWS_DEFAULT_REGION: 'us-west-2'
             AWS_ACCESS_KEY_ID: 'minioadmin'
             AWS_SECRET_ACCESS_KEY: 'minioadmin'
-            AWS_BACKUPS_BUCKET: 'hydrodactyl'
+            AWS_BACKUPS_BUCKET: 'luxodactyl'
             AWS_ENDPOINT: 'http://minio:9000'
             AWS_USE_PATH_STYLE_ENDPOINT: 'true'
 
@@ -130,7 +130,7 @@ services:
                 echo 'Waiting for MinIO to be ready...'
                 sleep 2
               done &&
-              mc mb --ignore-existing local/hydrodactyl &&
+              mc mb --ignore-existing local/luxodactyl &&
               echo 'Bucket created.'
             "
 

@@ -324,8 +324,8 @@ const ServerRouter = () => {
                             <ul
                                 ref={navContainerRef}
                                 onScroll={handleScroll}
-                                data-hydrodactyl-subnav-routes-wrapper=''
-                                className='hydrodactyl-subnav-routes-wrapper flex-grow overflow-y-auto'
+                                data-luxodactyl-subnav-routes-wrapper=''
+                                className='luxodactyl-subnav-routes-wrapper flex-grow overflow-y-auto'
                             >
                                 {/* Dynamic navigation items from routes config */}
                                 {navRoutes.map((route) => (
@@ -357,8 +357,8 @@ const ServerRouter = () => {
                             <TransferListener />
                             <WebsocketHandler />
                             <main
-                                data-hydrodactyl-main=''
-                                data-hydrodactyl-transitionrouter=''
+                                data-luxodactyl-main=''
+                                data-luxodactyl-transitionrouter=''
                                 className='relative inset-[1px] w-full h-full overflow-y-auto overflow-x-hidden rounded-md bg-[#08080875]'
                             >
                                 {inConflictState &&
