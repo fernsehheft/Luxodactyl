@@ -94,8 +94,24 @@ dep_install() {
 # --------------------------------------------------------------------- #
 configure_database() {
   output "Configuring MariaDB database..."
-  create_db_user "$MYSQL_USER" "$MYSQL_PASSWORD"
-  create_db "$MYSQL_DB" "$MYSQL_USER"
+
+  # Create the user for BOTH '127.0.0.1' and 'localhost'. MariaDB resolves
+  # 127.0.0.1 back to the hostname 'localhost' (unless skip-name-resolve is
+  # set), so a user created only for '127.0.0.1' fails with
+  # "Access denied for 'user'@'localhost'". We also ALTER the password so
+  # re-running the installer updates an existing user instead of leaving a
+  # stale password behind.
+  mysql -u root <<SQL
+CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'127.0.0.1' IDENTIFIED BY '${MYSQL_PASSWORD}';
+CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'localhost' IDENTIFIED BY '${MYSQL_PASSWORD}';
+ALTER USER '${MYSQL_USER}'@'127.0.0.1' IDENTIFIED BY '${MYSQL_PASSWORD}';
+ALTER USER '${MYSQL_USER}'@'localhost' IDENTIFIED BY '${MYSQL_PASSWORD}';
+CREATE DATABASE IF NOT EXISTS ${MYSQL_DB};
+GRANT ALL PRIVILEGES ON ${MYSQL_DB}.* TO '${MYSQL_USER}'@'127.0.0.1' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON ${MYSQL_DB}.* TO '${MYSQL_USER}'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+SQL
+
   success "Database configured."
 }
 
@@ -158,26 +174,30 @@ configure_environment() {
     --redis-host="127.0.0.1" \
     --redis-pass="null" \
     --redis-port="6379" \
-    --settings-ui=true
+    --settings-ui=true \
+    --no-interaction
 
   php artisan p:environment:database \
     --host="127.0.0.1" \
     --port="3306" \
     --database="$MYSQL_DB" \
     --username="$MYSQL_USER" \
-    --password="$MYSQL_PASSWORD"
+    --password="$MYSQL_PASSWORD" \
+    --no-interaction
 
   output "Running database migrations and seeders..."
   php artisan migrate --seed --force
 
   output "Creating the administrator account..."
+  # NOTE: --admin is a boolean flag (no value); passing --admin=1 errors out.
   php artisan p:user:make \
     --email="$USER_EMAIL" \
     --username="$USER_USERNAME" \
     --name-first="$USER_FIRSTNAME" \
     --name-last="$USER_LASTNAME" \
     --password="$USER_PASSWORD" \
-    --admin=1
+    --admin \
+    --no-interaction
 }
 
 set_permissions() {
