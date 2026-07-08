@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Extensions;
+namespace Luxodactyl\Extensions;
 
-use Pterodactyl\Models\DatabaseHost;
+use Luxodactyl\Models\DatabaseHost;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Config\Repository as ConfigRepository;
-use Pterodactyl\Contracts\Repository\DatabaseHostRepositoryInterface;
+use Luxodactyl\Contracts\Repository\DatabaseHostRepositoryInterface;
 
 class DynamicDatabaseConnection
 {
@@ -26,7 +26,7 @@ class DynamicDatabaseConnection
     /**
      * Adds a dynamic database connection entry to the runtime config.
      *
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Luxodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function set(string $connection, DatabaseHost|int $host, string $database = 'mysql'): void
     {

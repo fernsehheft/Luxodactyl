@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Repositories;
+namespace Luxodactyl\Repositories;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Database\Eloquent\Model;
-use Pterodactyl\Contracts\Repository\RepositoryInterface;
+use Luxodactyl\Contracts\Repository\RepositoryInterface;
 
 abstract class Repository implements RepositoryInterface
 {

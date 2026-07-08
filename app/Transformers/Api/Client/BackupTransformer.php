@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Client;
+namespace Luxodactyl\Transformers\Api\Client;
 
-use Pterodactyl\Models\Backup;
-use Pterodactyl\Services\Backups\ServerStateService;
+use Luxodactyl\Models\Backup;
+use Luxodactyl\Services\Backups\ServerStateService;
 
 class BackupTransformer extends BaseClientTransformer
 {

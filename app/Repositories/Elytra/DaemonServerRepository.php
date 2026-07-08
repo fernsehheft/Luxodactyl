@@ -1,16 +1,16 @@
 <?php
 
-namespace Pterodactyl\Repositories\Elytra;
+namespace Luxodactyl\Repositories\Elytra;
 
 use Webmozart\Assert\Assert;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\Server;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\TransferException;
-use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Luxodactyl\Exceptions\Http\Connection\DaemonConnectionException;
 
 /**
- * @method \Pterodactyl\Repositories\Elytra\DaemonServerRepository setNode(\Pterodactyl\Models\Node $node)
- * @method \Pterodactyl\Repositories\Elytra\DaemonServerRepository setServer(\Pterodactyl\Models\Server $server)
+ * @method \Luxodactyl\Repositories\Elytra\DaemonServerRepository setNode(\Luxodactyl\Models\Node $node)
+ * @method \Luxodactyl\Repositories\Elytra\DaemonServerRepository setServer(\Luxodactyl\Models\Server $server)
  */
 class DaemonServerRepository extends DaemonRepository
 {

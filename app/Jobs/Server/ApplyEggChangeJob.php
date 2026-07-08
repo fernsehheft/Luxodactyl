@@ -1,28 +1,28 @@
 <?php
 
-namespace Pterodactyl\Jobs\Server;
+namespace Luxodactyl\Jobs\Server;
 
 use Exception;
 use Carbon\Carbon;
-use Pterodactyl\Jobs\Job;
-use Pterodactyl\Models\Egg;
-use Pterodactyl\Models\User;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Jobs\Job;
+use Luxodactyl\Models\Egg;
+use Luxodactyl\Models\User;
+use Luxodactyl\Models\Server;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Pterodactyl\Facades\Activity;
-use Pterodactyl\Models\ServerOperation;
-use Pterodactyl\Services\Servers\ReinstallServerService;
-use Pterodactyl\Services\Elytra\ElytraJobService;
-use Pterodactyl\Services\Servers\StartupModificationService;
-use Pterodactyl\Repositories\Wings\DaemonFileRepository;
-use Pterodactyl\Exceptions\Service\Backup\BackupFailedException;
-use Pterodactyl\Services\ServerOperations\ServerOperationService;
-use Pterodactyl\Services\Subdomain\SubdomainManagementService;
+use Luxodactyl\Facades\Activity;
+use Luxodactyl\Models\ServerOperation;
+use Luxodactyl\Services\Servers\ReinstallServerService;
+use Luxodactyl\Services\Elytra\ElytraJobService;
+use Luxodactyl\Services\Servers\StartupModificationService;
+use Luxodactyl\Repositories\Wings\DaemonFileRepository;
+use Luxodactyl\Exceptions\Service\Backup\BackupFailedException;
+use Luxodactyl\Services\ServerOperations\ServerOperationService;
+use Luxodactyl\Services\Subdomain\SubdomainManagementService;
 
 /**
  * Queue job to apply server egg configuration changes.

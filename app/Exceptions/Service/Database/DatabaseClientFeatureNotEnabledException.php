@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Exceptions\Service\Database;
+namespace Luxodactyl\Exceptions\Service\Database;
 
-use Pterodactyl\Exceptions\PterodactylException;
+use Luxodactyl\Exceptions\LuxodactylException;
 
-class DatabaseClientFeatureNotEnabledException extends PterodactylException
+class DatabaseClientFeatureNotEnabledException extends LuxodactylException
 {
     public function __construct()
     {

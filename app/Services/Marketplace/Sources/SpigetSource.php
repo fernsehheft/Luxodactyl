@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Services\Marketplace\Sources;
+namespace Luxodactyl\Services\Marketplace\Sources;
 
 use Illuminate\Support\Arr;
-use Pterodactyl\Services\Marketplace\AbstractMarketplaceSource;
-use Pterodactyl\Services\Marketplace\MarketplaceProject;
-use Pterodactyl\Services\Marketplace\MarketplaceVersion;
+use Luxodactyl\Services\Marketplace\AbstractMarketplaceSource;
+use Luxodactyl\Services\Marketplace\MarketplaceProject;
+use Luxodactyl\Services\Marketplace\MarketplaceVersion;
 
 /**
  * Spiget (https://spiget.org) adapter for Spigot resources. Plugin-only,

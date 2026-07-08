@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Tests\Unit\Http\Middleware\Api;
+namespace Luxodactyl\Tests\Unit\Http\Middleware\Api;
 
 use Illuminate\Http\Request;
-use Pterodactyl\Tests\Unit\Http\Middleware\MiddlewareTestCase;
+use Luxodactyl\Tests\Unit\Http\Middleware\MiddlewareTestCase;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Pterodactyl\Http\Middleware\Api\IsValidJson;
+use Luxodactyl\Http\Middleware\Api\IsValidJson;
 
 class IsValidJsonTest extends MiddlewareTestCase
 {

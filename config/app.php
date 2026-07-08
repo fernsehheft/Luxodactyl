@@ -7,7 +7,7 @@ return [
   |--------------------------------------------------------------------------
   | Application Version
   |--------------------------------------------------------------------------
-  | This value is set when creating a Pterodactyl release. You should not
+  | This value is set when creating a Luxodactyl release. You should not
   | change this value if you are not maintaining your own internal versions.
   */
 
@@ -191,20 +191,20 @@ return [
     /*
      * Application Service Providers...
      */
-    Pterodactyl\Providers\ActivityLogServiceProvider::class,
-    Pterodactyl\Providers\AppServiceProvider::class,
-    Pterodactyl\Providers\AuthServiceProvider::class,
-    Pterodactyl\Providers\BackupsServiceProvider::class,
-    Pterodactyl\Providers\BladeServiceProvider::class,
-    Pterodactyl\Providers\CaptchaServiceProvider::class,
-    Pterodactyl\Providers\EventServiceProvider::class,
-    Pterodactyl\Providers\HashidsServiceProvider::class,
-    Pterodactyl\Providers\ObserverServiceProvider::class,
-    Pterodactyl\Providers\RouteServiceProvider::class,
-    Pterodactyl\Providers\RepositoryServiceProvider::class,
-    Pterodactyl\Providers\ServerOperationServiceProvider::class,
-    Pterodactyl\Providers\SubdomainServiceProvider::class,
-    Pterodactyl\Providers\ViewComposerServiceProvider::class,
+    Luxodactyl\Providers\ActivityLogServiceProvider::class,
+    Luxodactyl\Providers\AppServiceProvider::class,
+    Luxodactyl\Providers\AuthServiceProvider::class,
+    Luxodactyl\Providers\BackupsServiceProvider::class,
+    Luxodactyl\Providers\BladeServiceProvider::class,
+    Luxodactyl\Providers\CaptchaServiceProvider::class,
+    Luxodactyl\Providers\EventServiceProvider::class,
+    Luxodactyl\Providers\HashidsServiceProvider::class,
+    Luxodactyl\Providers\ObserverServiceProvider::class,
+    Luxodactyl\Providers\RouteServiceProvider::class,
+    Luxodactyl\Providers\RepositoryServiceProvider::class,
+    Luxodactyl\Providers\ServerOperationServiceProvider::class,
+    Luxodactyl\Providers\SubdomainServiceProvider::class,
+    Luxodactyl\Providers\ViewComposerServiceProvider::class,
 
     /*
      * Additional Dependencies
@@ -227,11 +227,11 @@ return [
     'Alert' => Prologue\Alerts\Facades\Alert::class,
     'Carbon' => Carbon\Carbon::class,
     'JavaScript' => Laracasts\Utilities\JavaScript\JavaScriptFacade::class,
-    'Theme' => Pterodactyl\Extensions\Facades\Theme::class,
+    'Theme' => Luxodactyl\Extensions\Facades\Theme::class,
 
     // Custom Facades
-    'Activity' => Pterodactyl\Facades\Activity::class,
-    'LogBatch' => Pterodactyl\Facades\LogBatch::class,
-    'LogTarget' => Pterodactyl\Facades\LogTarget::class,
+    'Activity' => Luxodactyl\Facades\Activity::class,
+    'LogBatch' => Luxodactyl\Facades\LogBatch::class,
+    'LogTarget' => Luxodactyl\Facades\LogTarget::class,
   ])->toArray(),
 ];

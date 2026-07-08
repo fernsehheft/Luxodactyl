@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Models\Filters;
+namespace Luxodactyl\Models\Filters;
 
 use Illuminate\Support\Str;
 use Spatie\QueryBuilder\Filters\Filter;

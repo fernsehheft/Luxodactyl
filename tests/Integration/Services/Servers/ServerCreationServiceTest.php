@@ -1,24 +1,24 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Services\Servers;
+namespace Luxodactyl\Tests\Integration\Services\Servers;
 
 use Mockery\MockInterface;
-use Pterodactyl\Models\Egg;
+use Luxodactyl\Models\Egg;
 use GuzzleHttp\Psr7\Request;
-use Pterodactyl\Models\Node;
-use Pterodactyl\Models\User;
+use Luxodactyl\Models\Node;
+use Luxodactyl\Models\User;
 use GuzzleHttp\Psr7\Response;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Location;
-use Pterodactyl\Models\Allocation;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Models\Location;
+use Luxodactyl\Models\Allocation;
 use Illuminate\Foundation\Testing\WithFaker;
 use GuzzleHttp\Exception\BadResponseException;
 use Illuminate\Validation\ValidationException;
-use Pterodactyl\Models\Objects\DeploymentObject;
-use Pterodactyl\Tests\Integration\IntegrationTestCase;
-use Pterodactyl\Services\Servers\ServerCreationService;
-use Pterodactyl\Repositories\Wings\DaemonServerRepository;
-use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Luxodactyl\Models\Objects\DeploymentObject;
+use Luxodactyl\Tests\Integration\IntegrationTestCase;
+use Luxodactyl\Services\Servers\ServerCreationService;
+use Luxodactyl\Repositories\Wings\DaemonServerRepository;
+use Luxodactyl\Exceptions\Http\Connection\DaemonConnectionException;
 
 class ServerCreationServiceTest extends IntegrationTestCase
 {
@@ -65,7 +65,7 @@ class ServerCreationServiceTest extends IntegrationTestCase
             'location_id' => $location->id,
         ]);
 
-        /** @var \Pterodactyl\Models\Allocation[]|\Illuminate\Database\Eloquent\Collection $allocations */
+        /** @var \Luxodactyl\Models\Allocation[]|\Illuminate\Database\Eloquent\Collection $allocations */
         $allocations = Allocation::factory()->times(5)->create([
             'node_id' => $node->id,
         ]);

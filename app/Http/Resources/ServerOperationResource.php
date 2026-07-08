@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Http\Resources;
+namespace Luxodactyl\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Pterodactyl\Models\ServerOperation;
+use Luxodactyl\Models\ServerOperation;
 
 /**
  * Resource for transforming server operations for API responses.

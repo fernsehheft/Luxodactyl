@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Exceptions\ServerOperations;
+namespace Luxodactyl\Exceptions\ServerOperations;
 
 use Exception;
 

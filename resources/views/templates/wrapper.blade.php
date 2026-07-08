@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Copyright (c) 2025-Present BlueprintFramework, parent collaborators, and contributors -->
+<!-- Copyright (c) 2025-Present fernsehheft, parent collaborators, and contributors -->
 <html data-luxodactyl-html lang="en" style="background-color: #11100E; height: 100%; width: 100%; margin: 0; padding: 0;">
     <head>
         <title>{{ config('app.name', 'Panel') }}</title>
@@ -48,7 +48,7 @@
                     window.SiteConfiguration = {!! json_encode($siteConfiguration) !!};
                 </script>
             @endif
-            @if(Auth::guest() && !\Pterodactyl\Models\User::query()->exists())
+            @if(Auth::guest() && !\Luxodactyl\Models\User::query()->exists())
                 <script>window.SetupRequired = true;</script>
             @endif
         @show

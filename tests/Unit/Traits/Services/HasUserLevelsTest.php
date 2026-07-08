@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Tests\Unit\Traits\Services;
+namespace Luxodactyl\Tests\Unit\Traits\Services;
 
-use Pterodactyl\Tests\TestCase;
-use Pterodactyl\Traits\Services\HasUserLevels;
+use Luxodactyl\Tests\TestCase;
+use Luxodactyl\Traits\Services\HasUserLevels;
 
 class HasUserLevelsTest extends TestCase
 {
@@ -14,7 +14,7 @@ class HasUserLevelsTest extends TestCase
     {
         $instance = new HasUserLevelsTestClass();
 
-        $this->assertSame(\Pterodactyl\Models\User::USER_LEVEL_USER, $instance->getUserLevel());
+        $this->assertSame(\Luxodactyl\Models\User::USER_LEVEL_USER, $instance->getUserLevel());
     }
 
     /**
@@ -24,10 +24,10 @@ class HasUserLevelsTest extends TestCase
     {
         $instance = new HasUserLevelsTestClass();
 
-        $result = $instance->setUserLevel(\Pterodactyl\Models\User::USER_LEVEL_ADMIN);
+        $result = $instance->setUserLevel(\Luxodactyl\Models\User::USER_LEVEL_ADMIN);
 
         $this->assertSame($instance, $result);
-        $this->assertSame(\Pterodactyl\Models\User::USER_LEVEL_ADMIN, $instance->getUserLevel());
+        $this->assertSame(\Luxodactyl\Models\User::USER_LEVEL_ADMIN, $instance->getUserLevel());
     }
 
     /**
@@ -36,9 +36,9 @@ class HasUserLevelsTest extends TestCase
     public function testIsUserLevelReturnsTrueForMatchingLevel()
     {
         $instance = new HasUserLevelsTestClass();
-        $instance->setUserLevel(\Pterodactyl\Models\User::USER_LEVEL_ADMIN);
+        $instance->setUserLevel(\Luxodactyl\Models\User::USER_LEVEL_ADMIN);
 
-        $this->assertTrue($instance->isUserLevel(\Pterodactyl\Models\User::USER_LEVEL_ADMIN));
+        $this->assertTrue($instance->isUserLevel(\Luxodactyl\Models\User::USER_LEVEL_ADMIN));
     }
 
     /**
@@ -47,9 +47,9 @@ class HasUserLevelsTest extends TestCase
     public function testIsUserLevelReturnsFalseForNonMatchingLevel()
     {
         $instance = new HasUserLevelsTestClass();
-        $instance->setUserLevel(\Pterodactyl\Models\User::USER_LEVEL_ADMIN);
+        $instance->setUserLevel(\Luxodactyl\Models\User::USER_LEVEL_ADMIN);
 
-        $this->assertFalse($instance->isUserLevel(\Pterodactyl\Models\User::USER_LEVEL_USER));
+        $this->assertFalse($instance->isUserLevel(\Luxodactyl\Models\User::USER_LEVEL_USER));
     }
 
     /**
@@ -59,11 +59,11 @@ class HasUserLevelsTest extends TestCase
     {
         $instance = new HasUserLevelsTestClass();
 
-        $instance->setUserLevel(\Pterodactyl\Models\User::USER_LEVEL_ADMIN);
-        $this->assertTrue($instance->isUserLevel(\Pterodactyl\Models\User::USER_LEVEL_ADMIN));
+        $instance->setUserLevel(\Luxodactyl\Models\User::USER_LEVEL_ADMIN);
+        $this->assertTrue($instance->isUserLevel(\Luxodactyl\Models\User::USER_LEVEL_ADMIN));
 
-        $instance->setUserLevel(\Pterodactyl\Models\User::USER_LEVEL_USER);
-        $this->assertTrue($instance->isUserLevel(\Pterodactyl\Models\User::USER_LEVEL_USER));
+        $instance->setUserLevel(\Luxodactyl\Models\User::USER_LEVEL_USER);
+        $this->assertTrue($instance->isUserLevel(\Luxodactyl\Models\User::USER_LEVEL_USER));
     }
 }
 

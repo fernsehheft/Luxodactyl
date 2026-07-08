@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Http\Middleware\Api\Client\Server;
+namespace Luxodactyl\Http\Middleware\Api\Client\Server;
 
 use Closure;
 use Illuminate\Http\Request;

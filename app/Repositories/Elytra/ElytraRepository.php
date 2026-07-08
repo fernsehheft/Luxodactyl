@@ -1,16 +1,16 @@
 <?php
 
-namespace Pterodactyl\Repositories\Elytra;
+namespace Luxodactyl\Repositories\Elytra;
 
 use GuzzleHttp\Client;
-use Pterodactyl\Models\Node;
+use Luxodactyl\Models\Node;
 use Webmozart\Assert\Assert;
-use Pterodactyl\Models\Backup;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\Backup;
+use Luxodactyl\Models\Server;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\TransferException;
 use Illuminate\Contracts\Foundation\Application;
-use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Luxodactyl\Exceptions\Http\Connection\DaemonConnectionException;
 
 /**
  * Repository for communicating with the Elytra daemon

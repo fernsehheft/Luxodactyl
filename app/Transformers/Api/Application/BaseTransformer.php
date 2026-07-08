@@ -1,16 +1,16 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Application;
+namespace Luxodactyl\Transformers\Api\Application;
 
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Illuminate\Http\Request;
 use Webmozart\Assert\Assert;
-use Pterodactyl\Models\ApiKey;
+use Luxodactyl\Models\ApiKey;
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 use League\Fractal\TransformerAbstract;
-use Pterodactyl\Services\Acl\Api\AdminAcl;
+use Luxodactyl\Services\Acl\Api\AdminAcl;
 
 /**
  * @method array transform(Model $model)
@@ -85,13 +85,13 @@ abstract class BaseTransformer extends TransformerAbstract
      * Create a new instance of the transformer and pass along the currently
      * set API key.
      *
-     * @template T of \Pterodactyl\Transformers\Api\Application\BaseTransformer
+     * @template T of \Luxodactyl\Transformers\Api\Application\BaseTransformer
      *
      * @param class-string<T> $abstract
      *
      * @return T
      *
-     * @throws \Pterodactyl\Exceptions\Transformer\InvalidTransformerLevelException
+     * @throws \Luxodactyl\Exceptions\Transformer\InvalidTransformerLevelException
      *
      * @noinspection PhpDocSignatureInspection
      */

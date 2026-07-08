@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Remote\Backups;
+namespace Luxodactyl\Http\Controllers\Api\Remote\Backups;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
-use Pterodactyl\Models\Backup;
+use Luxodactyl\Models\Backup;
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Extensions\Backups\BackupManager;
-use Pterodactyl\Extensions\Filesystem\S3Filesystem;
+use Luxodactyl\Http\Controllers\Controller;
+use Luxodactyl\Extensions\Backups\BackupManager;
+use Luxodactyl\Extensions\Filesystem\S3Filesystem;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
@@ -33,7 +33,7 @@ class BackupRemoteUploadController extends Controller
   public function __invoke(Request $request, string $backup): JsonResponse
   {
     // Get the node associated with the request.
-    /** @var \Pterodactyl\Models\Node $node */
+    /** @var \Luxodactyl\Models\Node $node */
     $node = $request->attributes->get('node');
 
     // Get the size query parameter.
@@ -49,7 +49,7 @@ class BackupRemoteUploadController extends Controller
 
     // Check that the backup is "owned" by the node making the request. This avoids other nodes
     // from messing with backups that they don't own.
-    /** @var \Pterodactyl\Models\Server $server */
+    /** @var \Luxodactyl\Models\Server $server */
     $server = $model->server;
     if ($server->node_id !== $node->id) {
       throw new HttpForbiddenException('You do not have permission to access that backup.');

@@ -287,7 +287,7 @@
         </select>
         </div>
         </div>
-        <div class="form-group col-xs-12" id="pS3BucketGroup" style="{{ \Pterodactyl\Enums\Daemon\Adapters::requiresS3Bucket(old('backupDisk', $node->backupDisk)) ? '' : 'display: none;' }}">
+        <div class="form-group col-xs-12" id="pS3BucketGroup" style="{{ \Luxodactyl\Enums\Daemon\Adapters::requiresS3Bucket(old('backupDisk', $node->backupDisk)) ? '' : 'display: none;' }}">
         <label for="pS3Bucket" class="form-label">S3 Bucket</label>
         <div>
         <select name="bucket" id="pS3Bucket" class="form-control">

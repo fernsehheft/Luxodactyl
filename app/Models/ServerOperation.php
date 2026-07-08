@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Models;
+namespace Luxodactyl\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;

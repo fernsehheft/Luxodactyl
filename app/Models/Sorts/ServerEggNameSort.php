@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Models\Sorts;
+namespace Luxodactyl\Models\Sorts;
 
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\QueryBuilder\Sorts\Sort;

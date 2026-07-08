@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Repositories\Eloquent;
+namespace Luxodactyl\Repositories\Eloquent;
 
-use Pterodactyl\Models\Node;
+use Luxodactyl\Models\Node;
 use Illuminate\Support\Collection;
-use Pterodactyl\Contracts\Repository\NodeRepositoryInterface;
+use Luxodactyl\Contracts\Repository\NodeRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 
 

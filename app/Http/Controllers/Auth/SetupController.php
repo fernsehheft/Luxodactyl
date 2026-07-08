@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Auth;
+namespace Luxodactyl\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Auth\AuthManager;
@@ -12,12 +12,12 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Validation\ValidationException;
-use Pterodactyl\Facades\Activity;
-use Pterodactyl\Models\User;
-use Pterodactyl\Rules\Username;
-use Pterodactyl\Events\Auth\DirectLogin;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Services\Users\UserCreationService;
+use Luxodactyl\Facades\Activity;
+use Luxodactyl\Models\User;
+use Luxodactyl\Rules\Username;
+use Luxodactyl\Events\Auth\DirectLogin;
+use Luxodactyl\Http\Controllers\Controller;
+use Luxodactyl\Services\Users\UserCreationService;
 
 class SetupController extends Controller
 {
@@ -45,7 +45,7 @@ class SetupController extends Controller
      * Create the first administrator account and sign the user in.
      *
      * @throws \Illuminate\Validation\ValidationException
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Luxodactyl\Exceptions\Model\DataValidationException
      * @throws \Exception
      */
     public function store(Request $request): JsonResponse

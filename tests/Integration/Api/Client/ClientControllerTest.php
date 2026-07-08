@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Api\Client;
+namespace Luxodactyl\Tests\Integration\Api\Client;
 
-use Pterodactyl\Models\User;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Subuser;
-use Pterodactyl\Models\Allocation;
-use Pterodactyl\Models\Permission;
+use Luxodactyl\Models\User;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Models\Subuser;
+use Luxodactyl\Models\Allocation;
+use Luxodactyl\Models\Permission;
 
 class ClientControllerTest extends ClientApiIntegrationTestCase
 {
@@ -18,10 +18,10 @@ class ClientControllerTest extends ClientApiIntegrationTestCase
      */
     public function testOnlyLoggedInUsersServersAreReturned()
     {
-        /** @var \Pterodactyl\Models\User[] $users */
+        /** @var \Luxodactyl\Models\User[] $users */
         $users = User::factory()->times(3)->create();
 
-        /** @var \Pterodactyl\Models\Server[] $servers */
+        /** @var \Luxodactyl\Models\Server[] $servers */
         $servers = [
             $this->createServerModel(['user_id' => $users[0]->id]),
             $this->createServerModel(['user_id' => $users[1]->id]),
@@ -45,11 +45,11 @@ class ClientControllerTest extends ClientApiIntegrationTestCase
      */
     public function testServersAreFilteredUsingNameAndUuidInformation()
     {
-        /** @var \Pterodactyl\Models\User[] $users */
+        /** @var \Luxodactyl\Models\User[] $users */
         $users = User::factory()->times(2)->create();
         $users[0]->update(['root_admin' => true]);
 
-        /** @var \Pterodactyl\Models\Server[] $servers */
+        /** @var \Luxodactyl\Models\Server[] $servers */
         $servers = [
             $this->createServerModel(['user_id' => $users[0]->id, 'name' => 'Julia']),
             $this->createServerModel(['user_id' => $users[1]->id, 'uuidShort' => '12121212', 'name' => 'Janice']),
@@ -143,7 +143,7 @@ class ClientControllerTest extends ClientApiIntegrationTestCase
      */
     public function testServersUserIsASubuserOfAreReturned()
     {
-        /** @var \Pterodactyl\Models\User[] $users */
+        /** @var \Luxodactyl\Models\User[] $users */
         $users = User::factory()->times(3)->create();
         $servers = [
             $this->createServerModel(['user_id' => $users[0]->id]),
@@ -174,7 +174,7 @@ class ClientControllerTest extends ClientApiIntegrationTestCase
      */
     public function testFilterOnlyOwnerServers()
     {
-        /** @var \Pterodactyl\Models\User[] $users */
+        /** @var \Luxodactyl\Models\User[] $users */
         $users = User::factory()->times(3)->create();
         $servers = [
             $this->createServerModel(['user_id' => $users[0]->id]),
@@ -223,7 +223,7 @@ class ClientControllerTest extends ClientApiIntegrationTestCase
      */
     public function testOnlyAdminLevelServersAreReturned()
     {
-        /** @var \Pterodactyl\Models\User[] $users */
+        /** @var \Luxodactyl\Models\User[] $users */
         $users = User::factory()->times(4)->create();
         $users[0]->update(['root_admin' => true]);
 
@@ -258,7 +258,7 @@ class ClientControllerTest extends ClientApiIntegrationTestCase
      */
     public function testAllServersAreReturnedToAdmin()
     {
-        /** @var \Pterodactyl\Models\User[] $users */
+        /** @var \Luxodactyl\Models\User[] $users */
         $users = User::factory()->times(4)->create();
         $users[0]->update(['root_admin' => true]);
 
@@ -289,7 +289,7 @@ class ClientControllerTest extends ClientApiIntegrationTestCase
     #[\PHPUnit\Framework\Attributes\DataProvider('filterTypeDataProvider')]
     public function testNoServersAreReturnedIfAdminFilterIsPassedByRegularUser(string $type)
     {
-        /** @var \Pterodactyl\Models\User[] $users */
+        /** @var \Luxodactyl\Models\User[] $users */
         $users = User::factory()->times(3)->create();
 
         $this->createServerModel(['user_id' => $users[0]->id]);
@@ -443,8 +443,8 @@ class ClientControllerTest extends ClientApiIntegrationTestCase
         $user = User::factory()->create();
 
         // Create node and allocations manually so both servers share the same node
-        $location = \Pterodactyl\Models\Location::factory()->create();
-        $node = \Pterodactyl\Models\Node::factory()->create(['location_id' => $location->id]);
+        $location = \Luxodactyl\Models\Location::factory()->create();
+        $node = \Luxodactyl\Models\Node::factory()->create(['location_id' => $location->id]);
 
         $allocation1 = Allocation::factory()->create(['node_id' => $node->id]);
         $allocation2 = Allocation::factory()->create(['node_id' => $node->id]);

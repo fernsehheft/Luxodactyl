@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Observers;
+namespace Luxodactyl\Observers;
 
-use Pterodactyl\Models\Allocation;
-use Pterodactyl\Services\Subdomain\SubdomainManagementService;
+use Luxodactyl\Models\Allocation;
+use Luxodactyl\Services\Subdomain\SubdomainManagementService;
 use Illuminate\Support\Facades\Log;
 
 class AllocationObserver

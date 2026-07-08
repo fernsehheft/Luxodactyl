@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Services\Dns\Providers;
+namespace Luxodactyl\Services\Dns\Providers;
 
 use Aws\Route53\Route53Client;
 use Aws\Exception\AwsException;
-use Pterodactyl\Contracts\Dns\DnsProviderInterface;
-use Pterodactyl\Exceptions\Dns\DnsProviderException;
+use Luxodactyl\Contracts\Dns\DnsProviderInterface;
+use Luxodactyl\Exceptions\Dns\DnsProviderException;
 use Illuminate\Support\Facades\Log;
 
 class Route53Provider implements DnsProviderInterface

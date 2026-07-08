@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Services\Backups;
+namespace Luxodactyl\Services\Backups;
 
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Backup;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Models\Backup;
 use Illuminate\Support\Collection;
 use Illuminate\Database\ConnectionInterface;
 

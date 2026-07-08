@@ -1,18 +1,18 @@
 <?php
 
-namespace Pterodactyl\Services\Databases;
+namespace Luxodactyl\Services\Databases;
 
 use Exception;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Database;
-use Pterodactyl\Helpers\Utilities;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Models\Database;
+use Luxodactyl\Helpers\Utilities;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Pterodactyl\Extensions\DynamicDatabaseConnection;
-use Pterodactyl\Repositories\Eloquent\DatabaseRepository;
-use Pterodactyl\Exceptions\Repository\DuplicateDatabaseNameException;
-use Pterodactyl\Exceptions\Service\Database\TooManyDatabasesException;
-use Pterodactyl\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException;
+use Luxodactyl\Extensions\DynamicDatabaseConnection;
+use Luxodactyl\Repositories\Eloquent\DatabaseRepository;
+use Luxodactyl\Exceptions\Repository\DuplicateDatabaseNameException;
+use Luxodactyl\Exceptions\Service\Database\TooManyDatabasesException;
+use Luxodactyl\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException;
 
 class DatabaseManagementService
 {
@@ -20,7 +20,7 @@ class DatabaseManagementService
      * The regex used to validate that the database name passed through to the function is
      * in the expected format.
      *
-     * @see \Pterodactyl\Services\Databases\DatabaseManagementService::generateUniqueDatabaseName()
+     * @see \Luxodactyl\Services\Databases\DatabaseManagementService::generateUniqueDatabaseName()
      */
     private const MATCH_NAME_REGEX = '/^(s[\d]+_)(.*)$/';
 

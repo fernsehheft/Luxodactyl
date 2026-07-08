@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Enums\Captcha;
+namespace Luxodactyl\Enums\Captcha;
 
 enum Captchas: string
 {

@@ -1,16 +1,16 @@
 <?php
 
-namespace Pterodactyl\Repositories\Wings;
+namespace Luxodactyl\Repositories\Wings;
 
 use Webmozart\Assert\Assert;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\Server;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\TransferException;
-use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Luxodactyl\Exceptions\Http\Connection\DaemonConnectionException;
 
 /**
- * @method \Pterodactyl\Repositories\Wings\DaemonCommandRepository setNode(\Pterodactyl\Models\Node $node)
- * @method \Pterodactyl\Repositories\Wings\DaemonCommandRepository setServer(\Pterodactyl\Models\Server $server)
+ * @method \Luxodactyl\Repositories\Wings\DaemonCommandRepository setNode(\Luxodactyl\Models\Node $node)
+ * @method \Luxodactyl\Repositories\Wings\DaemonCommandRepository setServer(\Luxodactyl\Models\Server $server)
  */
 class DaemonCommandRepository extends DaemonRepository
 {

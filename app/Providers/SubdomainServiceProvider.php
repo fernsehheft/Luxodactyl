@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Providers;
+namespace Luxodactyl\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Pterodactyl\Services\Subdomain\SubdomainManagementService;
+use Luxodactyl\Services\Subdomain\SubdomainManagementService;
 
 class SubdomainServiceProvider extends ServiceProvider
 {

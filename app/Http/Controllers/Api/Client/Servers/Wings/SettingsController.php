@@ -1,24 +1,24 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client\Servers\Wings;
+namespace Luxodactyl\Http\Controllers\Api\Client\Servers\Wings;
 
 use Exception;
 use Illuminate\Http\Response;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Facades\Activity;
+use Luxodactyl\Facades\Activity;
 use Illuminate\Support\Facades\Log;
-use Pterodactyl\Repositories\Eloquent\ServerRepository;
-use Pterodactyl\Services\Servers\ReinstallServerService;
-use Pterodactyl\Services\ServerOperations\EggChangeService;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Luxodactyl\Repositories\Eloquent\ServerRepository;
+use Luxodactyl\Services\Servers\ReinstallServerService;
+use Luxodactyl\Services\ServerOperations\EggChangeService;
+use Luxodactyl\Http\Controllers\Api\Client\ClientApiController;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Settings\RenameServerRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Settings\SetDockerImageRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Settings\SetEggRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Settings\PreviewEggRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Settings\ApplyEggChangeRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Settings\ReinstallServerRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Settings\RenameServerRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Settings\SetDockerImageRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Settings\SetEggRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Settings\PreviewEggRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Settings\ApplyEggChangeRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Settings\ReinstallServerRequest;
 
 class SettingsController extends ClientApiController
 {
@@ -36,8 +36,8 @@ class SettingsController extends ClientApiController
     /**
      * Renames a server.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Luxodactyl\Exceptions\Model\DataValidationException
+     * @throws \Luxodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function rename(RenameServerRequest $request, Server $server): JsonResponse
     {

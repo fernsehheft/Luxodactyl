@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Services\Subdomain;
+namespace Luxodactyl\Services\Subdomain;
 
 use Illuminate\Support\Str;
 

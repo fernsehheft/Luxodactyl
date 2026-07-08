@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Http\Middleware;
+namespace Luxodactyl\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Pterodactyl\Services\Captcha\CaptchaManager;
-use Pterodactyl\Exceptions\DisplayException;
+use Luxodactyl\Services\Captcha\CaptchaManager;
+use Luxodactyl\Exceptions\DisplayException;
 
 class VerifyCaptcha
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Services\Admin;
+namespace Luxodactyl\Services\Admin;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Luxodactyl\Contracts\Repository\SettingsRepositoryInterface;
 
 class LogoService
 {

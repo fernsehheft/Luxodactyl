@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Services\Acl\Api;
+namespace Luxodactyl\Services\Acl\Api;
 
-use Pterodactyl\Models\ApiKey;
+use Luxodactyl\Models\ApiKey;
 
 class AdminAcl
 {

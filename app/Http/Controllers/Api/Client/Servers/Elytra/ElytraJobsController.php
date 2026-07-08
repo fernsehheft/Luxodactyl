@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client\Servers\Elytra;
+namespace Luxodactyl\Http\Controllers\Api\Client\Servers\Elytra;
 
 use Illuminate\Http\Request;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Facades\Activity;
+use Luxodactyl\Facades\Activity;
 use Illuminate\Auth\Access\AuthorizationException;
-use Pterodactyl\Services\Elytra\ElytraJobService;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Luxodactyl\Services\Elytra\ElytraJobService;
+use Luxodactyl\Http\Controllers\Api\Client\ClientApiController;
 
 class ElytraJobsController extends ClientApiController
 {

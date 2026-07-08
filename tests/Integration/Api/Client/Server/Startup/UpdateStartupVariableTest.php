@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Api\Client\Server\Startup;
+namespace Luxodactyl\Tests\Integration\Api\Client\Server\Startup;
 
-use Pterodactyl\Models\User;
+use Luxodactyl\Models\User;
 use Illuminate\Http\Response;
-use Pterodactyl\Models\Permission;
-use Pterodactyl\Models\EggVariable;
-use Pterodactyl\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use Luxodactyl\Models\Permission;
+use Luxodactyl\Models\EggVariable;
+use Luxodactyl\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class UpdateStartupVariableTest extends ClientApiIntegrationTestCase
 {
@@ -16,7 +16,7 @@ class UpdateStartupVariableTest extends ClientApiIntegrationTestCase
     #[\PHPUnit\Framework\Attributes\DataProvider('permissionsDataProvider')]
     public function testStartupVariableCanBeUpdated(array $permissions)
     {
-        /** @var \Pterodactyl\Models\Server $server */
+        /** @var \Luxodactyl\Models\Server $server */
         [$user, $server] = $this->generateTestAccount($permissions);
         $server->fill([
             'startup' => 'java {{SERVER_JARFILE}} --version {{BUNGEE_VERSION}}',
@@ -50,7 +50,7 @@ class UpdateStartupVariableTest extends ClientApiIntegrationTestCase
     #[\PHPUnit\Framework\Attributes\DataProvider('permissionsDataProvider')]
     public function testStartupVariableCannotBeUpdatedIfNotUserViewableOrEditable(array $permissions)
     {
-        /** @var \Pterodactyl\Models\Server $server */
+        /** @var \Luxodactyl\Models\Server $server */
         [$user, $server] = $this->generateTestAccount($permissions);
 
         $egg = $this->cloneEggAndVariables($server->egg);
@@ -85,7 +85,7 @@ class UpdateStartupVariableTest extends ClientApiIntegrationTestCase
      */
     public function testHiddenVariablesAreNotReturnedInStartupCommandWhenUpdatingVariable()
     {
-        /** @var \Pterodactyl\Models\Server $server */
+        /** @var \Luxodactyl\Models\Server $server */
         [$user, $server] = $this->generateTestAccount();
 
         $egg = $this->cloneEggAndVariables($server->egg);
@@ -116,7 +116,7 @@ class UpdateStartupVariableTest extends ClientApiIntegrationTestCase
      */
     public function testEggVariableWithNullableStringIsNotRequired()
     {
-        /** @var \Pterodactyl\Models\Server $server */
+        /** @var \Luxodactyl\Models\Server $server */
         [$user, $server] = $this->generateTestAccount();
 
         $egg = $this->cloneEggAndVariables($server->egg);

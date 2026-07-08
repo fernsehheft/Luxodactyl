@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Api\Client\Server\Schedule;
+namespace Luxodactyl\Tests\Integration\Api\Client\Server\Schedule;
 
 use Illuminate\Http\Response;
-use Pterodactyl\Models\Schedule;
-use Pterodactyl\Models\Permission;
-use Pterodactyl\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use Luxodactyl\Models\Schedule;
+use Luxodactyl\Models\Permission;
+use Luxodactyl\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class CreateServerScheduleTest extends ClientApiIntegrationTestCase
 {

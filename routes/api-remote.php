@@ -1,17 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Pterodactyl\Http\Controllers\Api\Remote\ActivityProcessingController;
-use Pterodactyl\Http\Controllers\Api\Remote\RusticConfigController;
-use Pterodactyl\Http\Controllers\Api\Remote\SftpAuthenticationController;
-use Pterodactyl\Http\Controllers\Api\Remote\Backups\BackupDeleteController;
-use Pterodactyl\Http\Controllers\Api\Remote\Backups\BackupRemoteUploadController;
-use Pterodactyl\Http\Controllers\Api\Remote\Backups\BackupSizeController;
-use Pterodactyl\Http\Controllers\Api\Remote\ElytraJobCompletionController;
-use Pterodactyl\Http\Controllers\Api\Remote\Servers\ServerDetailsController;
-use Pterodactyl\Http\Controllers\Api\Remote\Servers\ServerInstallController;
-use Pterodactyl\Http\Controllers\Api\Remote\Servers\ServerTransferController;
-use Pterodactyl\Http\Controllers\Api\Remote\Backups;
+use Luxodactyl\Http\Controllers\Api\Remote\ActivityProcessingController;
+use Luxodactyl\Http\Controllers\Api\Remote\RusticConfigController;
+use Luxodactyl\Http\Controllers\Api\Remote\SftpAuthenticationController;
+use Luxodactyl\Http\Controllers\Api\Remote\Backups\BackupDeleteController;
+use Luxodactyl\Http\Controllers\Api\Remote\Backups\BackupRemoteUploadController;
+use Luxodactyl\Http\Controllers\Api\Remote\Backups\BackupSizeController;
+use Luxodactyl\Http\Controllers\Api\Remote\ElytraJobCompletionController;
+use Luxodactyl\Http\Controllers\Api\Remote\Servers\ServerDetailsController;
+use Luxodactyl\Http\Controllers\Api\Remote\Servers\ServerInstallController;
+use Luxodactyl\Http\Controllers\Api\Remote\Servers\ServerTransferController;
+use Luxodactyl\Http\Controllers\Api\Remote\Backups;
 
 // Routes for the Wings daemon.
 Route::post('/sftp/auth', SftpAuthenticationController::class);

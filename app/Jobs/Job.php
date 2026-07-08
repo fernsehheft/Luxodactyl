@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Jobs;
+namespace Luxodactyl\Jobs;
 
 use Illuminate\Bus\Queueable;
 

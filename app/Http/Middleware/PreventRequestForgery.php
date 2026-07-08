@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Http\Middleware;
+namespace Luxodactyl\Http\Middleware;
 
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery as BaseVerifier;
 

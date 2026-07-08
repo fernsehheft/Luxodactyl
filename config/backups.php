@@ -1,7 +1,7 @@
 <?php
 
-use Pterodactyl\Enums\BackupAdapter;
-use Pterodactyl\Enums;
+use Luxodactyl\Enums\BackupAdapter;
+use Luxodactyl\Enums;
 
 return [
     // The backup driver to use for this Panel instance. All client generated server backups

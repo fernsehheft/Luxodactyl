@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Enums\Subdomain;
+namespace Luxodactyl\Enums\Subdomain;
 
-use Pterodactyl\Services\Dns\Providers\CloudflareProvider;
-use Pterodactyl\Services\Dns\Providers\HetznerProvider;
-use Pterodactyl\Services\Dns\Providers\Route53Provider;
-use Pterodactyl\Services\Dns\Providers\DNSimpleProvider;
+use Luxodactyl\Services\Dns\Providers\CloudflareProvider;
+use Luxodactyl\Services\Dns\Providers\HetznerProvider;
+use Luxodactyl\Services\Dns\Providers\Route53Provider;
+use Luxodactyl\Services\Dns\Providers\DNSimpleProvider;
 
 enum Providers: string
 {

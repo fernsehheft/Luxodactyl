@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Application;
+namespace Luxodactyl\Transformers\Api\Application;
 
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\Server;
 use League\Fractal\Resource\Item;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\NullResource;
-use Pterodactyl\Services\Acl\Api\AdminAcl;
-use Pterodactyl\Services\Servers\EnvironmentService;
+use Luxodactyl\Services\Acl\Api\AdminAcl;
+use Luxodactyl\Services\Servers\EnvironmentService;
 
 class ServerTransformer extends BaseTransformer
 {
@@ -97,7 +97,7 @@ class ServerTransformer extends BaseTransformer
     /**
      * Return a generic array of allocations for this server.
      *
-     * @throws \Pterodactyl\Exceptions\Transformer\InvalidTransformerLevelException
+     * @throws \Luxodactyl\Exceptions\Transformer\InvalidTransformerLevelException
      */
     public function includeAllocations(Server $server): Collection|NullResource
     {
@@ -113,7 +113,7 @@ class ServerTransformer extends BaseTransformer
     /**
      * Return a generic array of data about subusers for this server.
      *
-     * @throws \Pterodactyl\Exceptions\Transformer\InvalidTransformerLevelException
+     * @throws \Luxodactyl\Exceptions\Transformer\InvalidTransformerLevelException
      */
     public function includeSubusers(Server $server): Collection|NullResource
     {
@@ -129,7 +129,7 @@ class ServerTransformer extends BaseTransformer
     /**
      * Return a generic array of data about subusers for this server.
      *
-     * @throws \Pterodactyl\Exceptions\Transformer\InvalidTransformerLevelException
+     * @throws \Luxodactyl\Exceptions\Transformer\InvalidTransformerLevelException
      */
     public function includeUser(Server $server): Item|NullResource
     {
@@ -145,7 +145,7 @@ class ServerTransformer extends BaseTransformer
     /**
      * Return a generic array with nest information for this server.
      *
-     * @throws \Pterodactyl\Exceptions\Transformer\InvalidTransformerLevelException
+     * @throws \Luxodactyl\Exceptions\Transformer\InvalidTransformerLevelException
      */
     public function includeNest(Server $server): Item|NullResource
     {
@@ -161,7 +161,7 @@ class ServerTransformer extends BaseTransformer
     /**
      * Return a generic array with egg information for this server.
      *
-     * @throws \Pterodactyl\Exceptions\Transformer\InvalidTransformerLevelException
+     * @throws \Luxodactyl\Exceptions\Transformer\InvalidTransformerLevelException
      */
     public function includeEgg(Server $server): Item|NullResource
     {
@@ -177,7 +177,7 @@ class ServerTransformer extends BaseTransformer
     /**
      * Return a generic array of data about subusers for this server.
      *
-     * @throws \Pterodactyl\Exceptions\Transformer\InvalidTransformerLevelException
+     * @throws \Luxodactyl\Exceptions\Transformer\InvalidTransformerLevelException
      */
     public function includeVariables(Server $server): Collection|NullResource
     {
@@ -193,7 +193,7 @@ class ServerTransformer extends BaseTransformer
     /**
      * Return a generic array with location information for this server.
      *
-     * @throws \Pterodactyl\Exceptions\Transformer\InvalidTransformerLevelException
+     * @throws \Luxodactyl\Exceptions\Transformer\InvalidTransformerLevelException
      */
     public function includeLocation(Server $server): Item|NullResource
     {
@@ -209,7 +209,7 @@ class ServerTransformer extends BaseTransformer
     /**
      * Return a generic array with node information for this server.
      *
-     * @throws \Pterodactyl\Exceptions\Transformer\InvalidTransformerLevelException
+     * @throws \Luxodactyl\Exceptions\Transformer\InvalidTransformerLevelException
      */
     public function includeNode(Server $server): Item|NullResource
     {
@@ -225,7 +225,7 @@ class ServerTransformer extends BaseTransformer
     /**
      * Return a generic array with database information for this server.
      *
-     * @throws \Pterodactyl\Exceptions\Transformer\InvalidTransformerLevelException
+     * @throws \Luxodactyl\Exceptions\Transformer\InvalidTransformerLevelException
      */
     public function includeDatabases(Server $server): Collection|NullResource
     {

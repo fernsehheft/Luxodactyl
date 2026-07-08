@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Console\Commands\Maintenance;
+namespace Luxodactyl\Console\Commands\Maintenance;
 
 use Illuminate\Console\Command;
-use Pterodactyl\Models\Backup;
+use Luxodactyl\Models\Backup;
 use Illuminate\Database\Eloquent\Builder;
 
 class DeleteOrphanedBackupsCommand extends Command

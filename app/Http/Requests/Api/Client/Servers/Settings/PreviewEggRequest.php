@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Client\Servers\Settings;
+namespace Luxodactyl\Http\Requests\Api\Client\Servers\Settings;
 
-use Pterodactyl\Models\Egg;
-use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
+use Luxodactyl\Models\Egg;
+use Luxodactyl\Http\Requests\Api\Client\ClientApiRequest;
 
 /**
  * Request validation for previewing egg configuration changes.

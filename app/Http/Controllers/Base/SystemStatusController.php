@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Base;
+namespace Luxodactyl\Http\Controllers\Base;
 
-use Pterodactyl\Http\Controllers\Controller;
+use Luxodactyl\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
 

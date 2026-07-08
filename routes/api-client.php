@@ -2,14 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckDaemonType;
-use Pterodactyl\Http\Controllers\Api\Client;
-use Pterodactyl\Http\Controllers\Api\Client\Servers\MarketplaceController;
-use Pterodactyl\Http\Middleware\Activity\ServerSubject;
-use Pterodactyl\Http\Middleware\Activity\AccountSubject;
-use Pterodactyl\Http\Controllers\Api\Client\Servers\Elytra;
-use Pterodactyl\Http\Middleware\RequireTwoFactorAuthentication;
-use Pterodactyl\Http\Middleware\Api\Client\Server\ResourceBelongsToServer;
-use Pterodactyl\Http\Middleware\Api\Client\Server\AuthenticateServerAccess;
+use Luxodactyl\Http\Controllers\Api\Client;
+use Luxodactyl\Http\Controllers\Api\Client\Servers\MarketplaceController;
+use Luxodactyl\Http\Middleware\Activity\ServerSubject;
+use Luxodactyl\Http\Middleware\Activity\AccountSubject;
+use Luxodactyl\Http\Controllers\Api\Client\Servers\Elytra;
+use Luxodactyl\Http\Middleware\RequireTwoFactorAuthentication;
+use Luxodactyl\Http\Middleware\Api\Client\Server\ResourceBelongsToServer;
+use Luxodactyl\Http\Middleware\Api\Client\Server\AuthenticateServerAccess;
 
 /*
 |--------------------------------------------------------------------------

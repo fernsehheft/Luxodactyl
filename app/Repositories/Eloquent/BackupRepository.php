@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Repositories\Eloquent;
+namespace Luxodactyl\Repositories\Eloquent;
 
 use Carbon\Carbon;
-use Pterodactyl\Models\Backup;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\Backup;
+use Luxodactyl\Models\Server;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 

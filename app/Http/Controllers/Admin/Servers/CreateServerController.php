@@ -1,18 +1,18 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin\Servers;
+namespace Luxodactyl\Http\Controllers\Admin\Servers;
 
 use Illuminate\View\View;
-use Pterodactyl\Models\Node;
-use Pterodactyl\Models\Location;
+use Luxodactyl\Models\Node;
+use Luxodactyl\Models\Location;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
 use Illuminate\View\Factory as ViewFactory;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Repositories\Eloquent\NestRepository;
-use Pterodactyl\Repositories\Eloquent\NodeRepository;
-use Pterodactyl\Http\Requests\Admin\ServerFormRequest;
-use Pterodactyl\Services\Servers\ServerCreationService;
+use Luxodactyl\Http\Controllers\Controller;
+use Luxodactyl\Repositories\Eloquent\NestRepository;
+use Luxodactyl\Repositories\Eloquent\NodeRepository;
+use Luxodactyl\Http\Requests\Admin\ServerFormRequest;
+use Luxodactyl\Services\Servers\ServerCreationService;
 
 class CreateServerController extends Controller
 {
@@ -30,7 +30,7 @@ class CreateServerController extends Controller
     /**
      * Displays the create server page.
      *
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Luxodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function index(): View|RedirectResponse
     {
@@ -62,9 +62,9 @@ class CreateServerController extends Controller
      * Create a new server on the remote system.
      *
      * @throws \Illuminate\Validation\ValidationException
-     * @throws \Pterodactyl\Exceptions\DisplayException
-     * @throws \Pterodactyl\Exceptions\Service\Deployment\NoViableAllocationException
-     * @throws \Pterodactyl\Exceptions\Service\Deployment\NoViableNodeException
+     * @throws \Luxodactyl\Exceptions\DisplayException
+     * @throws \Luxodactyl\Exceptions\Service\Deployment\NoViableAllocationException
+     * @throws \Luxodactyl\Exceptions\Service\Deployment\NoViableNodeException
      * @throws \Throwable
      */
     public function store(ServerFormRequest $request): RedirectResponse

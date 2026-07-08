@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Client\Servers\Marketplace;
+namespace Luxodactyl\Http\Requests\Api\Client\Servers\Marketplace;
 
-use Pterodactyl\Contracts\Http\ClientPermissionsRequest;
-use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
-use Pterodactyl\Models\Permission;
+use Luxodactyl\Contracts\Http\ClientPermissionsRequest;
+use Luxodactyl\Http\Requests\Api\Client\ClientApiRequest;
+use Luxodactyl\Models\Permission;
 
 class DestroyInstallRequest extends ClientApiRequest implements ClientPermissionsRequest
 {

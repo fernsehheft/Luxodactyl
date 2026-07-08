@@ -1,27 +1,27 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin;
+namespace Luxodactyl\Http\Controllers\Admin;
 
 use Exception;
 use Illuminate\View\View;
-use Pterodactyl\Models\DatabaseHost;
+use Luxodactyl\Models\DatabaseHost;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
 use Illuminate\View\Factory as ViewFactory;
-use Pterodactyl\Http\Controllers\Controller;
+use Luxodactyl\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 
 use PDO;
 use PDOException;
-use Pterodactyl\Services\Databases\Hosts\HostUpdateService;
-use Pterodactyl\Http\Requests\Admin\DatabaseHostFormRequest;
-use Pterodactyl\Services\Databases\Hosts\HostCreationService;
-use Pterodactyl\Services\Databases\Hosts\HostDeletionService;
-use Pterodactyl\Contracts\Repository\DatabaseRepositoryInterface;
-use Pterodactyl\Contracts\Repository\LocationRepositoryInterface;
-use Pterodactyl\Contracts\Repository\DatabaseHostRepositoryInterface;
+use Luxodactyl\Services\Databases\Hosts\HostUpdateService;
+use Luxodactyl\Http\Requests\Admin\DatabaseHostFormRequest;
+use Luxodactyl\Services\Databases\Hosts\HostCreationService;
+use Luxodactyl\Services\Databases\Hosts\HostDeletionService;
+use Luxodactyl\Contracts\Repository\DatabaseRepositoryInterface;
+use Luxodactyl\Contracts\Repository\LocationRepositoryInterface;
+use Luxodactyl\Contracts\Repository\DatabaseHostRepositoryInterface;
 
 class DatabaseController extends Controller
 {
@@ -53,7 +53,7 @@ class DatabaseController extends Controller
     /**
      * Display database host to user.
      *
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Luxodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function view(int $host): View
     {
@@ -122,7 +122,7 @@ class DatabaseController extends Controller
     /**
      * Handle request to delete a database host.
      *
-     * @throws \Pterodactyl\Exceptions\Service\HasActiveServersException
+     * @throws \Luxodactyl\Exceptions\Service\HasActiveServersException
      */
     public function delete(int $host): RedirectResponse
     {
@@ -163,7 +163,7 @@ class DatabaseController extends Controller
             // Test basic query
             $version = $pdo->query('SELECT VERSION() as version')->fetchColumn();
 
-            // Test GRANT permissions (this is what Pterodactyl needs)
+            // Test GRANT permissions (this is what Luxodactyl needs)
             $grants = $pdo->query('SHOW GRANTS FOR CURRENT_USER()')->fetchAll(PDO::FETCH_COLUMN);
 
             $hasGrantOption = false;

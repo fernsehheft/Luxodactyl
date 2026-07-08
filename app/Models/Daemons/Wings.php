@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Models\Daemons;
+namespace Luxodactyl\Models\Daemons;
 
 use Illuminate\Support\Str;
-use Pterodactyl\Models\Node;
+use Luxodactyl\Models\Node;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Pterodactyl\Contracts\Daemon\Daemon;
+use Luxodactyl\Contracts\Daemon\Daemon;
 
 class Wings implements Daemon
 {

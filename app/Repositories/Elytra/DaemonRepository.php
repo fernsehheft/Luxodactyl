@@ -1,16 +1,16 @@
 <?php
 
-namespace Pterodactyl\Repositories\Elytra;
+namespace Luxodactyl\Repositories\Elytra;
 
 use GuzzleHttp\Client;
-use Pterodactyl\Models\Node;
+use Luxodactyl\Models\Node;
 use Webmozart\Assert\Assert;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\Server;
 use Illuminate\Contracts\Foundation\Application;
 
 /**
- * @method \Pterodactyl\Repositories\Elytra\DaemonRepository setNode(\Pterodactyl\Models\Node $node)
- * @method \Pterodactyl\Repositories\Elytra\DaemonRepository setServer(\Pterodactyl\Models\Server $server)
+ * @method \Luxodactyl\Repositories\Elytra\DaemonRepository setNode(\Luxodactyl\Models\Node $node)
+ * @method \Luxodactyl\Repositories\Elytra\DaemonRepository setServer(\Luxodactyl\Models\Server $server)
  */
 abstract class DaemonRepository
 {

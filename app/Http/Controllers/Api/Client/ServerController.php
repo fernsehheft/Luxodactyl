@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client;
+namespace Luxodactyl\Http\Controllers\Api\Client;
 
 use Illuminate\Support\Facades\Log;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Transformers\Api\Client\ServerTransformer;
-use Pterodactyl\Services\Servers\GetUserPermissionsService;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
-use Pterodactyl\Http\Requests\Api\Client\Servers\GetServerRequest;
-use Pterodactyl\Enums\Daemon\DaemonType;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Transformers\Api\Client\ServerTransformer;
+use Luxodactyl\Services\Servers\GetUserPermissionsService;
+use Luxodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Luxodactyl\Http\Requests\Api\Client\Servers\GetServerRequest;
+use Luxodactyl\Enums\Daemon\DaemonType;
 
 class ServerController extends ClientApiController
 {

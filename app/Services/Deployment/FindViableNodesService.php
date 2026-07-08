@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Services\Deployment;
+namespace Luxodactyl\Services\Deployment;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
-use Pterodactyl\Exceptions\Service\Deployment\NoViableNodeException;
-use Pterodactyl\Models\Node;
+use Luxodactyl\Exceptions\Service\Deployment\NoViableNodeException;
+use Luxodactyl\Models\Node;
 use Webmozart\Assert\Assert;
 
 /**

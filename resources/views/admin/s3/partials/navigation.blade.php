@@ -1,5 +1,5 @@
 @php
-    /** @var \Pterodactyl\Models\S3 $s3 */
+    /** @var \Luxodactyl\Models\S3 $s3 */
     $router = app('router');
 @endphp
 <div class="row">

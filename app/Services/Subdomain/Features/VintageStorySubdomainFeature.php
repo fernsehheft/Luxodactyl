@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Services\Subdomain\Features;
+namespace Luxodactyl\Services\Subdomain\Features;
 
-use Pterodactyl\Models\Server;
-use Pterodactyl\Contracts\Subdomain\SubdomainFeatureInterface;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Contracts\Subdomain\SubdomainFeatureInterface;
 
 class VintageStorySubdomainFeature implements SubdomainFeatureInterface
 {
@@ -25,7 +25,7 @@ class VintageStorySubdomainFeature implements SubdomainFeatureInterface
     {
         $ip = $server->allocation->ip;
         $port = $server->allocation->port;
-        // This logic seems specific to how your Pterodactyl setup calculates the target domain
+        // This logic seems specific to how your Luxodactyl setup calculates the target domain
         $subdomain_split = explode(".", $subdomain);
         $fullDomain = $subdomain_split[0] . '.' . $domain;
 

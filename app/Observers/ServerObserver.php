@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Observers;
+namespace Luxodactyl\Observers;
 
-use Pterodactyl\Models\Domain;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\ServerSubdomain;
-use Pterodactyl\Services\Subdomain\SubdomainManagementService;
-use Pterodactyl\Services\Subdomain\SubdomainGeneratorService;
+use Luxodactyl\Models\Domain;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Models\ServerSubdomain;
+use Luxodactyl\Services\Subdomain\SubdomainManagementService;
+use Luxodactyl\Services\Subdomain\SubdomainGeneratorService;
 use Illuminate\Support\Facades\Log;
 
 class ServerObserver

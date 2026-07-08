@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Remote;
+namespace Luxodactyl\Http\Controllers\Api\Remote;
 
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Services\Elytra\ElytraJobService;
-use Pterodactyl\Http\Requests\Api\Remote\ElytraJobCompleteRequest;
+use Luxodactyl\Http\Controllers\Controller;
+use Luxodactyl\Services\Elytra\ElytraJobService;
+use Luxodactyl\Http\Requests\Api\Remote\ElytraJobCompleteRequest;
 
 class ElytraJobCompletionController extends Controller
 {

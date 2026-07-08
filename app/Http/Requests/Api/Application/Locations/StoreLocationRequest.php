@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application\Locations;
+namespace Luxodactyl\Http\Requests\Api\Application\Locations;
 
-use Pterodactyl\Models\Location;
-use Pterodactyl\Services\Acl\Api\AdminAcl;
-use Pterodactyl\Http\Requests\Api\Application\ApplicationApiRequest;
+use Luxodactyl\Models\Location;
+use Luxodactyl\Services\Acl\Api\AdminAcl;
+use Luxodactyl\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class StoreLocationRequest extends ApplicationApiRequest
 {

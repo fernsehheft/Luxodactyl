@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Services\Allocations;
+namespace Luxodactyl\Services\Allocations;
 
 use Webmozart\Assert\Assert;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Allocation;
-use Pterodactyl\Exceptions\Service\Allocation\AutoAllocationNotEnabledException;
-use Pterodactyl\Exceptions\Service\Allocation\NoAutoAllocationSpaceAvailableException;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Models\Allocation;
+use Luxodactyl\Exceptions\Service\Allocation\AutoAllocationNotEnabledException;
+use Luxodactyl\Exceptions\Service\Allocation\NoAutoAllocationSpaceAvailableException;
 
 class FindAssignableAllocationService
 {
@@ -22,11 +22,11 @@ class FindAssignableAllocationService
      * no allocation can be found, a new one will be created with a random port between the defined
      * range from the configuration.
      *
-     * @throws \Pterodactyl\Exceptions\DisplayException
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\CidrOutOfRangeException
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\InvalidPortMappingException
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\PortOutOfRangeException
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\TooManyPortsInRangeException
+     * @throws \Luxodactyl\Exceptions\DisplayException
+     * @throws \Luxodactyl\Exceptions\Service\Allocation\CidrOutOfRangeException
+     * @throws \Luxodactyl\Exceptions\Service\Allocation\InvalidPortMappingException
+     * @throws \Luxodactyl\Exceptions\Service\Allocation\PortOutOfRangeException
+     * @throws \Luxodactyl\Exceptions\Service\Allocation\TooManyPortsInRangeException
      */
     public function handle(Server $server): Allocation
     {
@@ -36,7 +36,7 @@ class FindAssignableAllocationService
 
         // Validate that the server has a valid primary allocation IP
         if (!$server->allocation) {
-            throw new \Pterodactyl\Exceptions\DisplayException("Server has no primary allocation");
+            throw new \Luxodactyl\Exceptions\DisplayException("Server has no primary allocation");
         }
         
         $allocationIp = $server->allocation->ip;
@@ -47,7 +47,7 @@ class FindAssignableAllocationService
             
             // If gethostbyname fails, it returns the original hostname
             if ($resolvedIp === $allocationIp || !filter_var($resolvedIp, FILTER_VALIDATE_IP)) {
-                throw new \Pterodactyl\Exceptions\DisplayException(
+                throw new \Luxodactyl\Exceptions\DisplayException(
                     "Cannot resolve allocation IP/hostname '{$allocationIp}' to a valid IP address"
                 );
             }
@@ -78,11 +78,11 @@ class FindAssignableAllocationService
      * in the settings. If there are no matches in that range, or something is wrong with the
      * range information provided an exception will be raised.
      *
-     * @throws \Pterodactyl\Exceptions\DisplayException
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\CidrOutOfRangeException
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\InvalidPortMappingException
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\PortOutOfRangeException
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\TooManyPortsInRangeException
+     * @throws \Luxodactyl\Exceptions\DisplayException
+     * @throws \Luxodactyl\Exceptions\Service\Allocation\CidrOutOfRangeException
+     * @throws \Luxodactyl\Exceptions\Service\Allocation\InvalidPortMappingException
+     * @throws \Luxodactyl\Exceptions\Service\Allocation\PortOutOfRangeException
+     * @throws \Luxodactyl\Exceptions\Service\Allocation\TooManyPortsInRangeException
      */
     protected function createNewAllocation(Server $server, string $resolvedIp): Allocation
     {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Exceptions\Service\Deployment;
+namespace Luxodactyl\Exceptions\Service\Deployment;
 
-use Pterodactyl\Exceptions\DisplayException;
+use Luxodactyl\Exceptions\DisplayException;
 
 class NoViableNodeException extends DisplayException
 {

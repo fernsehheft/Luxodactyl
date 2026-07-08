@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Client\Account;
+namespace Luxodactyl\Http\Requests\Api\Client\Account;
 
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Hashing\Hasher;
-use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
-use Pterodactyl\Exceptions\Http\Base\InvalidPasswordProvidedException;
+use Luxodactyl\Http\Requests\Api\Client\ClientApiRequest;
+use Luxodactyl\Exceptions\Http\Base\InvalidPasswordProvidedException;
 
 class UpdatePasswordRequest extends ClientApiRequest
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Services\Backups\Wings;
+namespace Luxodactyl\Services\Backups\Wings;
 
 use Carbon\CarbonImmutable;
-use Pterodactyl\Enums\BackupAdapter;
-use Pterodactyl\Enums\Daemon\JwtScope;
-use Pterodactyl\Models\User;
-use Pterodactyl\Models\Backup;
-use Pterodactyl\Services\Nodes\NodeJWTService;
-use Pterodactyl\Extensions\Backups\BackupManager;
+use Luxodactyl\Enums\BackupAdapter;
+use Luxodactyl\Enums\Daemon\JwtScope;
+use Luxodactyl\Models\User;
+use Luxodactyl\Models\Backup;
+use Luxodactyl\Services\Nodes\NodeJWTService;
+use Luxodactyl\Extensions\Backups\BackupManager;
 
 class DownloadLinkService
 {
@@ -51,7 +51,7 @@ class DownloadLinkService
             throw new \RuntimeException('No S3 bucket configured for the node associated with this backup.');
         }
 
-        /** @var \Pterodactyl\Extensions\Filesystem\S3Filesystem $adapter */
+        /** @var \Luxodactyl\Extensions\Filesystem\S3Filesystem $adapter */
         $adapter = $this->backupManager->createS3Adapter($s3Bucket->toS3Config());
 
         $request = $adapter->getClient()->createPresignedRequest(

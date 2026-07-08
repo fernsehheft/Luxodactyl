@@ -1,22 +1,22 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin;
+namespace Luxodactyl\Http\Controllers\Admin;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use Pterodactyl\Models\S3;
+use Luxodactyl\Models\S3;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\View\Factory as ViewFactory;
-use Pterodactyl\Http\Controllers\Controller;
+use Luxodactyl\Http\Controllers\Controller;
 use Illuminate\Contracts\Translation\Translator;
-use Pterodactyl\Services\S3\S3CreationService;
-use Pterodactyl\Services\S3\S3DeletionService;
-use Pterodactyl\Services\S3\S3UpdateService;
-use Pterodactyl\Contracts\Repository\S3RepositoryInterface;
-use Pterodactyl\Http\Requests\Admin\S3FormRequest;
-use Pterodactyl\Http\Requests\Admin\NewS3FormRequest;
+use Luxodactyl\Services\S3\S3CreationService;
+use Luxodactyl\Services\S3\S3DeletionService;
+use Luxodactyl\Services\S3\S3UpdateService;
+use Luxodactyl\Contracts\Repository\S3RepositoryInterface;
+use Luxodactyl\Http\Requests\Admin\S3FormRequest;
+use Luxodactyl\Http\Requests\Admin\NewS3FormRequest;
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 

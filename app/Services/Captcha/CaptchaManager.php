@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Services\Captcha;
+namespace Luxodactyl\Services\Captcha;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Manager;
-use Pterodactyl\Services\Captcha\Providers\TurnstileProvider;
-use Pterodactyl\Services\Captcha\Providers\HCaptchaProvider;
-use Pterodactyl\Services\Captcha\Providers\RecaptchaProvider;
-use Pterodactyl\Services\Captcha\Providers\NullProvider;
-use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Luxodactyl\Services\Captcha\Providers\TurnstileProvider;
+use Luxodactyl\Services\Captcha\Providers\HCaptchaProvider;
+use Luxodactyl\Services\Captcha\Providers\RecaptchaProvider;
+use Luxodactyl\Services\Captcha\Providers\NullProvider;
+use Luxodactyl\Contracts\Repository\SettingsRepositoryInterface;
 
 class CaptchaManager extends Manager
 {

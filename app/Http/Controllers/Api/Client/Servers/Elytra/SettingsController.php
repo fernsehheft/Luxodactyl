@@ -1,29 +1,29 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client\Servers\Elytra;
+namespace Luxodactyl\Http\Controllers\Api\Client\Servers\Elytra;
 
 use Exception;
 use Illuminate\Http\Response;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
-use Pterodactyl\Facades\Activity;
-use Pterodactyl\Repositories\Eloquent\ServerRepository;
-use Pterodactyl\Services\Servers\ReinstallServerService;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
-use Pterodactyl\Services\ServerOperations\ServerOperationService;
-use Pterodactyl\Services\ServerOperations\ServerStateValidationService;
-use Pterodactyl\Services\ServerOperations\EggChangeService;
+use Luxodactyl\Facades\Activity;
+use Luxodactyl\Repositories\Eloquent\ServerRepository;
+use Luxodactyl\Services\Servers\ReinstallServerService;
+use Luxodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Luxodactyl\Services\ServerOperations\ServerOperationService;
+use Luxodactyl\Services\ServerOperations\ServerStateValidationService;
+use Luxodactyl\Services\ServerOperations\EggChangeService;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Settings\RenameServerRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Settings\SetDockerImageRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Settings\RevertDockerImageRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Settings\SetEggRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Settings\PreviewEggRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Settings\ApplyEggChangeRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Settings\ReinstallServerRequest;
-use Pterodactyl\Services\Servers\StartupModificationService;
-use Pterodactyl\Repositories\Elytra\DaemonFileRepository;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Settings\RenameServerRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Settings\SetDockerImageRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Settings\RevertDockerImageRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Settings\SetEggRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Settings\PreviewEggRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Settings\ApplyEggChangeRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Settings\ReinstallServerRequest;
+use Luxodactyl\Services\Servers\StartupModificationService;
+use Luxodactyl\Repositories\Elytra\DaemonFileRepository;
 
 class SettingsController extends ClientApiController
 {

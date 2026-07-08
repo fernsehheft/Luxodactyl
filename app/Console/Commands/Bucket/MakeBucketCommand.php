@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Console\Commands\Bucket;
+namespace Luxodactyl\Console\Commands\Bucket;
 
 use Illuminate\Console\Command;
-use Pterodactyl\Services\S3\S3CreationService;
+use Luxodactyl\Services\S3\S3CreationService;
 
 class MakeBucketCommand extends Command
 {

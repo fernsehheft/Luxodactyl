@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Pterodactyl\Http\Controllers\Api\Application;
-use Pterodactyl\Http\Controllers\Base;
+use Luxodactyl\Http\Controllers\Api\Application;
+use Luxodactyl\Http\Controllers\Base;
 
 
 

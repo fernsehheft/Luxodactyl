@@ -1,15 +1,15 @@
 <?php
 
-namespace Pterodactyl\Repositories\Elytra;
+namespace Luxodactyl\Repositories\Elytra;
 
-use Pterodactyl\Models\Node;
+use Luxodactyl\Models\Node;
 use Lcobucci\JWT\Token\Plain;
 use GuzzleHttp\Exception\GuzzleException;
-use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Luxodactyl\Exceptions\Http\Connection\DaemonConnectionException;
 
 /**
- * @method \Pterodactyl\Repositories\Elytra\DaemonTransferRepository setNode(\Pterodactyl\Models\Node $node)
- * @method \Pterodactyl\Repositories\Elytra\DaemonTransferRepository setServer(\Pterodactyl\Models\Server $server)
+ * @method \Luxodactyl\Repositories\Elytra\DaemonTransferRepository setNode(\Luxodactyl\Models\Node $node)
+ * @method \Luxodactyl\Repositories\Elytra\DaemonTransferRepository setServer(\Luxodactyl\Models\Server $server)
  */
 class DaemonTransferRepository extends DaemonRepository
 {

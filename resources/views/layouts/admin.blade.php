@@ -215,7 +215,7 @@
         {{ $appVersion }}<br />
         <strong><i class="fa fa-fw fa-clock-o"></i></strong> {{ round(microtime(true) - LARAVEL_START, 3) }}s
       </div>
-      Copyright &copy; 2015 - {{ date('Y') }} <a href="https://luxodactyl.dev">BlueprintFramework</a> and <a
+      Copyright &copy; 2015 - {{ date('Y') }} <a href="https://luxodactyl.dev">fernsehheft</a> and <a
         href="https://luxodactyl.dev">Luxodactyl</a>.
     </footer>
   </div>

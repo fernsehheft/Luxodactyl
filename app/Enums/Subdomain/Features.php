@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Enums\Subdomain;
+namespace Luxodactyl\Enums\Subdomain;
 
-use Pterodactyl\Services\Subdomain\Features\FactorioSubdomainFeature;
-use Pterodactyl\Services\Subdomain\Features\MinecraftSubdomainFeature;
-use Pterodactyl\Services\Subdomain\Features\RustSubdomainFeature;
-use Pterodactyl\Services\Subdomain\Features\ScpSlSubdomainFeature;
-use Pterodactyl\Services\Subdomain\Features\TeamSpeakSubdomainFeature;
-use Pterodactyl\Services\Subdomain\Features\VintageStorySubdomainFeature;
+use Luxodactyl\Services\Subdomain\Features\FactorioSubdomainFeature;
+use Luxodactyl\Services\Subdomain\Features\MinecraftSubdomainFeature;
+use Luxodactyl\Services\Subdomain\Features\RustSubdomainFeature;
+use Luxodactyl\Services\Subdomain\Features\ScpSlSubdomainFeature;
+use Luxodactyl\Services\Subdomain\Features\TeamSpeakSubdomainFeature;
+use Luxodactyl\Services\Subdomain\Features\VintageStorySubdomainFeature;
 
 
 enum Features: string

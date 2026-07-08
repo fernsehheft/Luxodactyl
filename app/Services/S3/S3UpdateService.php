@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Services\S3;
+namespace Luxodactyl\Services\S3;
 
-use Pterodactyl\Models\S3;
-use Pterodactyl\Contracts\Repository\S3RepositoryInterface;
+use Luxodactyl\Models\S3;
+use Luxodactyl\Contracts\Repository\S3RepositoryInterface;
 
 class S3UpdateService
 {

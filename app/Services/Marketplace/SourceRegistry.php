@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Services\Marketplace;
+namespace Luxodactyl\Services\Marketplace;
 
-use Pterodactyl\Services\Marketplace\Sources\HangarSource;
-use Pterodactyl\Services\Marketplace\Sources\ModrinthSource;
-use Pterodactyl\Services\Marketplace\Sources\SpigetSource;
+use Luxodactyl\Services\Marketplace\Sources\HangarSource;
+use Luxodactyl\Services\Marketplace\Sources\ModrinthSource;
+use Luxodactyl\Services\Marketplace\Sources\SpigetSource;
 
 /**
  * Resolves which marketplace sources are enabled for this installation. Sources

@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Client;
+namespace Luxodactyl\Transformers\Api\Client;
 
-use Pterodactyl\Models\ServerSubdomain;
-use Pterodactyl\Transformers\Api\Client\BaseClientTransformer;
+use Luxodactyl\Models\ServerSubdomain;
+use Luxodactyl\Transformers\Api\Client\BaseClientTransformer;
 
 class ServerSubdomainTransformer extends BaseClientTransformer
 {

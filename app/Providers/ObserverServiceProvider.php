@@ -1,21 +1,21 @@
 <?php
 
-namespace Pterodactyl\Providers;
+namespace Luxodactyl\Providers;
 
-use Pterodactyl\Models\Egg;
-use Pterodactyl\Models\User;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Subuser;
-use Pterodactyl\Models\Allocation;
-use Pterodactyl\Models\EggVariable;
-use Pterodactyl\Models\SessionActivity;
-use Pterodactyl\Observers\EggObserver;
-use Pterodactyl\Observers\UserObserver;
-use Pterodactyl\Observers\ServerObserver;
-use Pterodactyl\Observers\SubuserObserver;
-use Pterodactyl\Observers\AllocationObserver;
-use Pterodactyl\Observers\EggVariableObserver;
-use Pterodactyl\Observers\SessionActivityObserver;
+use Luxodactyl\Models\Egg;
+use Luxodactyl\Models\User;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Models\Subuser;
+use Luxodactyl\Models\Allocation;
+use Luxodactyl\Models\EggVariable;
+use Luxodactyl\Models\SessionActivity;
+use Luxodactyl\Observers\EggObserver;
+use Luxodactyl\Observers\UserObserver;
+use Luxodactyl\Observers\ServerObserver;
+use Luxodactyl\Observers\SubuserObserver;
+use Luxodactyl\Observers\AllocationObserver;
+use Luxodactyl\Observers\EggVariableObserver;
+use Luxodactyl\Observers\SessionActivityObserver;
 use Illuminate\Support\ServiceProvider;
 
 class ObserverServiceProvider extends ServiceProvider

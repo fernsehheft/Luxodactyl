@@ -20,7 +20,7 @@ return [
     |
     | Each panel installation is assigned a unique UUID to identify the
     | author of custom services, and make upgrades easier by identifying
-    | standard Pterodactyl shipped services.
+    | standard Luxodactyl shipped services.
     */
 
     'service' => [

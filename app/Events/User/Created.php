@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Events\User;
+namespace Luxodactyl\Events\User;
 
-use Pterodactyl\Models\User;
-use Pterodactyl\Events\Event;
+use Luxodactyl\Models\User;
+use Luxodactyl\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
 class Created extends Event

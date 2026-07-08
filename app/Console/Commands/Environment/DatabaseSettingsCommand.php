@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Console\Commands\Environment;
+namespace Luxodactyl\Console\Commands\Environment;
 
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Database\DatabaseManager;
-use Pterodactyl\Traits\Commands\EnvironmentWriterTrait;
+use Luxodactyl\Traits\Commands\EnvironmentWriterTrait;
 
 class DatabaseSettingsCommand extends Command
 {
@@ -33,7 +33,7 @@ class DatabaseSettingsCommand extends Command
     /**
      * Handle command execution.
      *
-     * @throws \Pterodactyl\Exceptions\PterodactylException
+     * @throws \Luxodactyl\Exceptions\LuxodactylException
      */
     public function handle(): int
     {

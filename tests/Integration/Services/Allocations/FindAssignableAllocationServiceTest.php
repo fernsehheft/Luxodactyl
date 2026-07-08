@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Services\Allocations;
+namespace Luxodactyl\Tests\Integration\Services\Allocations;
 
-use Pterodactyl\Models\Allocation;
-use Pterodactyl\Tests\Integration\IntegrationTestCase;
-use Pterodactyl\Services\Allocations\FindAssignableAllocationService;
-use Pterodactyl\Exceptions\Service\Allocation\AutoAllocationNotEnabledException;
-use Pterodactyl\Exceptions\Service\Allocation\NoAutoAllocationSpaceAvailableException;
+use Luxodactyl\Models\Allocation;
+use Luxodactyl\Tests\Integration\IntegrationTestCase;
+use Luxodactyl\Services\Allocations\FindAssignableAllocationService;
+use Luxodactyl\Exceptions\Service\Allocation\AutoAllocationNotEnabledException;
+use Luxodactyl\Exceptions\Service\Allocation\NoAutoAllocationSpaceAvailableException;
 
 class FindAssignableAllocationServiceTest extends IntegrationTestCase
 {

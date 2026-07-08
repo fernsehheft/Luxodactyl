@@ -38,7 +38,7 @@
     </div>
     <div class="clearfix visible-xs-block">&nbsp;</div>
     <div class="col-xs-6 col-sm-3 text-center">
-    <a href="https://github.com/BlueprintFramework/luxodactyl"><button class="btn btn-primary" style="width:100%;"><i
+    <a href="https://github.com/fernsehheft/Luxodactyl"><button class="btn btn-primary" style="width:100%;"><i
         class="fa fa-fw fa-support"></i> Github</button></a>
     </div>
     <div class="col-xs-6 col-sm-3 text-center">
@@ -62,8 +62,8 @@
               <p class="list-group-item-text">Donate to support the maintainer — every bit helps!</p>
             </a>
             <a href="https://bpfw.io/donate" target="_blank" rel="noopener" class="list-group-item support-item">
-              <h4 class="list-group-item-heading"><i class="fa fa-fw fa-gift"></i> Blueprint</h4>
-              <p class="list-group-item-text">Donate to the nonprofit funding Luxodactyl development.</p>
+              <h4 class="list-group-item-heading"><i class="fa fa-fw fa-gift"></i> fernsehheft</h4>
+              <p class="list-group-item-text">Donate to support Luxodactyl development.</p>
             </a>
             <a href="https://discord.gg/sK686yHdaK" target="_blank" rel="noopener" class="list-group-item support-item">
               <h4 class="list-group-item-heading"><i class="fa fa-fw fa-comments"></i> Discord</h4>

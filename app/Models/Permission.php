@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Models;
+namespace Luxodactyl\Models;
 
 use Illuminate\Support\Collection;
 
@@ -102,7 +102,7 @@ class Permission extends Model
      * All the permissions available on the system. You should use self::permissions()
      * to retrieve them, and not directly access this array as it is subject to change.
      *
-     * @see \Pterodactyl\Models\Permission::permissions()
+     * @see \Luxodactyl\Models\Permission::permissions()
      */
     protected static array $permissions = [
         'websocket' => [

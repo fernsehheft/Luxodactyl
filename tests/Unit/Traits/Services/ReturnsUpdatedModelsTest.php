@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Tests\Unit\Traits\Services;
+namespace Luxodactyl\Tests\Unit\Traits\Services;
 
-use Pterodactyl\Tests\TestCase;
-use Pterodactyl\Traits\Services\ReturnsUpdatedModels;
+use Luxodactyl\Tests\TestCase;
+use Luxodactyl\Traits\Services\ReturnsUpdatedModels;
 
 class ReturnsUpdatedModelsTest extends TestCase
 {

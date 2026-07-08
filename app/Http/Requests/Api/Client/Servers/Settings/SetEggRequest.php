@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Client\Servers\Settings;
+namespace Luxodactyl\Http\Requests\Api\Client\Servers\Settings;
 
 use Webmozart\Assert\Assert;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\Server;
 use Illuminate\Validation\Rule;
-use Pterodactyl\Models\Permission;
-use Pterodactyl\Contracts\Http\ClientPermissionsRequest;
-use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
+use Luxodactyl\Models\Permission;
+use Luxodactyl\Contracts\Http\ClientPermissionsRequest;
+use Luxodactyl\Http\Requests\Api\Client\ClientApiRequest;
 
 class SetEggRequest extends ClientApiRequest implements ClientPermissionsRequest
 {
@@ -18,7 +18,7 @@ class SetEggRequest extends ClientApiRequest implements ClientPermissionsRequest
 
     public function rules(): array
     {
-        /** @var \Pterodactyl\Models\Server $server */
+        /** @var \Luxodactyl\Models\Server $server */
         $server = $this->route()->parameter('server');
 
         Assert::isInstanceOf($server, Server::class);

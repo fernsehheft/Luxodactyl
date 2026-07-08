@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Models;
+namespace Luxodactyl\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Pterodactyl\Enums\BackupAdapter;
+use Luxodactyl\Enums\BackupAdapter;
 
 /**
  * Backup model
@@ -20,7 +20,7 @@ use Pterodactyl\Enums\BackupAdapter;
  * @property string $name
  * @property string[] $ignored_files
  * @property array|null $server_state
- * @property \Pterodactyl\Enums\BackupAdapter $disk
+ * @property \Luxodactyl\Enums\BackupAdapter $disk
  * @property string|null $checksum
  * @property int $bytes
  * @property string|null $upload_id
@@ -30,8 +30,8 @@ use Pterodactyl\Enums\BackupAdapter;
  * @property \Carbon\CarbonImmutable $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
  * @property Server $server
- * @property \Pterodactyl\Models\ElytraJob[] $elytraJobs
- * @property \Pterodactyl\Models\AuditLog[] $audits
+ * @property \Luxodactyl\Models\ElytraJob[] $elytraJobs
+ * @property \Luxodactyl\Models\AuditLog[] $audits
  */
 class Backup extends Model
 {

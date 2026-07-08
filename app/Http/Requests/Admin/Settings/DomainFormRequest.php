@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Admin\Settings;
+namespace Luxodactyl\Http\Requests\Admin\Settings;
 
-use Pterodactyl\Http\Requests\Admin\AdminFormRequest;
+use Luxodactyl\Http\Requests\Admin\AdminFormRequest;
 
 class DomainFormRequest extends AdminFormRequest
 {

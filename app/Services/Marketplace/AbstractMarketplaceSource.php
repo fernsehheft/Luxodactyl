@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Services\Marketplace;
+namespace Luxodactyl\Services\Marketplace;
 
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Cache;

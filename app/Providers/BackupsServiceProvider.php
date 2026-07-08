@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Providers;
+namespace Luxodactyl\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Pterodactyl\Extensions\Backups\BackupManager;
-use Pterodactyl\Models\S3;
+use Luxodactyl\Extensions\Backups\BackupManager;
+use Luxodactyl\Models\S3;
 
 class BackupsServiceProvider extends ServiceProvider
 {

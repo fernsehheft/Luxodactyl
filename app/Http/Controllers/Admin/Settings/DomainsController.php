@@ -1,17 +1,17 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin\Settings;
+namespace Luxodactyl\Http\Controllers\Admin\Settings;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use Pterodactyl\Models\Domain;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Services\Subdomain\SubdomainManagementService;
-use Pterodactyl\Exceptions\Dns\DnsProviderException;
+use Luxodactyl\Models\Domain;
+use Luxodactyl\Http\Controllers\Controller;
+use Luxodactyl\Services\Subdomain\SubdomainManagementService;
+use Luxodactyl\Exceptions\Dns\DnsProviderException;
 use Illuminate\Contracts\View\Factory as ViewFactory;
-use Pterodactyl\Http\Requests\Admin\Settings\DomainFormRequest;
-use Pterodactyl\Enums\Subdomain\Providers;
+use Luxodactyl\Http\Requests\Admin\Settings\DomainFormRequest;
+use Luxodactyl\Enums\Subdomain\Providers;
 
 class DomainsController extends Controller
 {

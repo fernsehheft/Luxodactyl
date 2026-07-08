@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Console\Commands\Node;
+namespace Luxodactyl\Console\Commands\Node;
 
 use Illuminate\Console\Command;
-use Pterodactyl\Services\Nodes\NodeCreationService;
+use Luxodactyl\Services\Nodes\NodeCreationService;
 
 class MakeNodeCommand extends Command
 {
@@ -42,7 +42,7 @@ class MakeNodeCommand extends Command
     /**
      * Handle the command execution process.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Luxodactyl\Exceptions\Model\DataValidationException
      */
     public function handle()
     {

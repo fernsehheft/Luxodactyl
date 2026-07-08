@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Services\Elytra;
+namespace Luxodactyl\Services\Elytra;
 
 use Carbon\CarbonImmutable;
-use Pterodactyl\Models\User;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\ElytraJob;
+use Luxodactyl\Models\User;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Models\ElytraJob;
 use Illuminate\Support\Facades\Log;
-use Pterodactyl\Contracts\Elytra\Job;
-use Pterodactyl\Repositories\Elytra\ElytraRepository;
+use Luxodactyl\Contracts\Elytra\Job;
+use Luxodactyl\Repositories\Elytra\ElytraRepository;
 
 class ElytraJobService
 {
@@ -23,7 +23,7 @@ class ElytraJobService
     private function discoverHandlers(): void
     {
         $handlerClasses = [
-            \Pterodactyl\Services\Elytra\Jobs\BackupJob::class,
+            \Luxodactyl\Services\Elytra\Jobs\BackupJob::class,
         ];
 
         foreach ($handlerClasses as $handlerClass) {

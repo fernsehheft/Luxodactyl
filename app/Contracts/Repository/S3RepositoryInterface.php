@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Contracts\Repository;
+namespace Luxodactyl\Contracts\Repository;
 
-use Pterodactyl\Models\S3;
+use Luxodactyl\Models\S3;
 
 interface S3RepositoryInterface extends RepositoryInterface
 {

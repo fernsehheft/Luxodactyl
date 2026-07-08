@@ -1,15 +1,15 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Remote\Backups;
+namespace Luxodactyl\Http\Controllers\Api\Remote\Backups;
 
 use Illuminate\Http\Request;
-use Pterodactyl\Models\Backup;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\Backup;
+use Luxodactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Exceptions\Http\HttpForbiddenException;
+use Luxodactyl\Http\Controllers\Controller;
+use Luxodactyl\Exceptions\Http\HttpForbiddenException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class BackupSizeController extends Controller
@@ -22,7 +22,7 @@ class BackupSizeController extends Controller
     public function update(Request $request, string $uuid): JsonResponse
     {
         // Get the node associated with the request
-        /** @var \Pterodactyl\Models\Node $node */
+        /** @var \Luxodactyl\Models\Node $node */
         $node = $request->attributes->get('node');
 
         // Find the server

@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Tests\Unit\Http\Middleware\Api\Application;
+namespace Luxodactyl\Tests\Unit\Http\Middleware\Api\Application;
 
-use Pterodactyl\Tests\Unit\Http\Middleware\MiddlewareTestCase;
+use Luxodactyl\Tests\Unit\Http\Middleware\MiddlewareTestCase;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Pterodactyl\Http\Middleware\Api\Application\AuthenticateApplicationUser;
+use Luxodactyl\Http\Middleware\Api\Application\AuthenticateApplicationUser;
 
 class AuthenticateUserTest extends MiddlewareTestCase
 {

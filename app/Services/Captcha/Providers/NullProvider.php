@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Services\Captcha\Providers;
+namespace Luxodactyl\Services\Captcha\Providers;
 
-use Pterodactyl\Contracts\Captcha\CaptchaProviderInterface;
+use Luxodactyl\Contracts\Captcha\CaptchaProviderInterface;
 
 class NullProvider implements CaptchaProviderInterface
 {

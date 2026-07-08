@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin\Buckets;
+namespace Luxodactyl\Http\Controllers\Admin\Buckets;
 
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
 use Illuminate\View\Factory as ViewFactory;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Services\S3\S3CreationService;
-use Pterodactyl\Http\Requests\Admin\BucketFormRequest;
+use Luxodactyl\Http\Controllers\Controller;
+use Luxodactyl\Services\S3\S3CreationService;
+use Luxodactyl\Http\Requests\Admin\BucketFormRequest;
 
 class CreateBucketController extends Controller
 {

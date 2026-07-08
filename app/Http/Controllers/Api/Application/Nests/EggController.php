@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Application\Nests;
+namespace Luxodactyl\Http\Controllers\Api\Application\Nests;
 
-use Pterodactyl\Models\Egg;
-use Pterodactyl\Models\Nest;
-use Pterodactyl\Transformers\Api\Application\EggTransformer;
-use Pterodactyl\Http\Requests\Api\Application\Nests\Eggs\GetEggRequest;
-use Pterodactyl\Http\Requests\Api\Application\Nests\Eggs\GetEggsRequest;
-use Pterodactyl\Http\Controllers\Api\Application\ApplicationApiController;
+use Luxodactyl\Models\Egg;
+use Luxodactyl\Models\Nest;
+use Luxodactyl\Transformers\Api\Application\EggTransformer;
+use Luxodactyl\Http\Requests\Api\Application\Nests\Eggs\GetEggRequest;
+use Luxodactyl\Http\Requests\Api\Application\Nests\Eggs\GetEggsRequest;
+use Luxodactyl\Http\Controllers\Api\Application\ApplicationApiController;
 
 class EggController extends ApplicationApiController
 {

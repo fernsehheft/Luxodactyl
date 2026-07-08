@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Exceptions\Dns;
+namespace Luxodactyl\Exceptions\Dns;
 
 use Exception;
 

@@ -1,19 +1,19 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin;
+namespace Luxodactyl\Http\Controllers\Admin;
 
 use Illuminate\View\View;
-use Pterodactyl\Models\Location;
+use Luxodactyl\Models\Location;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
 use Illuminate\View\Factory as ViewFactory;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Http\Requests\Admin\LocationFormRequest;
-use Pterodactyl\Services\Locations\LocationUpdateService;
-use Pterodactyl\Services\Locations\LocationCreationService;
-use Pterodactyl\Services\Locations\LocationDeletionService;
-use Pterodactyl\Contracts\Repository\LocationRepositoryInterface;
+use Luxodactyl\Exceptions\DisplayException;
+use Luxodactyl\Http\Controllers\Controller;
+use Luxodactyl\Http\Requests\Admin\LocationFormRequest;
+use Luxodactyl\Services\Locations\LocationUpdateService;
+use Luxodactyl\Services\Locations\LocationCreationService;
+use Luxodactyl\Services\Locations\LocationDeletionService;
+use Luxodactyl\Contracts\Repository\LocationRepositoryInterface;
 
 class LocationController extends Controller
 {
@@ -43,7 +43,7 @@ class LocationController extends Controller
     /**
      * Return the location view page.
      *
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Luxodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function view(int $id): View
     {

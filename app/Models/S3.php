@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Models;
+namespace Luxodactyl\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * Pterodactyl\Models\S3
+ * Luxodactyl\Models\S3
  *
  * @property int $id
  * @property string $name
@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  *
- * @property-read \Illuminate\Database\Eloquent\Collection|\Pterodactyl\Models\Server[] $servers
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Luxodactyl\Models\Server[] $servers
  * @property-read int|null $servers_count
  *
  * @method static \Illuminate\Database\Eloquent\Builder|S3 newModelQuery()

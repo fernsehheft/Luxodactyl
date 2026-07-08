@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Services\S3;
+namespace Luxodactyl\Services\S3;
 
-use Pterodactyl\Models\S3;
-use Pterodactyl\Contracts\Repository\S3RepositoryInterface;
-use Pterodactyl\Contracts\Repository\ServerRepositoryInterface;
-use Pterodactyl\Exceptions\DisplayException;
+use Luxodactyl\Models\S3;
+use Luxodactyl\Contracts\Repository\S3RepositoryInterface;
+use Luxodactyl\Contracts\Repository\ServerRepositoryInterface;
+use Luxodactyl\Exceptions\DisplayException;
 use Illuminate\Contracts\Translation\Translator;
 
 class S3DeletionService

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Traits\Services;
+namespace Luxodactyl\Traits\Services;
 
 trait ReturnsUpdatedModels
 {

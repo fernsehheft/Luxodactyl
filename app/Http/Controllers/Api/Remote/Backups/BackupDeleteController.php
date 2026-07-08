@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Remote\Backups;
+namespace Luxodactyl\Http\Controllers\Api\Remote\Backups;
 
 use Illuminate\Http\Request;
-use Pterodactyl\Models\Backup;
+use Luxodactyl\Models\Backup;
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Facades\Activity;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Exceptions\Http\HttpForbiddenException;
-use Pterodactyl\Exceptions\Service\Backup\BackupLockedException;
+use Luxodactyl\Facades\Activity;
+use Luxodactyl\Http\Controllers\Controller;
+use Luxodactyl\Exceptions\Http\HttpForbiddenException;
+use Luxodactyl\Exceptions\Service\Backup\BackupLockedException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class BackupDeleteController extends Controller
@@ -22,7 +22,7 @@ class BackupDeleteController extends Controller
     public function __invoke(Request $request, string $backup): JsonResponse
     {
         // Get the node associated with the request.
-        /** @var \Pterodactyl\Models\Node $node */
+        /** @var \Luxodactyl\Models\Node $node */
         $node = $request->attributes->get('node');
 
         /** @var Backup $model */
@@ -32,7 +32,7 @@ class BackupDeleteController extends Controller
 
         // Check that the backup is "owned" by the node making the request. This avoids other nodes
         // from messing with backups that they don't own.
-        /** @var \Pterodactyl\Models\Server $server */
+        /** @var \Luxodactyl\Models\Server $server */
         $server = $model->server;
         if ($server->node_id !== $node->id) {
             throw new HttpForbiddenException('You do not have permission to access that backup.');

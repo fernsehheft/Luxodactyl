@@ -1,17 +1,17 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Services\Backups;
+namespace Luxodactyl\Tests\Integration\Services\Backups;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Pterodactyl\Enums\BackupAdapter;
-use Pterodactyl\Models\Backup;
+use Luxodactyl\Enums\BackupAdapter;
+use Luxodactyl\Models\Backup;
 use GuzzleHttp\Exception\ClientException;
-use Pterodactyl\Services\Backups\Wings\DeleteBackupService;
-use Pterodactyl\Tests\Integration\IntegrationTestCase;
-use Pterodactyl\Repositories\Wings\DaemonBackupRepository;
-use Pterodactyl\Exceptions\Service\Backup\BackupLockedException;
-use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Luxodactyl\Services\Backups\Wings\DeleteBackupService;
+use Luxodactyl\Tests\Integration\IntegrationTestCase;
+use Luxodactyl\Repositories\Wings\DaemonBackupRepository;
+use Luxodactyl\Exceptions\Service\Backup\BackupLockedException;
+use Luxodactyl\Exceptions\Http\Connection\DaemonConnectionException;
 
 class DeleteBackupServiceTest extends IntegrationTestCase
 {

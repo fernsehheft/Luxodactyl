@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Console\Commands;
+namespace Luxodactyl\Console\Commands;
 
 use Illuminate\Console\Command;
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Services\ServerOperations;
+namespace Luxodactyl\Services\ServerOperations;
 
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\ServerOperation;
-use Pterodactyl\Models\User;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Models\ServerOperation;
+use Luxodactyl\Models\User;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
 /**

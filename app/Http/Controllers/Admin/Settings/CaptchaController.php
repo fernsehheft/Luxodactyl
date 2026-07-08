@@ -1,18 +1,18 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin\Settings;
+namespace Luxodactyl\Http\Controllers\Admin\Settings;
 
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\View\Factory as ViewFactory;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Services\Captcha\CaptchaManager;
+use Luxodactyl\Http\Controllers\Controller;
+use Luxodactyl\Services\Captcha\CaptchaManager;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
-use Pterodactyl\Http\Requests\Admin\Settings\CaptchaSettingsFormRequest;
-use Pterodactyl\Enums\Captcha\Captchas;
+use Luxodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Luxodactyl\Http\Requests\Admin\Settings\CaptchaSettingsFormRequest;
+use Luxodactyl\Enums\Captcha\Captchas;
 
 class CaptchaController extends Controller
 {
@@ -42,8 +42,8 @@ class CaptchaController extends Controller
     /**
      * Update captcha settings.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Luxodactyl\Exceptions\Model\DataValidationException
+     * @throws \Luxodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function update(CaptchaSettingsFormRequest $request): RedirectResponse
     {
@@ -51,7 +51,7 @@ class CaptchaController extends Controller
 
         foreach ($values as $key => $value) {
             // Encrypt secret keys before storing
-            if (in_array($key, \Pterodactyl\Providers\SettingsServiceProvider::getEncryptedKeys()) && !empty($value)) {
+            if (in_array($key, \Luxodactyl\Providers\SettingsServiceProvider::getEncryptedKeys()) && !empty($value)) {
                 $value = $this->encrypter->encrypt($value);
             }
 

@@ -1,15 +1,15 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client\Servers\Elytra;
+namespace Luxodactyl\Http\Controllers\Api\Client\Servers\Elytra;
 
 use Carbon\CarbonImmutable;
-use Pterodactyl\Models\User;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\User;
+use Luxodactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Enums\Daemon\JwtScope;
-use Pterodactyl\Services\Nodes\NodeJWTService;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Files\UploadFileRequest;
+use Luxodactyl\Enums\Daemon\JwtScope;
+use Luxodactyl\Services\Nodes\NodeJWTService;
+use Luxodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Files\UploadFileRequest;
 
 class FileUploadController extends ClientApiController
 {

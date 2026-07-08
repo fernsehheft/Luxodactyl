@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Models\Objects;
+namespace Luxodactyl\Models\Objects;
 
 class DeploymentObject
 {

@@ -1,16 +1,16 @@
 <?php
 
-namespace Pterodactyl\Services\Users;
+namespace Luxodactyl\Services\Users;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Pterodactyl\Models\User;
+use Luxodactyl\Models\User;
 use PragmaRX\Google2FA\Google2FA;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Pterodactyl\Contracts\Repository\UserRepositoryInterface;
-use Pterodactyl\Repositories\Eloquent\RecoveryTokenRepository;
-use Pterodactyl\Exceptions\Service\User\TwoFactorAuthenticationTokenInvalid;
+use Luxodactyl\Contracts\Repository\UserRepositoryInterface;
+use Luxodactyl\Repositories\Eloquent\RecoveryTokenRepository;
+use Luxodactyl\Exceptions\Service\User\TwoFactorAuthenticationTokenInvalid;
 
 class ToggleTwoFactorService
 {

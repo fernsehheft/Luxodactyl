@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Http\Middleware\Activity;
+namespace Luxodactyl\Http\Middleware\Activity;
 
 use Illuminate\Http\Request;
-use Pterodactyl\Facades\LogTarget;
+use Luxodactyl\Facades\LogTarget;
 
 class AccountSubject
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Providers;
+namespace Luxodactyl\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Pterodactyl\Services\Captcha\CaptchaManager;
-use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Luxodactyl\Services\Captcha\CaptchaManager;
+use Luxodactyl\Contracts\Repository\SettingsRepositoryInterface;
 
 class CaptchaServiceProvider extends ServiceProvider
 {

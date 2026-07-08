@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Enums\Daemon;
+namespace Luxodactyl\Enums\Daemon;
 
-use Pterodactyl\Enums\BackupAdapter;
+use Luxodactyl\Enums\BackupAdapter;
 
 enum Adapters: string
 {

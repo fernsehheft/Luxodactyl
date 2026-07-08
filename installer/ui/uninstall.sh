@@ -44,7 +44,7 @@ uninstall_wings() {
   rm -f /etc/systemd/system/wings.service
   systemctl daemon-reload
   rm -f /usr/local/bin/wings
-  success "Wings uninstalled. Docker and /etc/pterodactyl were left intact."
+  success "Wings uninstalled. Docker and /etc/luxodactyl were left intact."
 }
 
 case "$target" in

@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Providers;
+namespace Luxodactyl\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Pterodactyl\Services\Captcha\CaptchaManager;
+use Luxodactyl\Services\Captcha\CaptchaManager;
 
 class BladeServiceProvider extends ServiceProvider
 {

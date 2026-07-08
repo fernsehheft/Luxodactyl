@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Client\Servers\Subdomain;
+namespace Luxodactyl\Http\Requests\Api\Client\Servers\Subdomain;
 
-use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
-use Pterodactyl\Models\Domain;
-use Pterodactyl\Models\ServerSubdomain;
+use Luxodactyl\Http\Requests\Api\Client\ClientApiRequest;
+use Luxodactyl\Models\Domain;
+use Luxodactyl\Models\ServerSubdomain;
 
 class CreateSubdomainRequest extends ClientApiRequest
 {

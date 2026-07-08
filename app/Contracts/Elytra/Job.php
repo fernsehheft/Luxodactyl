@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Contracts\Elytra;
+namespace Luxodactyl\Contracts\Elytra;
 
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\ElytraJob;
-use Pterodactyl\Repositories\Elytra\ElytraRepository;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Models\ElytraJob;
+use Luxodactyl\Repositories\Elytra\ElytraRepository;
 
 interface Job
 {

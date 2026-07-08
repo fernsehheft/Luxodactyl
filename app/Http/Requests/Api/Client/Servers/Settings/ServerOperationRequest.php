@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Client\Servers\Settings;
+namespace Luxodactyl\Http\Requests\Api\Client\Servers\Settings;
 
-use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
+use Luxodactyl\Http\Requests\Api\Client\ClientApiRequest;
 
 /**
  * Request validation for server operation queries.

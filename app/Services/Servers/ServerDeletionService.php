@@ -1,15 +1,15 @@
 <?php
 
-namespace Pterodactyl\Services\Servers;
+namespace Luxodactyl\Services\Servers;
 
 use Illuminate\Http\Response;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\Server;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\ConnectionInterface;
-use Pterodactyl\Repositories\Wings\DaemonServerRepository;
-use Pterodactyl\Services\Databases\DatabaseManagementService;
-use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
-use Pterodactyl\Exceptions\Service\Backup\BackupLockedException;
+use Luxodactyl\Repositories\Wings\DaemonServerRepository;
+use Luxodactyl\Services\Databases\DatabaseManagementService;
+use Luxodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Luxodactyl\Exceptions\Service\Backup\BackupLockedException;
 
 class ServerDeletionService
 {
@@ -38,7 +38,7 @@ class ServerDeletionService
      * Delete a server from the panel and remove any associated databases from hosts.
      *
      * @throws \Throwable
-     * @throws \Pterodactyl\Exceptions\DisplayException
+     * @throws \Luxodactyl\Exceptions\DisplayException
      */
     public function handle(Server $server): void
     {

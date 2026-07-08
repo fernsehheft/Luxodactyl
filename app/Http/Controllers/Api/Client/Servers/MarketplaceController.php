@@ -1,24 +1,24 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client\Servers;
+namespace Luxodactyl\Http\Controllers\Api\Client\Servers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Marketplace\DestroyInstallRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Marketplace\GameVersionsRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Marketplace\GetProjectRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Marketplace\ListInstallsRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Marketplace\LoadersRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Marketplace\ResolveInstallRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Marketplace\SearchMarketplaceRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Marketplace\StoreInstallRequest;
-use Pterodactyl\Models\MarketplaceInstall;
-use Pterodactyl\Services\Marketplace\DestinationResolver;
-use Pterodactyl\Services\Marketplace\MarketplaceException;
-use Pterodactyl\Services\Marketplace\MarketplaceSource;
-use Pterodactyl\Services\Marketplace\SourceRegistry;
+use Luxodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Marketplace\DestroyInstallRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Marketplace\GameVersionsRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Marketplace\GetProjectRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Marketplace\ListInstallsRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Marketplace\LoadersRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Marketplace\ResolveInstallRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Marketplace\SearchMarketplaceRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Marketplace\StoreInstallRequest;
+use Luxodactyl\Models\MarketplaceInstall;
+use Luxodactyl\Services\Marketplace\DestinationResolver;
+use Luxodactyl\Services\Marketplace\MarketplaceException;
+use Luxodactyl\Services\Marketplace\MarketplaceSource;
+use Luxodactyl\Services\Marketplace\SourceRegistry;
 
 /**
  * Daemon-agnostic marketplace controller powering the plugin/mod installer.
@@ -73,7 +73,7 @@ class MarketplaceController extends ClientApiController
      *
      * @param array<string, mixed> $filters
      *
-     * @return \Pterodactyl\Services\Marketplace\MarketplaceProject[]
+     * @return \Luxodactyl\Services\Marketplace\MarketplaceProject[]
      */
     protected function singleSourceSearch(string $sourceKey, string $type, array $filters): array
     {
@@ -92,7 +92,7 @@ class MarketplaceController extends ClientApiController
      *
      * @param array<string, mixed> $filters
      *
-     * @return \Pterodactyl\Services\Marketplace\MarketplaceProject[]
+     * @return \Luxodactyl\Services\Marketplace\MarketplaceProject[]
      */
     protected function combinedSearch(string $type, array $filters): array
     {
@@ -174,7 +174,7 @@ class MarketplaceController extends ClientApiController
      */
     public function installed(ListInstallsRequest $request): JsonResponse
     {
-        /** @var \Pterodactyl\Models\Server $server */
+        /** @var \Luxodactyl\Models\Server $server */
         $server = $request->route()->parameter('server');
 
         $installs = MarketplaceInstall::query()
@@ -193,7 +193,7 @@ class MarketplaceController extends ClientApiController
      */
     public function store(StoreInstallRequest $request): JsonResponse
     {
-        /** @var \Pterodactyl\Models\Server $server */
+        /** @var \Luxodactyl\Models\Server $server */
         $server = $request->route()->parameter('server');
 
         $install = MarketplaceInstall::updateOrCreate(
@@ -221,7 +221,7 @@ class MarketplaceController extends ClientApiController
      */
     public function destroy(DestroyInstallRequest $request): JsonResponse
     {
-        /** @var \Pterodactyl\Models\Server $server */
+        /** @var \Luxodactyl\Models\Server $server */
         $server = $request->route()->parameter('server');
 
         MarketplaceInstall::query()

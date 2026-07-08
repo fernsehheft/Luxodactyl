@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Services\Subdomain\Features;
+namespace Luxodactyl\Services\Subdomain\Features;
 
-use Pterodactyl\Models\Server;
-use Pterodactyl\Contracts\Subdomain\SubdomainFeatureInterface;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Contracts\Subdomain\SubdomainFeatureInterface;
 
 class TeamSpeakSubdomainFeature implements SubdomainFeatureInterface
 {

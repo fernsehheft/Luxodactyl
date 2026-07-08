@@ -1,26 +1,26 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin;
+namespace Luxodactyl\Http\Controllers\Admin;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use Pterodactyl\Models\User;
-use Pterodactyl\Models\Model;
+use Luxodactyl\Models\User;
+use Luxodactyl\Models\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\View\Factory as ViewFactory;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Http\Controllers\Controller;
+use Luxodactyl\Exceptions\DisplayException;
+use Luxodactyl\Http\Controllers\Controller;
 use Illuminate\Contracts\Translation\Translator;
-use Pterodactyl\Services\Users\UserUpdateService;
-use Pterodactyl\Traits\Helpers\AvailableLanguages;
-use Pterodactyl\Services\Users\UserCreationService;
-use Pterodactyl\Services\Users\UserDeletionService;
-use Pterodactyl\Http\Requests\Admin\UserFormRequest;
-use Pterodactyl\Http\Requests\Admin\NewUserFormRequest;
-use Pterodactyl\Contracts\Repository\UserRepositoryInterface;
+use Luxodactyl\Services\Users\UserUpdateService;
+use Luxodactyl\Traits\Helpers\AvailableLanguages;
+use Luxodactyl\Services\Users\UserCreationService;
+use Luxodactyl\Services\Users\UserDeletionService;
+use Luxodactyl\Http\Requests\Admin\UserFormRequest;
+use Luxodactyl\Http\Requests\Admin\NewUserFormRequest;
+use Luxodactyl\Contracts\Repository\UserRepositoryInterface;
 
 class UserController extends Controller
 {
@@ -128,8 +128,8 @@ public function index(Request $request): View
     /**
      * Update a user on the system.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Luxodactyl\Exceptions\Model\DataValidationException
+     * @throws \Luxodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function update(UserFormRequest $request, User $user): RedirectResponse
     {

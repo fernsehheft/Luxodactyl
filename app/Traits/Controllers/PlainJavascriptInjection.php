@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Traits\Controllers;
+namespace Luxodactyl\Traits\Controllers;
 
 use JavaScript;
 

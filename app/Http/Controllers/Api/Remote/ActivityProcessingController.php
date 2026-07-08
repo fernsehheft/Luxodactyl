@@ -1,17 +1,17 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Remote;
+namespace Luxodactyl\Http\Controllers\Api\Remote;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Pterodactyl\Models\User;
+use Luxodactyl\Models\User;
 use Webmozart\Assert\Assert;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\Server;
 use Illuminate\Support\Facades\Log;
-use Pterodactyl\Models\ActivityLog;
-use Pterodactyl\Models\ActivityLogSubject;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Http\Requests\Api\Remote\ActivityEventRequest;
+use Luxodactyl\Models\ActivityLog;
+use Luxodactyl\Models\ActivityLogSubject;
+use Luxodactyl\Http\Controllers\Controller;
+use Luxodactyl\Http\Requests\Api\Remote\ActivityEventRequest;
 
 class ActivityProcessingController extends Controller
 {
@@ -19,7 +19,7 @@ class ActivityProcessingController extends Controller
     {
         $tz = Carbon::now()->getTimezone();
 
-        /** @var \Pterodactyl\Models\Node $node */
+        /** @var \Luxodactyl\Models\Node $node */
         $node = $request->attributes->get('node');
 
         $servers = $node->servers()->whereIn('uuid', $request->servers())->get()->keyBy('uuid');

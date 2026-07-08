@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Admin\Node;
+namespace Luxodactyl\Http\Requests\Admin\Node;
 
-use Pterodactyl\Rules\Fqdn;
-use Pterodactyl\Models\Node;
+use Luxodactyl\Rules\Fqdn;
+use Luxodactyl\Models\Node;
 use Illuminate\Support\Facades\Log;
-use Pterodactyl\Http\Requests\Admin\AdminFormRequest;
+use Luxodactyl\Http\Requests\Admin\AdminFormRequest;
 
 class NodeFormRequest extends AdminFormRequest
 {

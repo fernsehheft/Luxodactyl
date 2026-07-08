@@ -1,15 +1,15 @@
 <?php
 
-namespace Pterodactyl\Services\Eggs\Sharing;
+namespace Luxodactyl\Services\Eggs\Sharing;
 
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Arr;
-use Pterodactyl\Models\Egg;
-use Pterodactyl\Models\Nest;
+use Luxodactyl\Models\Egg;
+use Luxodactyl\Models\Nest;
 use Illuminate\Http\UploadedFile;
-use Pterodactyl\Models\EggVariable;
+use Luxodactyl\Models\EggVariable;
 use Illuminate\Database\ConnectionInterface;
-use Pterodactyl\Services\Eggs\EggParserService;
+use Luxodactyl\Services\Eggs\EggParserService;
 
 class EggImporterService
 {
@@ -20,7 +20,7 @@ class EggImporterService
     /**
      * Take an uploaded JSON file and parse it into a new egg.
      *
-     * @throws \Pterodactyl\Exceptions\Service\InvalidFileUploadException|\Throwable
+     * @throws \Luxodactyl\Exceptions\Service\InvalidFileUploadException|\Throwable
      */
     public function handle(UploadedFile $file, int $nest): Egg
     {
@@ -51,7 +51,7 @@ class EggImporterService
     /**
      * Take a JSON string and parse it into a new egg.
      *
-     * @throws \Pterodactyl\Exceptions\Service\InvalidFileUploadException|\Throwable
+     * @throws \Luxodactyl\Exceptions\Service\InvalidFileUploadException|\Throwable
      */
     public function handleFromString(string $json_string, int $nest): Egg
     {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Services\ServerOperations;
+namespace Luxodactyl\Services\ServerOperations;
 
 use Exception;
 use Illuminate\Support\Facades\Log;
-use Pterodactyl\Models\Egg;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\User;
-use Pterodactyl\Jobs\Server\ApplyEggChangeJob;
-use Pterodactyl\Services\Subdomain\SubdomainManagementService;
+use Luxodactyl\Models\Egg;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Models\User;
+use Luxodactyl\Jobs\Server\ApplyEggChangeJob;
+use Luxodactyl\Services\Subdomain\SubdomainManagementService;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**

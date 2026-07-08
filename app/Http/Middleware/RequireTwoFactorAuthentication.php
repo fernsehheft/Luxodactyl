@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Http\Middleware;
+namespace Luxodactyl\Http\Middleware;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Prologue\Alerts\AlertsMessageBag;
-use Pterodactyl\Exceptions\Http\TwoFactorAuthRequiredException;
+use Luxodactyl\Exceptions\Http\TwoFactorAuthRequiredException;
 
 class RequireTwoFactorAuthentication
 {
@@ -35,7 +35,7 @@ class RequireTwoFactorAuthentication
      */
     public function handle(Request $request, \Closure $next): mixed
     {
-        /** @var \Pterodactyl\Models\User $user */
+        /** @var \Luxodactyl\Models\User $user */
         $user = $request->user();
         $uri = rtrim($request->getRequestUri(), '/') . '/';
         $current = $request->route()->getName();

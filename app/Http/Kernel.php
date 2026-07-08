@@ -1,37 +1,37 @@
 <?php
 
-namespace Pterodactyl\Http;
+namespace Luxodactyl\Http;
 
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Http\Middleware\HandleCors;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Http\Middleware\TrustProxies;
-use Pterodactyl\Http\Middleware\TrimStrings;
+use Luxodactyl\Http\Middleware\TrimStrings;
 use Illuminate\Session\Middleware\StartSession;
-use Pterodactyl\Http\Middleware\EncryptCookies;
-use Pterodactyl\Http\Middleware\Api\IsValidJson;
-use Pterodactyl\Http\Middleware\PreventRequestForgery;
+use Luxodactyl\Http\Middleware\EncryptCookies;
+use Luxodactyl\Http\Middleware\Api\IsValidJson;
+use Luxodactyl\Http\Middleware\PreventRequestForgery;
 use Illuminate\Routing\Middleware\ThrottleRequests;
-use Pterodactyl\Http\Middleware\LanguageMiddleware;
+use Luxodactyl\Http\Middleware\LanguageMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Routing\Middleware\SubstituteBindings;
-use Pterodactyl\Http\Middleware\Activity\TrackAPIKey;
+use Luxodactyl\Http\Middleware\Activity\TrackAPIKey;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Pterodactyl\Http\Middleware\MaintenanceMiddleware;
-use Pterodactyl\Http\Middleware\EnsureStatefulRequests;
-use Pterodactyl\Http\Middleware\RedirectIfAuthenticated;
+use Luxodactyl\Http\Middleware\MaintenanceMiddleware;
+use Luxodactyl\Http\Middleware\EnsureStatefulRequests;
+use Luxodactyl\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
-use Pterodactyl\Http\Middleware\Api\AuthenticateIPAccess;
+use Luxodactyl\Http\Middleware\Api\AuthenticateIPAccess;
 use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
-use Pterodactyl\Http\Middleware\Api\Daemon\DaemonAuthenticate;
-use Pterodactyl\Http\Middleware\Api\Client\RequireClientApiKey;
-use Pterodactyl\Http\Middleware\RequireTwoFactorAuthentication;
+use Luxodactyl\Http\Middleware\Api\Daemon\DaemonAuthenticate;
+use Luxodactyl\Http\Middleware\Api\Client\RequireClientApiKey;
+use Luxodactyl\Http\Middleware\RequireTwoFactorAuthentication;
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
-use Pterodactyl\Http\Middleware\Api\Client\SubstituteClientBindings;
+use Luxodactyl\Http\Middleware\Api\Client\SubstituteClientBindings;
 use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance;
-use Pterodactyl\Http\Middleware\Api\Application\AuthenticateApplicationUser;
+use Luxodactyl\Http\Middleware\Api\Application\AuthenticateApplicationUser;
 
 class Kernel extends HttpKernel
 {
@@ -103,6 +103,6 @@ class Kernel extends HttpKernel
         'can' => Authorize::class,
         'bindings' => SubstituteBindings::class,
         'node.maintenance' => MaintenanceMiddleware::class,
-        'captcha' => \Pterodactyl\Http\Middleware\VerifyCaptcha::class,
+        'captcha' => \Luxodactyl\Http\Middleware\VerifyCaptcha::class,
     ];
 }

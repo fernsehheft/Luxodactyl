@@ -1,16 +1,16 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin\Buckets;
+namespace Luxodactyl\Http\Controllers\Admin\Buckets;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Cache;
-use Pterodactyl\Models\S3;
-use Pterodactyl\Models\Backup;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Repositories\Eloquent\ServerRepository;
-use Pterodactyl\Repositories\Eloquent\S3Repository;
+use Luxodactyl\Models\S3;
+use Luxodactyl\Models\Backup;
+use Luxodactyl\Http\Controllers\Controller;
+use Luxodactyl\Repositories\Eloquent\ServerRepository;
+use Luxodactyl\Repositories\Eloquent\S3Repository;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 
 class BucketViewController extends Controller

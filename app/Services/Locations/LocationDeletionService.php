@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Services\Locations;
+namespace Luxodactyl\Services\Locations;
 
 use Webmozart\Assert\Assert;
-use Pterodactyl\Models\Location;
-use Pterodactyl\Contracts\Repository\NodeRepositoryInterface;
-use Pterodactyl\Contracts\Repository\LocationRepositoryInterface;
-use Pterodactyl\Exceptions\Service\Location\HasActiveNodesException;
+use Luxodactyl\Models\Location;
+use Luxodactyl\Contracts\Repository\NodeRepositoryInterface;
+use Luxodactyl\Contracts\Repository\LocationRepositoryInterface;
+use Luxodactyl\Exceptions\Service\Location\HasActiveNodesException;
 
 class LocationDeletionService
 {

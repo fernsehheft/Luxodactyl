@@ -2,15 +2,15 @@
 
 
 use Illuminate\Support\Facades\Route;
-use Pterodactyl\Http\Controllers\Api\Client;
-use Pterodactyl\Http\Controllers\Api\Client\Servers;
-use Pterodactyl\Http\Controllers\Api\Client\Servers\Wings;
-use Pterodactyl\Http\Middleware\Activity\ServerSubject;
-use Pterodactyl\Http\Middleware\Activity\AccountSubject;
-use Pterodactyl\Http\Middleware\RequireTwoFactorAuthentication;
-use Pterodactyl\Http\Middleware\Api\Client\Server\ResourceBelongsToServer;
-use Pterodactyl\Http\Middleware\Api\Client\Server\AuthenticateServerAccess;
-use Pterodactyl\Http\Middleware\Api\Client\Server\CheckDaemonType;
+use Luxodactyl\Http\Controllers\Api\Client;
+use Luxodactyl\Http\Controllers\Api\Client\Servers;
+use Luxodactyl\Http\Controllers\Api\Client\Servers\Wings;
+use Luxodactyl\Http\Middleware\Activity\ServerSubject;
+use Luxodactyl\Http\Middleware\Activity\AccountSubject;
+use Luxodactyl\Http\Middleware\RequireTwoFactorAuthentication;
+use Luxodactyl\Http\Middleware\Api\Client\Server\ResourceBelongsToServer;
+use Luxodactyl\Http\Middleware\Api\Client\Server\AuthenticateServerAccess;
+use Luxodactyl\Http\Middleware\Api\Client\Server\CheckDaemonType;
 
 
 /*

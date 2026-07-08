@@ -1,17 +1,17 @@
 <?php
 
-namespace Pterodactyl\Services\Subusers;
+namespace Luxodactyl\Services\Subusers;
 
 use Illuminate\Support\Str;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Subuser;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Models\Subuser;
 use Illuminate\Database\ConnectionInterface;
-use Pterodactyl\Services\Users\UserCreationService;
-use Pterodactyl\Repositories\Eloquent\SubuserRepository;
-use Pterodactyl\Contracts\Repository\UserRepositoryInterface;
-use Pterodactyl\Exceptions\Repository\RecordNotFoundException;
-use Pterodactyl\Exceptions\Service\Subuser\UserIsServerOwnerException;
-use Pterodactyl\Exceptions\Service\Subuser\ServerSubuserExistsException;
+use Luxodactyl\Services\Users\UserCreationService;
+use Luxodactyl\Repositories\Eloquent\SubuserRepository;
+use Luxodactyl\Contracts\Repository\UserRepositoryInterface;
+use Luxodactyl\Exceptions\Repository\RecordNotFoundException;
+use Luxodactyl\Exceptions\Service\Subuser\UserIsServerOwnerException;
+use Luxodactyl\Exceptions\Service\Subuser\ServerSubuserExistsException;
 
 class SubuserCreationService
 {
@@ -31,7 +31,7 @@ class SubuserCreationService
      * If the email address already belongs to a user on the system a new user will not
      * be created.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Luxodactyl\Exceptions\Model\DataValidationException
      * @throws ServerSubuserExistsException
      * @throws UserIsServerOwnerException
      * @throws \Throwable

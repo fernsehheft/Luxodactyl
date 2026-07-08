@@ -1,15 +1,15 @@
 <?php
 
-namespace Pterodactyl\Services\Marketplace\Sources;
+namespace Luxodactyl\Services\Marketplace\Sources;
 
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Pterodactyl\Services\Marketplace\AbstractMarketplaceSource;
-use Pterodactyl\Services\Marketplace\MarketplaceException;
-use Pterodactyl\Services\Marketplace\MarketplaceProject;
-use Pterodactyl\Services\Marketplace\MarketplaceVersion;
+use Luxodactyl\Services\Marketplace\AbstractMarketplaceSource;
+use Luxodactyl\Services\Marketplace\MarketplaceException;
+use Luxodactyl\Services\Marketplace\MarketplaceProject;
+use Luxodactyl\Services\Marketplace\MarketplaceVersion;
 
 /**
  * Modrinth (https://modrinth.com) adapter. Modrinth hosts both Minecraft mods

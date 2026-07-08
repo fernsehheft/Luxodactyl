@@ -1,23 +1,23 @@
 <?php
 
-namespace Pterodactyl\Services\Servers;
+namespace Luxodactyl\Services\Servers;
 
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Arr;
-use Pterodactyl\Models\Egg;
-use Pterodactyl\Models\User;
+use Luxodactyl\Models\Egg;
+use Luxodactyl\Models\User;
 use Webmozart\Assert\Assert;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\Server;
 use Illuminate\Support\Collection;
-use Pterodactyl\Models\Allocation;
+use Luxodactyl\Models\Allocation;
 use Illuminate\Database\ConnectionInterface;
-use Pterodactyl\Models\Objects\DeploymentObject;
-use Pterodactyl\Repositories\Eloquent\ServerRepository;
-use Pterodactyl\Repositories\Wings\DaemonServerRepository;
-use Pterodactyl\Services\Deployment\FindViableNodesService;
-use Pterodactyl\Repositories\Eloquent\ServerVariableRepository;
-use Pterodactyl\Services\Deployment\AllocationSelectionService;
-use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Luxodactyl\Models\Objects\DeploymentObject;
+use Luxodactyl\Repositories\Eloquent\ServerRepository;
+use Luxodactyl\Repositories\Wings\DaemonServerRepository;
+use Luxodactyl\Services\Deployment\FindViableNodesService;
+use Luxodactyl\Repositories\Eloquent\ServerVariableRepository;
+use Luxodactyl\Services\Deployment\AllocationSelectionService;
+use Luxodactyl\Exceptions\Http\Connection\DaemonConnectionException;
 
 class ServerCreationService
 {
@@ -43,11 +43,11 @@ class ServerCreationService
      * no node_id the node_is will be picked from the allocation.
      *
      * @throws \Throwable
-     * @throws \Pterodactyl\Exceptions\DisplayException
+     * @throws \Luxodactyl\Exceptions\DisplayException
      * @throws \Illuminate\Validation\ValidationException
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
-     * @throws \Pterodactyl\Exceptions\Service\Deployment\NoViableNodeException
-     * @throws \Pterodactyl\Exceptions\Service\Deployment\NoViableAllocationException
+     * @throws \Luxodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Luxodactyl\Exceptions\Service\Deployment\NoViableNodeException
+     * @throws \Luxodactyl\Exceptions\Service\Deployment\NoViableAllocationException
      */
     public function handle(array $data, ?DeploymentObject $deployment = null): Server
     {
@@ -109,9 +109,9 @@ class ServerCreationService
     /**
      * Gets an allocation to use for automatic deployment.
      *
-     * @throws \Pterodactyl\Exceptions\DisplayException
-     * @throws \Pterodactyl\Exceptions\Service\Deployment\NoViableAllocationException
-     * @throws \Pterodactyl\Exceptions\Service\Deployment\NoViableNodeException
+     * @throws \Luxodactyl\Exceptions\DisplayException
+     * @throws \Luxodactyl\Exceptions\Service\Deployment\NoViableAllocationException
+     * @throws \Luxodactyl\Exceptions\Service\Deployment\NoViableNodeException
      */
     private function configureDeployment(array $data, DeploymentObject $deployment): Allocation
     {
@@ -130,7 +130,7 @@ class ServerCreationService
     /**
      * Store the server in the database and return the model.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Luxodactyl\Exceptions\Model\DataValidationException
      */
     private function createModel(array $data): Server
     {

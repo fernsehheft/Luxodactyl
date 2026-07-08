@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
-use Pterodactyl\Models\User;
+use Luxodactyl\Models\User;
 use Illuminate\Database\Seeder;
 
 class TestUserSeeder extends Seeder

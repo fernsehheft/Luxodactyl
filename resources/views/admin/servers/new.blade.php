@@ -46,7 +46,7 @@
 
                         <div class="form-group">
                             <div class="checkbox checkbox-primary no-margin-bottom">
-                                <input id="pStartOnCreation" name="start_on_completion" type="checkbox" {{ \Pterodactyl\Helpers\Utilities::checked('start_on_completion', 1) }} />
+                                <input id="pStartOnCreation" name="start_on_completion" type="checkbox" {{ \Luxodactyl\Helpers\Utilities::checked('start_on_completion', 1) }} />
                                 <label for="pStartOnCreation" class="strong">Start Server when Installed</label>
                             </div>
                         </div>
@@ -232,7 +232,7 @@
                     </div>
                     <div class="form-group col-xs-12">
                         <div class="checkbox checkbox-primary no-margin-bottom">
-                            <input type="checkbox" id="pOomDisabled" name="oom_disabled" value="0" {{ \Pterodactyl\Helpers\Utilities::checked('oom_disabled', 0) }} />
+                            <input type="checkbox" id="pOomDisabled" name="oom_disabled" value="0" {{ \Luxodactyl\Helpers\Utilities::checked('oom_disabled', 0) }} />
                             <label for="pOomDisabled" class="strong">Enable OOM Killer</label>
                         </div>
 
@@ -240,7 +240,7 @@
                     </div>
                     <div class="form-group col-xs-12">
                         <div class="checkbox checkbox-primary no-margin-bottom">
-                            <input type="checkbox" id="pExcludeFromResourceCalculation" name="exclude_from_resource_calculation" value="1" {{ \Pterodactyl\Helpers\Utilities::checked('exclude_from_resource_calculation', 0) }} />
+                            <input type="checkbox" id="pExcludeFromResourceCalculation" name="exclude_from_resource_calculation" value="1" {{ \Luxodactyl\Helpers\Utilities::checked('exclude_from_resource_calculation', 0) }} />
                             <label for="pExcludeFromResourceCalculation" class="strong">Exclude from Resource Calculation</label>
                         </div>
 
@@ -282,7 +282,7 @@
                     </div>
                     <div class="form-group col-xs-12">
                         <div class="checkbox checkbox-primary no-margin-bottom">
-                            <input type="checkbox" id="pSkipScripting" name="skip_scripts" value="1" {{ \Pterodactyl\Helpers\Utilities::checked('skip_scripts', 0) }} />
+                            <input type="checkbox" id="pSkipScripting" name="skip_scripts" value="1" {{ \Luxodactyl\Helpers\Utilities::checked('skip_scripts', 0) }} />
                             <label for="pSkipScripting" class="strong">Skip Egg Install Script</label>
                         </div>
 

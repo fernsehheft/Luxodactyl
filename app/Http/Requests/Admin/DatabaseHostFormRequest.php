@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Admin;
+namespace Luxodactyl\Http\Requests\Admin;
 
-use Pterodactyl\Models\DatabaseHost;
+use Luxodactyl\Models\DatabaseHost;
 use Illuminate\Contracts\Validation\Validator;
 
 class DatabaseHostFormRequest extends AdminFormRequest

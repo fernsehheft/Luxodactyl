@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Client\Servers\Startup;
+namespace Luxodactyl\Http\Requests\Api\Client\Servers\Startup;
 
-use Pterodactyl\Models\Permission;
-use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
+use Luxodactyl\Models\Permission;
+use Luxodactyl\Http\Requests\Api\Client\ClientApiRequest;
 
 class GetStartupRequest extends ClientApiRequest
 {

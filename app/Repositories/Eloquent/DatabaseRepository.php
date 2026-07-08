@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Repositories\Eloquent;
+namespace Luxodactyl\Repositories\Eloquent;
 
-use Pterodactyl\Models\Database;
+use Luxodactyl\Models\Database;
 use Illuminate\Support\Collection;
 use Illuminate\Foundation\Application;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Pterodactyl\Contracts\Repository\DatabaseRepositoryInterface;
+use Luxodactyl\Contracts\Repository\DatabaseRepositoryInterface;
 
 class DatabaseRepository extends EloquentRepository implements DatabaseRepositoryInterface
 {

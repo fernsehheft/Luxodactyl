@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Traits\Services;
+namespace Luxodactyl\Traits\Services;
 
-use Pterodactyl\Models\User;
+use Luxodactyl\Models\User;
 
 trait HasUserLevels
 {

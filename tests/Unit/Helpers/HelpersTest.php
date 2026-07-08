@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Tests\Unit\Helpers;
+namespace Luxodactyl\Tests\Unit\Helpers;
 
 use stdClass;
-use Pterodactyl\Tests\TestCase;
+use Luxodactyl\Tests\TestCase;
 
 class HelpersTest extends TestCase
 {

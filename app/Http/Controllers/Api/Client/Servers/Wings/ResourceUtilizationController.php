@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client\Servers\Wings;
+namespace Luxodactyl\Http\Controllers\Api\Client\Servers\Wings;
 
 use Carbon\Carbon;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\Server;
 use Illuminate\Cache\Repository;
-use Pterodactyl\Transformers\Api\Client\StatsTransformer;
-use Pterodactyl\Repositories\Wings\DaemonServerRepository;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
-use Pterodactyl\Http\Requests\Api\Client\Servers\GetServerRequest;
+use Luxodactyl\Transformers\Api\Client\StatsTransformer;
+use Luxodactyl\Repositories\Wings\DaemonServerRepository;
+use Luxodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Luxodactyl\Http\Requests\Api\Client\Servers\GetServerRequest;
 
 class ResourceUtilizationController extends ClientApiController
 {
@@ -25,7 +25,7 @@ class ResourceUtilizationController extends ClientApiController
      * 20 seconds at a time to ensure that repeated requests to this endpoint do not cause
      * a flood of unnecessary API calls.
      *
-     * @throws \Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Luxodactyl\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function __invoke(GetServerRequest $request, Server $server): array
     {

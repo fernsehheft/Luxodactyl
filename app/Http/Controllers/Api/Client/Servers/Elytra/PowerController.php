@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client\Servers\Elytra;
+namespace Luxodactyl\Http\Controllers\Api\Client\Servers\Elytra;
 
 use Illuminate\Http\Response;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Facades\Activity;
-use Pterodactyl\Repositories\Elytra\DaemonPowerRepository;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
-use Pterodactyl\Http\Requests\Api\Client\Servers\SendPowerRequest;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Facades\Activity;
+use Luxodactyl\Repositories\Elytra\DaemonPowerRepository;
+use Luxodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Luxodactyl\Http\Requests\Api\Client\Servers\SendPowerRequest;
 
 class PowerController extends ClientApiController
 {

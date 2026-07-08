@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Services\Eggs;
+namespace Luxodactyl\Services\Eggs;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\Server;
 use Illuminate\Support\Facades\Log;
-use Pterodactyl\Services\Servers\ServerConfigurationStructureService;
+use Luxodactyl\Services\Servers\ServerConfigurationStructureService;
 
 
 class EggConfigurationService

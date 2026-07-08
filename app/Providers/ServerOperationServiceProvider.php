@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Providers;
+namespace Luxodactyl\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Pterodactyl\Http\Middleware\Api\Client\Server\ServerOperationRateLimit;
+use Luxodactyl\Http\Middleware\Api\Client\Server\ServerOperationRateLimit;
 
 /**
  * Service provider for server operations functionality.

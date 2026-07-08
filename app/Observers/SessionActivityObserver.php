@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Observers;
+namespace Luxodactyl\Observers;
 
-use Pterodactyl\Models\SessionActivity;
+use Luxodactyl\Models\SessionActivity;
 
 class SessionActivityObserver
 {

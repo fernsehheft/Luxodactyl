@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Contracts\Captcha;
+namespace Luxodactyl\Contracts\Captcha;
 
 interface CaptchaProviderInterface
 {

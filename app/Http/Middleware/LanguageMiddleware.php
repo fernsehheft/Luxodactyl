@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Http\Middleware;
+namespace Luxodactyl\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;

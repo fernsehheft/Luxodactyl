@@ -1,16 +1,16 @@
 <?php
 
-namespace Pterodactyl\Services\Backups\Wings;
+namespace Luxodactyl\Services\Backups\Wings;
 
 use Illuminate\Http\Response;
-use Pterodactyl\Enums\BackupAdapter;
-use Pterodactyl\Models\Backup;
+use Luxodactyl\Enums\BackupAdapter;
+use Luxodactyl\Models\Backup;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Database\ConnectionInterface;
-use Pterodactyl\Extensions\Backups\BackupManager;
-use Pterodactyl\Repositories\Wings\DaemonBackupRepository;
-use Pterodactyl\Exceptions\Service\Backup\BackupLockedException;
-use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Luxodactyl\Extensions\Backups\BackupManager;
+use Luxodactyl\Repositories\Wings\DaemonBackupRepository;
+use Luxodactyl\Exceptions\Service\Backup\BackupLockedException;
+use Luxodactyl\Exceptions\Http\Connection\DaemonConnectionException;
 
 class DeleteBackupService
 {
@@ -79,7 +79,7 @@ class DeleteBackupService
                 return;
             }
 
-            /** @var \Pterodactyl\Extensions\Filesystem\S3Filesystem $adapter */
+            /** @var \Luxodactyl\Extensions\Filesystem\S3Filesystem $adapter */
             $adapter = $this->manager->createS3Adapter($s3Bucket->toS3Config());
 
             $adapter->getClient()->deleteObject([

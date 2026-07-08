@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Remote;
+namespace Luxodactyl\Http\Controllers\Api\Remote;
 
-use Pterodactyl\Models\Server;
-use Pterodactyl\Http\Controllers\Controller;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Crypt;

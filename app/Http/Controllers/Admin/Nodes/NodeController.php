@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin\Nodes;
+namespace Luxodactyl\Http\Controllers\Admin\Nodes;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use Pterodactyl\Models\Node;
+use Luxodactyl\Models\Node;
 use Spatie\QueryBuilder\QueryBuilder;
-use Pterodactyl\Http\Controllers\Controller;
+use Luxodactyl\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory as ViewFactory;
-use Pterodactyl\Repositories\Eloquent\NodeRepository;
+use Luxodactyl\Repositories\Eloquent\NodeRepository;
 use Illuminate\Support\Facades\Log;
 
 class NodeController extends Controller
@@ -31,7 +31,7 @@ class NodeController extends Controller
             ->paginate(25);
 
         foreach ($nodes as $node) {
-            $stats = app('Pterodactyl\Repositories\Eloquent\NodeRepository')->getUsageStatsRaw($node);
+            $stats = app('Luxodactyl\Repositories\Eloquent\NodeRepository')->getUsageStatsRaw($node);
             // NOTE: Pre-creating stats so we donn't do it in the blade
 
             $memoryPercent = ($stats['memory']['value'] / $stats['memory']['base_limit']) * 100;

@@ -1,17 +1,17 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client\Servers\Elytra;
+namespace Luxodactyl\Http\Controllers\Api\Client\Servers\Elytra;
 
 use Carbon\CarbonImmutable;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Enums\Daemon\JwtScope;
-use Pterodactyl\Models\Permission;
-use Pterodactyl\Services\Nodes\NodeJWTService;
-use Pterodactyl\Exceptions\Http\HttpForbiddenException;
-use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
-use Pterodactyl\Services\Servers\GetUserPermissionsService;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Luxodactyl\Enums\Daemon\JwtScope;
+use Luxodactyl\Models\Permission;
+use Luxodactyl\Services\Nodes\NodeJWTService;
+use Luxodactyl\Exceptions\Http\HttpForbiddenException;
+use Luxodactyl\Http\Requests\Api\Client\ClientApiRequest;
+use Luxodactyl\Services\Servers\GetUserPermissionsService;
+use Luxodactyl\Http\Controllers\Api\Client\ClientApiController;
 
 class WebsocketController extends ClientApiController
 {

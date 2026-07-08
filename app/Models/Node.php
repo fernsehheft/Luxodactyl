@@ -1,19 +1,19 @@
 <?php
 
-namespace Pterodactyl\Models;
+namespace Luxodactyl\Models;
 
 use Symfony\Component\Yaml\Yaml;
 use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Log;
-use Pterodactyl\Enums\Daemon\DaemonType;
+use Luxodactyl\Enums\Daemon\DaemonType;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Pterodactyl\Contracts\Daemon\Daemon as DaemonInterface;
-use Pterodactyl\Http\Controllers\Admin\NodeAutoDeployController;
+use Luxodactyl\Contracts\Daemon\Daemon as DaemonInterface;
+use Luxodactyl\Http\Controllers\Admin\NodeAutoDeployController;
 
 /**
  * @property int $id
@@ -45,9 +45,9 @@ use Pterodactyl\Http\Controllers\Admin\NodeAutoDeployController;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property Location $location
- * @property \Pterodactyl\Models\Mount[]|\Illuminate\Database\Eloquent\Collection $mounts
- * @property \Pterodactyl\Models\Server[]|\Illuminate\Database\Eloquent\Collection $servers
- * @property \Pterodactyl\Models\Allocation[]|\Illuminate\Database\Eloquent\Collection $allocations
+ * @property \Luxodactyl\Models\Mount[]|\Illuminate\Database\Eloquent\Collection $mounts
+ * @property \Luxodactyl\Models\Server[]|\Illuminate\Database\Eloquent\Collection $servers
+ * @property \Luxodactyl\Models\Allocation[]|\Illuminate\Database\Eloquent\Collection $allocations
  */
 
 class Node extends Model
@@ -175,7 +175,7 @@ class Node extends Model
 
         if (!isset($implementations[$daemonType])) {
 
-            return new \Pterodactyl\Models\Daemons\Elytra();
+            return new \Luxodactyl\Models\Daemons\Elytra();
         }
 
         $implementationClass = $implementations[$daemonType];

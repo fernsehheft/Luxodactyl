@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Pterodactyl\Services\Nests\NestCreationService;
-use Pterodactyl\Contracts\Repository\NestRepositoryInterface;
+use Luxodactyl\Services\Nests\NestCreationService;
+use Luxodactyl\Contracts\Repository\NestRepositoryInterface;
 
 class NestSeeder extends Seeder
 {
@@ -32,7 +32,7 @@ class NestSeeder extends Seeder
     /**
      * Run the seeder to add missing nests to the Panel.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Luxodactyl\Exceptions\Model\DataValidationException
      */
     public function run()
     {
@@ -51,7 +51,7 @@ class NestSeeder extends Seeder
     /**
      * Create the Minecraft nest to be used later on.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Luxodactyl\Exceptions\Model\DataValidationException
      */
     private function createMinecraftNest(?array $nest = null)
     {
@@ -66,7 +66,7 @@ class NestSeeder extends Seeder
     /**
      * Create the Hytale nest to be used later on.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Luxodactyl\Exceptions\Model\DataValidationException
      */
     private function createHytaleNest(?array $nest = null)
     {
@@ -81,7 +81,7 @@ class NestSeeder extends Seeder
     /**
      * Create the Source Engine Games nest to be used later on.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Luxodactyl\Exceptions\Model\DataValidationException
      */
     private function createSourceEngineNest(?array $nest = null)
     {
@@ -96,7 +96,7 @@ class NestSeeder extends Seeder
     /**
      * Create the Voice Servers nest to be used later on.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Luxodactyl\Exceptions\Model\DataValidationException
      */
     private function createVoiceServersNest(?array $nest = null)
     {
@@ -111,7 +111,7 @@ class NestSeeder extends Seeder
     /**
      * Create the Rust nest to be used later on.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Luxodactyl\Exceptions\Model\DataValidationException
      */
     private function createRustNest(?array $nest = null)
     {
@@ -126,7 +126,7 @@ class NestSeeder extends Seeder
      /**
      * Create the Vintage Story nest to be used later on.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Luxodactyl\Exceptions\Model\DataValidationException
      */
     private function createVintageStoryNest(?array $nest = null)
     {

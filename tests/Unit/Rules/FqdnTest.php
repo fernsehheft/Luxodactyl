@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Tests\Unit\Rules;
+namespace Luxodactyl\Tests\Unit\Rules;
 
-use Pterodactyl\Rules\Fqdn;
-use Pterodactyl\Tests\TestCase;
+use Luxodactyl\Rules\Fqdn;
+use Luxodactyl\Tests\TestCase;
 
 class FqdnTest extends TestCase
 {

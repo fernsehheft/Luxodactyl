@@ -1,15 +1,15 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application;
+namespace Luxodactyl\Http\Requests\Api\Application;
 
 use Webmozart\Assert\Assert;
-use Pterodactyl\Models\ApiKey;
+use Luxodactyl\Models\ApiKey;
 use Laravel\Sanctum\TransientToken;
 use Illuminate\Validation\Validator;
 use Illuminate\Database\Eloquent\Model;
-use Pterodactyl\Services\Acl\Api\AdminAcl;
+use Luxodactyl\Services\Acl\Api\AdminAcl;
 use Illuminate\Foundation\Http\FormRequest;
-use Pterodactyl\Exceptions\PterodactylException;
+use Luxodactyl\Exceptions\LuxodactylException;
 
 abstract class ApplicationApiRequest extends FormRequest
 {
@@ -29,12 +29,12 @@ abstract class ApplicationApiRequest extends FormRequest
      * Determine if the current user is authorized to perform
      * the requested action against the API.
      *
-     * @throws PterodactylException
+     * @throws LuxodactylException
      */
     public function authorize(): bool
     {
         if (is_null($this->resource)) {
-            throw new PterodactylException('An ACL resource must be defined on API requests.');
+            throw new LuxodactylException('An ACL resource must be defined on API requests.');
         }
 
         $token = $this->user()->currentAccessToken();

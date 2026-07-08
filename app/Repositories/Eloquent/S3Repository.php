@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Repositories\Eloquent;
+namespace Luxodactyl\Repositories\Eloquent;
 
-use Pterodactyl\Models\S3;
-use Pterodactyl\Contracts\Repository\S3RepositoryInterface;
+use Luxodactyl\Models\S3;
+use Luxodactyl\Contracts\Repository\S3RepositoryInterface;
 
 class S3Repository extends EloquentRepository implements S3RepositoryInterface
 {

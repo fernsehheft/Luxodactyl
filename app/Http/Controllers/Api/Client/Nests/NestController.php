@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client\Nests;
+namespace Luxodactyl\Http\Controllers\Api\Client\Nests;
 
-use Pterodactyl\Models\Nest;
-use Pterodactyl\Contracts\Repository\NestRepositoryInterface;
-use Pterodactyl\Transformers\Api\Client\NestTransformer;
-use Pterodactyl\Http\Requests\Api\Application\Nests\GetNestsRequest;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Luxodactyl\Models\Nest;
+use Luxodactyl\Contracts\Repository\NestRepositoryInterface;
+use Luxodactyl\Transformers\Api\Client\NestTransformer;
+use Luxodactyl\Http\Requests\Api\Application\Nests\GetNestsRequest;
+use Luxodactyl\Http\Controllers\Api\Client\ClientApiController;
 
 class NestController extends ClientApiController
 {

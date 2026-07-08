@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Services\Servers;
+namespace Luxodactyl\Services\Servers;
 
-use Pterodactyl\Models\Server;
-use Pterodactyl\Facades\Activity;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Facades\Activity;
 use Illuminate\Database\ConnectionInterface;
-use Pterodactyl\Repositories\Wings\DaemonServerRepository;
+use Luxodactyl\Repositories\Wings\DaemonServerRepository;
 
 class StartupCommandUpdateService
 {
@@ -18,7 +18,7 @@ class StartupCommandUpdateService
     /**
      * Updates the startup command for a server and syncs the configuration with Wings.
      *
-     * @throws \Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Luxodactyl\Exceptions\Http\Connection\DaemonConnectionException
      * @throws \Throwable
      */
     public function handle(Server $server, string $startup): Server

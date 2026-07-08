@@ -1,17 +1,17 @@
 <?php
 
-namespace Pterodactyl\Services\Subdomain;
+namespace Luxodactyl\Services\Subdomain;
 
-use Pterodactyl\Models\Domain;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\ServerSubdomain;
-use Pterodactyl\Contracts\Dns\DnsProviderInterface;
-use Pterodactyl\Contracts\Subdomain\SubdomainFeatureInterface;
-use Pterodactyl\Exceptions\Dns\DnsProviderException;
+use Luxodactyl\Models\Domain;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Models\ServerSubdomain;
+use Luxodactyl\Contracts\Dns\DnsProviderInterface;
+use Luxodactyl\Contracts\Subdomain\SubdomainFeatureInterface;
+use Luxodactyl\Exceptions\Dns\DnsProviderException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Pterodactyl\Enums\Subdomain\Providers;
-use Pterodactyl\Enums\Subdomain\Features;
+use Luxodactyl\Enums\Subdomain\Providers;
+use Luxodactyl\Enums\Subdomain\Features;
 
 class SubdomainManagementService
 {
@@ -505,7 +505,7 @@ class SubdomainManagementService
     /**
      * Get the subdomain feature for a server.
      *
-     * @return null|\Pterodactyl\Contracts\Subdomain\SubdomainFeatureInterface
+     * @return null|\Luxodactyl\Contracts\Subdomain\SubdomainFeatureInterface
      */
     public function getServerSubdomainFeature(Server $server): ?SubdomainFeatureInterface
     {
@@ -558,7 +558,7 @@ class SubdomainManagementService
      * Get the DNS provider for a domain.
      *
      * @param Domain $domain
-     * @return \Pterodactyl\Contracts\Dns\DnsProviderInterface
+     * @return \Luxodactyl\Contracts\Dns\DnsProviderInterface
      * @throws \Exception
      */
     private function getDnsProvider(Domain $domain): DnsProviderInterface

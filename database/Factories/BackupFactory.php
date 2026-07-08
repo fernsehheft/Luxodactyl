@@ -4,8 +4,8 @@ namespace Database\Factories;
 
 use Ramsey\Uuid\Uuid;
 use Carbon\CarbonImmutable;
-use Pterodactyl\Enums\BackupAdapter;
-use Pterodactyl\Models\Backup;
+use Luxodactyl\Enums\BackupAdapter;
+use Luxodactyl\Models\Backup;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BackupFactory extends Factory

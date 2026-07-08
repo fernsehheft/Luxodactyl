@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Tests\Unit\Services\Captcha\Providers;
+namespace Luxodactyl\Tests\Unit\Services\Captcha\Providers;
 
-use Pterodactyl\Tests\TestCase;
-use Pterodactyl\Services\Captcha\Providers\NullProvider;
+use Luxodactyl\Tests\TestCase;
+use Luxodactyl\Services\Captcha\Providers\NullProvider;
 
 class NullProviderTest extends TestCase
 {

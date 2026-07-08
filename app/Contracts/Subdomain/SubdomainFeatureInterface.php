@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Contracts\Subdomain;
+namespace Luxodactyl\Contracts\Subdomain;
 
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\Server;
 
 interface SubdomainFeatureInterface
 {

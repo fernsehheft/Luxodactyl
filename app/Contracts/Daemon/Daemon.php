@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Contracts\Daemon;
+namespace Luxodactyl\Contracts\Daemon;
 
-use Pterodactyl\Models\Node;
+use Luxodactyl\Models\Node;
 
 interface Daemon
 {

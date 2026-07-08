@@ -1,18 +1,18 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client\Servers\Elytra;
+namespace Luxodactyl\Http\Controllers\Api\Client\Servers\Elytra;
 
-use Pterodactyl\Models\Server;
-use Pterodactyl\Facades\Activity;
-use Pterodactyl\Services\Servers\StartupCommandService;
-use Pterodactyl\Services\Servers\StartupCommandUpdateService;
-use Pterodactyl\Repositories\Eloquent\ServerVariableRepository;
-use Pterodactyl\Transformers\Api\Client\EggVariableTransformer;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Facades\Activity;
+use Luxodactyl\Services\Servers\StartupCommandService;
+use Luxodactyl\Services\Servers\StartupCommandUpdateService;
+use Luxodactyl\Repositories\Eloquent\ServerVariableRepository;
+use Luxodactyl\Transformers\Api\Client\EggVariableTransformer;
+use Luxodactyl\Http\Controllers\Api\Client\ClientApiController;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Startup\GetStartupRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Startup\UpdateStartupVariableRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Startup\UpdateStartupCommandRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Startup\GetStartupRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Startup\UpdateStartupVariableRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Startup\UpdateStartupCommandRequest;
 
 class StartupController extends ClientApiController
 {
@@ -50,12 +50,12 @@ class StartupController extends ClientApiController
      * Updates a single variable for a server.
      *
      * @throws \Illuminate\Validation\ValidationException
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Luxodactyl\Exceptions\Model\DataValidationException
+     * @throws \Luxodactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function update(UpdateStartupVariableRequest $request, Server $server): array
     {
-        /** @var \Pterodactyl\Models\EggVariable $variable */
+        /** @var \Luxodactyl\Models\EggVariable $variable */
         $variable = $server->variables()->where('env_variable', $request->input('key'))->first();
         $original = $variable->server_value;
 
@@ -103,7 +103,7 @@ class StartupController extends ClientApiController
     /**
      * Updates the startup command for a server.
      *
-     * @throws \Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Luxodactyl\Exceptions\Http\Connection\DaemonConnectionException
      * @throws \Throwable
      */
     public function updateCommand(UpdateStartupCommandRequest $request, Server $server): array

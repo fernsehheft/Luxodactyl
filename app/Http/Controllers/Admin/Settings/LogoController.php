@@ -1,15 +1,15 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin\Settings;
+namespace Luxodactyl\Http\Controllers\Admin\Settings;
 
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\View\Factory as ViewFactory;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Services\Admin\LogoService;
-use Pterodactyl\Http\Requests\Admin\Settings\LogoFormRequest;
+use Luxodactyl\Http\Controllers\Controller;
+use Luxodactyl\Services\Admin\LogoService;
+use Luxodactyl\Http\Requests\Admin\Settings\LogoFormRequest;
 
 class LogoController extends Controller
 {

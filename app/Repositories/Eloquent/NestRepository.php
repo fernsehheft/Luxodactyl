@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Repositories\Eloquent;
+namespace Luxodactyl\Repositories\Eloquent;
 
-use Pterodactyl\Models\Nest;
+use Luxodactyl\Models\Nest;
 use Illuminate\Database\Eloquent\Collection;
-use Pterodactyl\Contracts\Repository\NestRepositoryInterface;
-use Pterodactyl\Exceptions\Repository\RecordNotFoundException;
+use Luxodactyl\Contracts\Repository\NestRepositoryInterface;
+use Luxodactyl\Exceptions\Repository\RecordNotFoundException;
 
 class NestRepository extends EloquentRepository implements NestRepositoryInterface
 {

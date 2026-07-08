@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Admin;
+namespace Luxodactyl\Http\Requests\Admin;
 
 class BucketFormRequest extends AdminFormRequest
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Services\Marketplace;
+namespace Luxodactyl\Services\Marketplace;
 
 /**
  * Resolves where installed content should land and which loaders a server

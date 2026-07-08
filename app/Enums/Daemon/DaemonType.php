@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Enums\Daemon;
+namespace Luxodactyl\Enums\Daemon;
 
 enum DaemonType: string
 {
@@ -8,13 +8,13 @@ enum DaemonType: string
     case ELYTRA = 'elytra';
 
     private const CLASS_MAP = [
-        self::WINGS->value => \Pterodactyl\Models\Daemons\Wings::class,
-        self::ELYTRA->value => \Pterodactyl\Models\Daemons\Elytra::class,
+        self::WINGS->value => \Luxodactyl\Models\Daemons\Wings::class,
+        self::ELYTRA->value => \Luxodactyl\Models\Daemons\Elytra::class,
     ];
 
     private const RESOURCE_MAP = [
-        self::WINGS->value => \Pterodactyl\Http\Controllers\Api\Client\Servers\Wings\ResourceUtilizationController::class,
-        self::ELYTRA->value => \Pterodactyl\Http\Controllers\Api\Client\Servers\Elytra\ResourceUtilizationController::class,
+        self::WINGS->value => \Luxodactyl\Http\Controllers\Api\Client\Servers\Wings\ResourceUtilizationController::class,
+        self::ELYTRA->value => \Luxodactyl\Http\Controllers\Api\Client\Servers\Elytra\ResourceUtilizationController::class,
     ];
 
     public static function all(): array

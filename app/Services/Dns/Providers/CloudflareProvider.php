@@ -1,15 +1,15 @@
 <?php
 
-namespace Pterodactyl\Services\Dns\Providers;
+namespace Luxodactyl\Services\Dns\Providers;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
-use Pterodactyl\Contracts\Dns\DnsProviderInterface;
-use Pterodactyl\Exceptions\Dns\DnsProviderException;
+use Luxodactyl\Contracts\Dns\DnsProviderInterface;
+use Luxodactyl\Exceptions\Dns\DnsProviderException;
 use Illuminate\Support\Facades\Log;
 
-use Pterodactyl\Services\Dns;
+use Luxodactyl\Services\Dns;
 
 
 class CloudflareProvider implements DnsProviderInterface

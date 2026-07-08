@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="callout callout-info">
-                <i class="fa fa-info-circle"></i> <strong>What are mounts?</strong> Mounts allow you to attach directories from the host machine into a server's container. They are useful for shared resources, persistent storage, or configuration files. <a href="https://pterodactyl.io/community/mounts.html" target="_blank" rel="noopener">Learn more in the Pterodactyl docs <i class="fa fa-external-link"></i></a>.
+                <i class="fa fa-info-circle"></i> <strong>What are mounts?</strong> Mounts allow you to attach directories from the host machine into a server's container. They are useful for shared resources, persistent storage, or configuration files. <a href="https://pterodactyl.io/community/mounts.html" target="_blank" rel="noopener">Learn more in the Luxodactyl docs <i class="fa fa-external-link"></i></a>.
             </div>
         </div>
     </div>

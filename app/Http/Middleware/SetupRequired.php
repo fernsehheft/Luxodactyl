@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Http\Middleware;
+namespace Luxodactyl\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Pterodactyl\Models\User;
+use Luxodactyl\Models\User;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

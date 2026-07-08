@@ -1,21 +1,21 @@
 <?php
 
-namespace Pterodactyl\Services\Elytra\Jobs;
+namespace Luxodactyl\Services\Elytra\Jobs;
 
 use Carbon\CarbonImmutable;
-use Pterodactyl\Enums\BackupAdapter;
-use Pterodactyl\Models\Backup;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\ElytraJob;
-use Pterodactyl\Models\Permission;
+use Luxodactyl\Enums\BackupAdapter;
+use Luxodactyl\Models\Backup;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Models\ElytraJob;
+use Luxodactyl\Models\Permission;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
-use Pterodactyl\Contracts\Elytra\Job;
-use Pterodactyl\Repositories\Elytra\ElytraRepository;
-use Pterodactyl\Services\Backups\ServerStateService;
-use Pterodactyl\Services\Backups\DownloadLinkService;
-use Pterodactyl\Extensions\Backups\BackupManager;
-use Pterodactyl\Transformers\Api\Client\BackupTransformer;
+use Luxodactyl\Contracts\Elytra\Job;
+use Luxodactyl\Repositories\Elytra\ElytraRepository;
+use Luxodactyl\Services\Backups\ServerStateService;
+use Luxodactyl\Services\Backups\DownloadLinkService;
+use Luxodactyl\Extensions\Backups\BackupManager;
+use Luxodactyl\Transformers\Api\Client\BackupTransformer;
 
 class BackupJob implements Job
 {
@@ -472,7 +472,7 @@ class BackupJob implements Job
             throw new \RuntimeException('No S3 bucket configured for the node associated with this backup.');
         }
 
-        /** @var \Pterodactyl\Extensions\Filesystem\S3Filesystem $adapter */
+        /** @var \Luxodactyl\Extensions\Filesystem\S3Filesystem $adapter */
         $adapter = $this->backupManager->createS3Adapter($s3Bucket->toS3Config());
 
         $request = $adapter->getClient()->createPresignedRequest(
@@ -524,7 +524,7 @@ class BackupJob implements Job
             return;
         }
 
-        $elytraRepository = app(\Pterodactyl\Repositories\Elytra\ElytraRepository::class);
+        $elytraRepository = app(\Luxodactyl\Repositories\Elytra\ElytraRepository::class);
         $deletedCount = 0;
 
         foreach ($oldBackups as $backup) {

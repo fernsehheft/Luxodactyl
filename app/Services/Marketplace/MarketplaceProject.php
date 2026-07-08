@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Services\Marketplace;
+namespace Luxodactyl\Services\Marketplace;
 
 /**
  * Normalized representation of a marketplace project (a mod or plugin) returned

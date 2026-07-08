@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Http\ViewComposers;
+namespace Luxodactyl\Http\ViewComposers;
 
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Log;
-use Pterodactyl\Services\Helpers\AssetHashService;
-use Pterodactyl\Services\Captcha\CaptchaManager;
-use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Luxodactyl\Services\Helpers\AssetHashService;
+use Luxodactyl\Services\Captcha\CaptchaManager;
+use Luxodactyl\Contracts\Repository\SettingsRepositoryInterface;
 
 class AssetComposer
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Policies;
+namespace Luxodactyl\Policies;
 
-use Pterodactyl\Models\User;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\User;
+use Luxodactyl\Models\Server;
 
 class ServerPolicy
 {

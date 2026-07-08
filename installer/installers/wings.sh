@@ -3,7 +3,7 @@
 ########################################################################
 #                Luxodactyl Installer — Wings Installer                #
 #                                                                      #
-#  Installs Docker and the Pterodactyl Wings daemon. Sourced via      #
+#  Installs Docker and the Luxodactyl Wings daemon. Sourced via       #
 #  run_installer "wings" from ui/wings.sh.                            #
 #                                                                      #
 #  Expected variables (set by ui/wings.sh):                           #
@@ -22,7 +22,14 @@ install_docker() {
 
 install_wings_binary() {
   output "Creating Wings directories..."
-  mkdir -p /etc/pterodactyl /var/log/pterodactyl
+  mkdir -p /etc/luxodactyl /var/log/luxodactyl
+
+  # Compatibility: the panel's auto-deploy command still writes the node
+  # configuration to /etc/pterodactyl. Symlink it to /etc/luxodactyl so
+  # both paths resolve to the same place (only if it doesn't already exist).
+  if [ ! -e /etc/pterodactyl ]; then
+    ln -s /etc/luxodactyl /etc/pterodactyl
+  fi
 
   output "Downloading the Wings binary (${ARCH})..."
   curl -L -o /usr/local/bin/wings \
@@ -34,17 +41,17 @@ install_wings_service() {
   output "Creating the Wings systemd service..."
   cat >/etc/systemd/system/wings.service <<EOF
 [Unit]
-Description=Pterodactyl Wings Daemon
+Description=Luxodactyl Wings Daemon
 After=docker.service
 Requires=docker.service
 PartOf=docker.service
 
 [Service]
 User=root
-WorkingDirectory=/etc/pterodactyl
+WorkingDirectory=/etc/luxodactyl
 LimitNOFILE=4096
 PIDFile=/var/run/wings/daemon.pid
-ExecStart=/usr/local/bin/wings
+ExecStart=/usr/local/bin/wings --config /etc/luxodactyl/config.yml
 Restart=on-failure
 StartLimitInterval=180
 StartLimitBurst=30
@@ -83,7 +90,7 @@ luxo_wings_install() {
   success "Wings installed successfully!"
   output "Next steps:"
   output "  1. In the panel admin area, create a Node and copy its configuration."
-  output "  2. Save it to ${COLOR_CYAN}/etc/pterodactyl/config.yml${COLOR_NC}"
+  output "  2. Save it to ${COLOR_CYAN}/etc/luxodactyl/config.yml${COLOR_NC}"
   output "  3. Start Wings: ${COLOR_CYAN}systemctl start wings${COLOR_NC}"
   print_brake 70
 }

@@ -1,17 +1,17 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin\Settings;
+namespace Luxodactyl\Http\Controllers\Admin\Settings;
 
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\View\Factory as ViewFactory;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Traits\Helpers\AvailableLanguages;
-use Pterodactyl\Services\Helpers\SoftwareVersionService;
-use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
-use Pterodactyl\Http\Requests\Admin\Settings\BaseSettingsFormRequest;
+use Luxodactyl\Http\Controllers\Controller;
+use Luxodactyl\Traits\Helpers\AvailableLanguages;
+use Luxodactyl\Services\Helpers\SoftwareVersionService;
+use Luxodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Luxodactyl\Http\Requests\Admin\Settings\BaseSettingsFormRequest;
 
 class IndexController extends Controller
 {
@@ -43,8 +43,8 @@ class IndexController extends Controller
   /**
    * Handle settings update.
    *
-   * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-   * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+   * @throws \Luxodactyl\Exceptions\Model\DataValidationException
+   * @throws \Luxodactyl\Exceptions\Repository\RecordNotFoundException
    */
   public function update(BaseSettingsFormRequest $request): RedirectResponse
   {

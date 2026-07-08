@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Models;
+namespace Luxodactyl\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property bool $is_default
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property \Illuminate\Database\Eloquent\Collection|\Pterodactyl\Models\ServerSubdomain[] $serverSubdomains
+ * @property \Illuminate\Database\Eloquent\Collection|\Luxodactyl\Models\ServerSubdomain[] $serverSubdomains
  */
 class Domain extends Model
 {

@@ -1,20 +1,20 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client;
+namespace Luxodactyl\Http\Controllers\Api\Client;
 
 use Illuminate\Support\Facades\DB;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Permission;
+use Luxodactyl\Models\Server;
+use Luxodactyl\Models\Permission;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
-use Pterodactyl\Models\Filters\MultiFieldServerFilter;
-use Pterodactyl\Models\Sorts\ServerOwnerNameSort;
-use Pterodactyl\Models\Sorts\ServerNestNameSort;
-use Pterodactyl\Models\Sorts\ServerEggNameSort;
-use Pterodactyl\Models\Sorts\ServerNodeNameSort;
-use Pterodactyl\Transformers\Api\Client\ServerTransformer;
-use Pterodactyl\Http\Requests\Api\Client\GetServersRequest;
+use Luxodactyl\Models\Filters\MultiFieldServerFilter;
+use Luxodactyl\Models\Sorts\ServerOwnerNameSort;
+use Luxodactyl\Models\Sorts\ServerNestNameSort;
+use Luxodactyl\Models\Sorts\ServerEggNameSort;
+use Luxodactyl\Models\Sorts\ServerNodeNameSort;
+use Luxodactyl\Transformers\Api\Client\ServerTransformer;
+use Luxodactyl\Http\Requests\Api\Client\GetServersRequest;
 
 class ClientController extends ClientApiController
 {

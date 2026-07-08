@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Services\Marketplace;
+namespace Luxodactyl\Services\Marketplace;
 
 /**
  * Contract implemented by each marketplace adapter (Modrinth, Hangar, ...).

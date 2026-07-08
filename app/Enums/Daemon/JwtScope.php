@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Enums\Daemon;
+namespace Luxodactyl\Enums\Daemon;
 
 enum JwtScope: string
 {

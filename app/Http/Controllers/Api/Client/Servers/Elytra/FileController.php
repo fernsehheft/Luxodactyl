@@ -1,28 +1,28 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client\Servers\Elytra;
+namespace Luxodactyl\Http\Controllers\Api\Client\Servers\Elytra;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Response;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Enums\Daemon\JwtScope;
-use Pterodactyl\Facades\Activity;
-use Pterodactyl\Services\Nodes\NodeJWTService;
-use Pterodactyl\Repositories\Elytra\DaemonFileRepository;
-use Pterodactyl\Transformers\Api\Client\FileObjectTransformer;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Files\CopyFileRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Files\PullFileRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Files\ListFilesRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Files\ChmodFilesRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Files\DeleteFileRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Files\RenameFileRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Files\CreateFolderRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Files\CompressFilesRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Files\DecompressFilesRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Files\GetFileContentsRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Files\WriteFileContentRequest;
+use Luxodactyl\Enums\Daemon\JwtScope;
+use Luxodactyl\Facades\Activity;
+use Luxodactyl\Services\Nodes\NodeJWTService;
+use Luxodactyl\Repositories\Elytra\DaemonFileRepository;
+use Luxodactyl\Transformers\Api\Client\FileObjectTransformer;
+use Luxodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Files\CopyFileRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Files\PullFileRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Files\ListFilesRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Files\ChmodFilesRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Files\DeleteFileRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Files\RenameFileRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Files\CreateFolderRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Files\CompressFilesRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Files\DecompressFilesRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Files\GetFileContentsRequest;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Files\WriteFileContentRequest;
 
 class FileController extends ClientApiController
 {
@@ -39,7 +39,7 @@ class FileController extends ClientApiController
     /**
      * Returns a listing of files in a given directory.
      *
-     * @throws \Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Luxodactyl\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function directory(ListFilesRequest $request, Server $server): array
     {
@@ -104,7 +104,7 @@ class FileController extends ClientApiController
     /**
      * Writes the contents of the specified file to the server.
      *
-     * @throws \Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Luxodactyl\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function write(WriteFileContentRequest $request, Server $server): JsonResponse
     {
@@ -156,7 +156,7 @@ class FileController extends ClientApiController
     /**
      * Copies a file on the server.
      *
-     * @throws \Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Luxodactyl\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function copy(CopyFileRequest $request, Server $server): JsonResponse
     {
@@ -170,7 +170,7 @@ class FileController extends ClientApiController
     }
 
     /**
-     * @throws \Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Luxodactyl\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function compress(CompressFilesRequest $request, Server $server): array
     {
@@ -190,7 +190,7 @@ class FileController extends ClientApiController
     }
 
     /**
-     * @throws \Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Luxodactyl\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function decompress(DecompressFilesRequest $request, Server $server): JsonResponse
     {
@@ -212,7 +212,7 @@ class FileController extends ClientApiController
     /**
      * Deletes files or folders for the server in the given root directory.
      *
-     * @throws \Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Luxodactyl\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function delete(DeleteFileRequest $request, Server $server): JsonResponse
     {
@@ -232,7 +232,7 @@ class FileController extends ClientApiController
     /**
      * Updates file permissions for file(s) in the given root directory.
      *
-     * @throws \Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Luxodactyl\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function chmod(ChmodFilesRequest $request, Server $server): JsonResponse
     {

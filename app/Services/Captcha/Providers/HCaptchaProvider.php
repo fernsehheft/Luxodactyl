@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Services\Captcha\Providers;
+namespace Luxodactyl\Services\Captcha\Providers;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Pterodactyl\Contracts\Captcha\CaptchaProviderInterface;
+use Luxodactyl\Contracts\Captcha\CaptchaProviderInterface;
 
 class HCaptchaProvider implements CaptchaProviderInterface
 {

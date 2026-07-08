@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Tests\Unit\Helpers;
+namespace Luxodactyl\Tests\Unit\Helpers;
 
-use Pterodactyl\Helpers\Time;
-use Pterodactyl\Tests\TestCase;
+use Luxodactyl\Helpers\Time;
+use Luxodactyl\Tests\TestCase;
 
 class TimeTest extends TestCase
 {

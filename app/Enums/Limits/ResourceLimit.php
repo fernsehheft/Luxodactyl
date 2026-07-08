@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Enums\Limits;
+namespace Luxodactyl\Enums\Limits;
 
 use Illuminate\Http\Request;
 use Webmozart\Assert\Assert;
-use Pterodactyl\Models\Server;
+use Luxodactyl\Models\Server;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Routing\Middleware\ThrottleRequests;

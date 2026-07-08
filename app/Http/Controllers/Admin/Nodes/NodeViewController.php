@@ -1,24 +1,24 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin\Nodes;
+namespace Luxodactyl\Http\Controllers\Admin\Nodes;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use Pterodactyl\Models\Node;
+use Luxodactyl\Models\Node;
 use Illuminate\Support\Collection;
-use Pterodactyl\Models\Allocation;
-use Pterodactyl\Http\Controllers\Controller;
+use Luxodactyl\Models\Allocation;
+use Luxodactyl\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory as ViewFactory;
-use Pterodactyl\Repositories\Eloquent\NodeRepository;
-use Pterodactyl\Repositories\Eloquent\ServerRepository;
-use Pterodactyl\Traits\Controllers\JavascriptInjection;
-use Pterodactyl\Services\Helpers\SoftwareVersionService;
-use Pterodactyl\Repositories\Eloquent\LocationRepository;
-use Pterodactyl\Repositories\Eloquent\AllocationRepository;
+use Luxodactyl\Repositories\Eloquent\NodeRepository;
+use Luxodactyl\Repositories\Eloquent\ServerRepository;
+use Luxodactyl\Traits\Controllers\JavascriptInjection;
+use Luxodactyl\Services\Helpers\SoftwareVersionService;
+use Luxodactyl\Repositories\Eloquent\LocationRepository;
+use Luxodactyl\Repositories\Eloquent\AllocationRepository;
 use Illuminate\Support\Facades\DB;
-use Pterodactyl\Enums\Daemon\DaemonType;
-use Pterodactyl\Enums\Daemon\Adapters;
-use Pterodactyl\Models\S3;
+use Luxodactyl\Enums\Daemon\DaemonType;
+use Luxodactyl\Enums\Daemon\Adapters;
+use Luxodactyl\Models\S3;
 
 class NodeViewController extends Controller
 {

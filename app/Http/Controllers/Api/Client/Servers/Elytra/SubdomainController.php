@@ -1,17 +1,17 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client\Servers\Elytra;
+namespace Luxodactyl\Http\Controllers\Api\Client\Servers\Elytra;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
-use Pterodactyl\Models\Domain;
-use Pterodactyl\Models\Permission;
-use Pterodactyl\Models\ServerSubdomain;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
-use Pterodactyl\Services\Subdomain\SubdomainManagementService;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Subdomain\CreateSubdomainRequest;
-use Pterodactyl\Transformers\Api\Client\ServerSubdomainTransformer;
+use Luxodactyl\Models\Domain;
+use Luxodactyl\Models\Permission;
+use Luxodactyl\Models\ServerSubdomain;
+use Luxodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Luxodactyl\Services\Subdomain\SubdomainManagementService;
+use Luxodactyl\Http\Requests\Api\Client\Servers\Subdomain\CreateSubdomainRequest;
+use Luxodactyl\Transformers\Api\Client\ServerSubdomainTransformer;
 
 class SubdomainController extends ClientApiController
 {
