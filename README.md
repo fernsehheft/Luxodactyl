@@ -32,7 +32,30 @@ Luxodactyl is a modern, performance-focused game server management panel forked 
 
 Built by the maintainer of the original Pyrodactyl project and funded by Blueprint.
 
-## Quick start
+## Automated installation (production)
+
+Install the panel and/or Wings on a fresh **Ubuntu 22.04/24.04** or **Debian 11/12** server with a single command. The wizard asks for the database, domain, admin account, SSL and firewall — just like the pterodactyl-installer.
+
+```bash
+bash <(curl -sSL https://raw.githubusercontent.com/fernsehheft/Luxodactyl/main/install.sh)
+```
+
+Run it as **root** (`sudo -i`). The installer is modular:
+
+```
+install.sh                      # bootstrap / entry point
+installer/lib/lib.sh            # shared helpers (logging, OS detection, input, db, firewall)
+installer/installers/panel.sh   # panel install logic
+installer/installers/wings.sh   # wings install logic
+installer/ui/panel.sh           # panel wizard (questions)
+installer/ui/wings.sh           # wings wizard
+installer/ui/ssl.sh             # Let's Encrypt only
+installer/ui/uninstall.sh       # uninstall panel/wings
+```
+
+Logs are written to `/var/log/luxodactyl-installer.log`.
+
+## Quick start (Docker / development)
 
 ```bash
 git clone https://github.com/BlueprintFramework/luxodactyl.git
