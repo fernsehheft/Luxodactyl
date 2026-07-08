@@ -55,9 +55,276 @@
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
   @show
+
+  {{-- ============================================================= --}}
+  {{--  Luxodactyl admin theme — modern dark / cyan reskin overlay   --}}
+  {{--  Loaded after all vendor CSS so it wins. Restyles AdminLTE     --}}
+  {{--  without touching the individual admin page templates.         --}}
+  {{-- ============================================================= --}}
+  <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+  <link href="https://fonts.bunny.net/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style id="luxodactyl-admin-theme">
+    .luxodactyl-admin {
+      --lux-bg: #0a0d13;
+      --lux-bg2: #0e131b;
+      --lux-surface: #141b25;
+      --lux-surface-2: #1b2431;
+      --lux-border: #222c3a;
+      --lux-text: #e6edf3;
+      --lux-muted: #8b98a9;
+      --lux-accent: #22d3ee;
+      --lux-accent-2: #06b6d4;
+      --lux-accent-dim: rgba(34, 211, 238, .12);
+      --lux-radius: 12px;
+      --lux-font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* ---- base ---- */
+    .luxodactyl-admin,
+    .luxodactyl-admin .content-wrapper,
+    .luxodactyl-admin .right-side {
+      background: var(--lux-bg) !important;
+      color: var(--lux-text);
+      font-family: var(--lux-font);
+    }
+    .luxodactyl-admin,
+    .luxodactyl-admin p,
+    .luxodactyl-admin span,
+    .luxodactyl-admin div,
+    .luxodactyl-admin td {
+      font-family: var(--lux-font);
+    }
+    .luxodactyl-admin a { color: var(--lux-accent); }
+    .luxodactyl-admin a:hover { color: var(--lux-accent-2); }
+    .luxodactyl-admin .text-muted,
+    .luxodactyl-admin .text-zinc { color: var(--lux-muted) !important; }
+
+    /* ---- header ---- */
+    .luxodactyl-admin .main-header .logo,
+    .luxodactyl-admin .main-header .navbar {
+      background: var(--lux-bg2) !important;
+      border-bottom: 1px solid var(--lux-border);
+      transition: none;
+    }
+    .luxodactyl-admin .main-header .logo {
+      border-right: 1px solid var(--lux-border);
+      font-family: var(--lux-font);
+      font-weight: 800;
+      letter-spacing: .3px;
+      color: var(--lux-text) !important;
+    }
+    .luxodactyl-admin .main-header .logo b { font-weight: 800; }
+    .luxodactyl-admin .main-header .logo:hover { background: var(--lux-surface) !important; }
+    .luxodactyl-admin .main-header .navbar .nav > li > a {
+      color: var(--lux-muted) !important;
+    }
+    .luxodactyl-admin .main-header .navbar .nav > li > a:hover {
+      background: var(--lux-surface) !important;
+      color: var(--lux-accent) !important;
+    }
+    .luxodactyl-admin .sidebar-toggle:hover { background: var(--lux-surface) !important; }
+
+    /* ---- sidebar ---- */
+    .luxodactyl-admin .main-sidebar,
+    .luxodactyl-admin .left-side {
+      background: var(--lux-bg2) !important;
+      border-right: 1px solid var(--lux-border);
+    }
+    .luxodactyl-admin .sidebar-menu > li.header {
+      background: transparent !important;
+      color: var(--lux-muted) !important;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      padding: 18px 16px 8px;
+      opacity: .65;
+    }
+    .luxodactyl-admin .sidebar-menu > li > a {
+      color: #b8c2ce !important;
+      font-weight: 500;
+      font-size: 14px;
+      margin: 2px 10px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border-left: none !important;
+      transition: background .15s ease, color .15s ease;
+    }
+    .luxodactyl-admin .sidebar-menu > li > a > i,
+    .luxodactyl-admin .sidebar-menu > li > a > .bi {
+      color: var(--lux-muted);
+      margin-right: 8px;
+      transition: color .15s ease;
+    }
+    .luxodactyl-admin .sidebar-menu > li > a:hover {
+      background: var(--lux-surface) !important;
+      color: #fff !important;
+    }
+    .luxodactyl-admin .sidebar-menu > li > a:hover > i { color: var(--lux-accent); }
+    .luxodactyl-admin .sidebar-menu > li.active > a {
+      background: var(--lux-accent-dim) !important;
+      color: var(--lux-accent) !important;
+      border-left: none !important;
+      box-shadow: inset 3px 0 0 var(--lux-accent);
+    }
+    .luxodactyl-admin .sidebar-menu > li.active > a > i { color: var(--lux-accent); }
+
+    /* ---- content header ---- */
+    .luxodactyl-admin .content-header { padding: 22px 20px 6px; }
+    .luxodactyl-admin .content-header > h1 {
+      font-weight: 800;
+      font-size: 24px;
+      color: var(--lux-text);
+    }
+    .luxodactyl-admin .content-header > h1 > small {
+      color: var(--lux-muted);
+      font-size: 14px;
+      font-weight: 400;
+    }
+    .luxodactyl-admin .content-header > .breadcrumb {
+      background: var(--lux-surface) !important;
+      border: 1px solid var(--lux-border);
+      border-radius: 999px;
+      padding: 6px 14px;
+    }
+    .luxodactyl-admin .breadcrumb > li > a { color: var(--lux-muted); }
+    .luxodactyl-admin .breadcrumb > .active { color: var(--lux-text); }
+
+    /* ---- boxes / cards ---- */
+    .luxodactyl-admin .box {
+      background: var(--lux-surface) !important;
+      border: 1px solid var(--lux-border) !important;
+      border-top: 1px solid var(--lux-border) !important;
+      border-radius: var(--lux-radius);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .25) !important;
+      color: var(--lux-text);
+    }
+    .luxodactyl-admin .box.box-primary { border-top: 2px solid var(--lux-accent) !important; }
+    .luxodactyl-admin .box.box-info { border-top: 2px solid var(--lux-accent) !important; }
+    .luxodactyl-admin .box.box-success { border-top: 2px solid #34d399 !important; }
+    .luxodactyl-admin .box.box-danger { border-top: 2px solid #f87171 !important; }
+    .luxodactyl-admin .box.box-warning { border-top: 2px solid #fbbf24 !important; }
+    .luxodactyl-admin .box-header { color: var(--lux-text); border-bottom: 1px solid var(--lux-border); padding: 16px 18px; }
+    .luxodactyl-admin .box-header .box-title { font-weight: 700; font-size: 16px; }
+    .luxodactyl-admin .box-body { padding: 18px; }
+    .luxodactyl-admin .box-footer {
+      background: transparent !important;
+      border-top: 1px solid var(--lux-border);
+      color: var(--lux-muted);
+    }
+    .luxodactyl-admin .nav-tabs-custom { background: var(--lux-surface) !important; border-radius: var(--lux-radius); box-shadow: 0 1px 2px rgba(0,0,0,.25); }
+    .luxodactyl-admin .nav-tabs-custom > .nav-tabs { border-bottom: 1px solid var(--lux-border); }
+    .luxodactyl-admin .nav-tabs-custom > .nav-tabs > li.active > a { color: var(--lux-accent); }
+    .luxodactyl-admin .nav-tabs-custom > .nav-tabs > li.active { border-top-color: var(--lux-accent); }
+
+    /* ---- small info boxes / stats ---- */
+    .luxodactyl-admin .info-box,
+    .luxodactyl-admin .small-box {
+      background: var(--lux-surface) !important;
+      border: 1px solid var(--lux-border);
+      border-radius: var(--lux-radius);
+      color: var(--lux-text) !important;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .25) !important;
+    }
+    .luxodactyl-admin .small-box h3,
+    .luxodactyl-admin .small-box p { color: var(--lux-text) !important; }
+    .luxodactyl-admin .info-box-icon { background: var(--lux-accent-dim) !important; color: var(--lux-accent) !important; border-radius: 10px; }
+
+    /* ---- tables ---- */
+    .luxodactyl-admin .table { color: var(--lux-text); }
+    .luxodactyl-admin .table > thead > tr > th {
+      border-bottom: 1px solid var(--lux-border) !important;
+      color: var(--lux-muted);
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+    }
+    .luxodactyl-admin .table > tbody > tr > td,
+    .luxodactyl-admin .table > tbody > tr > th { border-top: 1px solid var(--lux-border) !important; }
+    .luxodactyl-admin .table-hover > tbody > tr:hover { background: var(--lux-surface-2) !important; }
+    .luxodactyl-admin .table-striped > tbody > tr:nth-of-type(odd) { background: rgba(255, 255, 255, .015); }
+
+    /* ---- buttons ---- */
+    .luxodactyl-admin .btn {
+      border-radius: 9px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      transition: filter .15s ease, background .15s ease;
+    }
+    .luxodactyl-admin .btn-primary {
+      background: linear-gradient(180deg, var(--lux-accent), var(--lux-accent-2)) !important;
+      border-color: transparent !important;
+      color: #05222a !important;
+    }
+    .luxodactyl-admin .btn-primary:hover { filter: brightness(1.08); }
+    .luxodactyl-admin .btn-default {
+      background: var(--lux-surface-2) !important;
+      border-color: var(--lux-border) !important;
+      color: var(--lux-text) !important;
+    }
+    .luxodactyl-admin .btn-default:hover { background: #232f3e !important; }
+    .luxodactyl-admin .btn-success { background: #10b981 !important; color: #fff !important; }
+    .luxodactyl-admin .btn-danger { background: #ef4444 !important; color: #fff !important; }
+    .luxodactyl-admin .btn-warning { background: #f59e0b !important; color: #201400 !important; }
+
+    /* ---- forms ---- */
+    .luxodactyl-admin .form-control,
+    .luxodactyl-admin .select2-container--default .select2-selection--single,
+    .luxodactyl-admin .select2-dropdown,
+    .luxodactyl-admin .select2-search__field {
+      background: var(--lux-bg2) !important;
+      border: 1px solid var(--lux-border) !important;
+      color: var(--lux-text) !important;
+      border-radius: 9px;
+      box-shadow: none !important;
+    }
+    .luxodactyl-admin .form-control:focus {
+      border-color: var(--lux-accent) !important;
+      box-shadow: 0 0 0 3px var(--lux-accent-dim) !important;
+    }
+    .luxodactyl-admin .form-control::placeholder { color: #5f6b7a; }
+    .luxodactyl-admin label { color: #c6d0db; font-weight: 600; }
+    .luxodactyl-admin .help-block { color: var(--lux-muted); }
+    .luxodactyl-admin .select2-container--default .select2-selection--single .select2-selection__rendered { color: var(--lux-text); line-height: 32px; }
+    .luxodactyl-admin .select2-container--default .select2-results__option--highlighted[aria-selected] { background: var(--lux-accent) !important; color: #05222a; }
+    .luxodactyl-admin .input-group-addon { background: var(--lux-surface-2) !important; border-color: var(--lux-border) !important; color: var(--lux-muted) !important; }
+
+    /* ---- alerts ---- */
+    .luxodactyl-admin .alert { border-radius: 10px; border: 1px solid var(--lux-border); }
+    .luxodactyl-admin .alert-success { background: rgba(16, 185, 129, .12) !important; color: #6ee7b7 !important; border-color: rgba(16,185,129,.3); }
+    .luxodactyl-admin .alert-danger { background: rgba(239, 68, 68, .12) !important; color: #fca5a5 !important; border-color: rgba(239,68,68,.3); }
+    .luxodactyl-admin .alert-info { background: var(--lux-accent-dim) !important; color: #67e8f9 !important; border-color: rgba(34,211,238,.3); }
+    .luxodactyl-admin .alert-warning { background: rgba(245, 158, 11, .12) !important; color: #fcd34d !important; border-color: rgba(245,158,11,.3); }
+
+    /* ---- misc ---- */
+    .luxodactyl-admin .label-default,
+    .luxodactyl-admin .badge { background: var(--lux-surface-2) !important; color: var(--lux-text); border-radius: 6px; }
+    .luxodactyl-admin .label-primary, .luxodactyl-admin .badge.bg-blue { background: var(--lux-accent) !important; color: #05222a !important; }
+    .luxodactyl-admin .pagination > li > a,
+    .luxodactyl-admin .pagination > li > span {
+      background: var(--lux-surface) !important;
+      border-color: var(--lux-border) !important;
+      color: var(--lux-text);
+    }
+    .luxodactyl-admin .pagination > .active > a,
+    .luxodactyl-admin .pagination > .active > span { background: var(--lux-accent) !important; border-color: var(--lux-accent) !important; color: #05222a !important; }
+    .luxodactyl-admin .main-footer {
+      background: var(--lux-bg2) !important;
+      border-top: 1px solid var(--lux-border);
+      color: var(--lux-muted);
+    }
+    .luxodactyl-admin hr { border-top-color: var(--lux-border); }
+    .luxodactyl-admin .modal-content { background: var(--lux-surface) !important; color: var(--lux-text); border: 1px solid var(--lux-border); border-radius: var(--lux-radius); }
+    .luxodactyl-admin .modal-header, .luxodactyl-admin .modal-footer { border-color: var(--lux-border); }
+    .luxodactyl-admin ::-webkit-scrollbar { width: 10px; height: 10px; }
+    .luxodactyl-admin ::-webkit-scrollbar-track { background: var(--lux-bg); }
+    .luxodactyl-admin ::-webkit-scrollbar-thumb { background: #2a3646; border-radius: 6px; }
+    .luxodactyl-admin ::-webkit-scrollbar-thumb:hover { background: #35455a; }
+  </style>
 </head>
 
-<body class="hold-transition skin-blue fixed sidebar-mini">
+<body class="hold-transition skin-blue fixed sidebar-mini luxodactyl-admin">
   <div class="wrapper">
     <header class="main-header">
       <a href="{{ route('index') }}" class="logo">
@@ -72,7 +339,7 @@
             <img src="{{ $logoValue }}" alt="{{ config('app.name', 'Panel') }}" style="max-height:30px;vertical-align:middle;">
           @else
             <svg width="30" height="28" viewBox="0 0 100 92" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;">
-                <path d="M35.1293 92L39.2242 59.3897L44.8276 60.4695L14.2241 81.2019L0 57.0141L32.7586 45.3521V47.7277L0 33.4742L14.2241 8.85446L45.6896 33.2582L39.2242 34.1221L34.4828 0H65.5172L61.4225 33.9061L56.681 32.8263L85.7759 8.85446L100 33.4742L66.1638 47.7277V45.5681L99.569 57.0141L85.3448 81.2019L57.5431 59.3897H61.638L66.1638 92H35.1293Z" fill="#52A9FF" />
+                <path d="M35.1293 92L39.2242 59.3897L44.8276 60.4695L14.2241 81.2019L0 57.0141L32.7586 45.3521V47.7277L0 33.4742L14.2241 8.85446L45.6896 33.2582L39.2242 34.1221L34.4828 0H65.5172L61.4225 33.9061L56.681 32.8263L85.7759 8.85446L100 33.4742L66.1638 47.7277V45.5681L99.569 57.0141L85.3448 81.2019L57.5431 59.3897H61.638L66.1638 92H35.1293Z" fill="#22d3ee" />
             </svg>
           @endif
         </span>
@@ -83,7 +350,7 @@
             <img src="{{ $logoValue }}" alt="" style="max-height:30px;vertical-align:middle;margin-right:6px;">
           @else
             <svg width="30" height="28" viewBox="0 0 100 92" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;margin-right:6px;">
-                <path d="M35.1293 92L39.2242 59.3897L44.8276 60.4695L14.2241 81.2019L0 57.0141L32.7586 45.3521V47.7277L0 33.4742L14.2241 8.85446L45.6896 33.2582L39.2242 34.1221L34.4828 0H65.5172L61.4225 33.9061L56.681 32.8263L85.7759 8.85446L100 33.4742L66.1638 47.7277V45.5681L99.569 57.0141L85.3448 81.2019L57.5431 59.3897H61.638L66.1638 92H35.1293Z" fill="#52A9FF" />
+                <path d="M35.1293 92L39.2242 59.3897L44.8276 60.4695L14.2241 81.2019L0 57.0141L32.7586 45.3521V47.7277L0 33.4742L14.2241 8.85446L45.6896 33.2582L39.2242 34.1221L34.4828 0H65.5172L61.4225 33.9061L56.681 32.8263L85.7759 8.85446L100 33.4742L66.1638 47.7277V45.5681L99.569 57.0141L85.3448 81.2019L57.5431 59.3897H61.638L66.1638 92H35.1293Z" fill="#22d3ee" />
             </svg>
           @endif
           <b>{{ config('app.name', 'Luxodactyl') }}</b>
