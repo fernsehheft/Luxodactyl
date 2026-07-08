@@ -157,14 +157,25 @@ setup_panel() {
 
     # Clone luxodactyl repository
     log_info "Klone Repository..."
-    git clone https://github.com/BlueprintFramework/luxodactyl.git .
-    git checkout canary # We use main/canary branch
+    git clone https://github.com/fernsehheft/Luxodactyl.git .
+    git checkout main
 
     # Copy env and set permissions
     cp .env.example .env
 
     log_info "Installiere Composer-Abhängigkeiten..."
     composer install --no-dev --optimize-autoloader --no-interaction
+
+    # Install Node.js & pnpm and compile frontend
+    log_info "Installiere Node.js und pnpm..."
+    curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+    apt-get install -y nodejs
+    npm install -g corepack@latest pnpm
+    corepack enable
+
+    log_info "Kompiliere Frontend-Assets (Redesign)..."
+    pnpm install
+    pnpm run build
 
     # Generate app key
     php artisan key:generate --force
@@ -173,9 +184,8 @@ setup_panel() {
     log_info "Bitte gib die FQDN/Domain für dein Panel ein (z.B. panel.deine-domain.de):"
     read -p "Domain: " PANEL_URL
     
-    # Configure Database in .env
     sed -i "s/DB_DATABASE=.*/DB_DATABASE=${DB_NAME}/g" .env
-    sed -i "s/DB_USERNAME=.*/DB_USERNAME=${DB_USER}/g" sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=${DB_PASS}/g" .env || \
+    sed -i "s/DB_USERNAME=.*/DB_USERNAME=${DB_USER}/g" .env
     sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=${DB_PASS}/g" .env
     sed -i "s#APP_URL=.*#APP_URL=https://${PANEL_URL}#g" .env
 
