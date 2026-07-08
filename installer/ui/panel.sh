@@ -62,10 +62,9 @@ echo ""
 print_brake 40
 output "Administrator account"
 print_brake 40
+output "This is the first admin user you will log in with."
 
-email_input ADMIN_EMAIL "Email for Let's Encrypt & panel author (admin@example.com): " "Please enter a valid email."
-USER_EMAIL="$ADMIN_EMAIL"
-
+email_input USER_EMAIL "Admin email (used to log in): " "Please enter a valid email."
 required_input USER_USERNAME "Admin username [admin]: " "" "admin"
 required_input USER_FIRSTNAME "Admin first name [Admin]: " "" "Admin"
 required_input USER_LASTNAME "Admin last name [User]: " "" "User"
@@ -81,12 +80,15 @@ print_brake 40
 
 ASSUME_SSL=false
 CONFIGURE_LETSENCRYPT=false
+LE_EMAIL=""
 
 echo -n "* Automatically obtain a free Let's Encrypt SSL certificate? (y/N): "
 read -r CONFIRM_SSL
 if [[ "$CONFIRM_SSL" =~ [Yy] ]]; then
   CONFIGURE_LETSENCRYPT=true
   ASSUME_SSL=true
+  # The Let's Encrypt email is only needed when SSL is requested.
+  email_input LE_EMAIL "Email for Let's Encrypt (renewal notices): " "Please enter a valid email."
 else
   echo -n "* Do you already have SSL certs and want the HTTPS nginx config anyway? (y/N): "
   read -r CONFIRM_ASSUME
@@ -111,9 +113,10 @@ output "Database user:        ${COLOR_CYAN}${MYSQL_USER}${COLOR_NC}"
 output "Database password:    ${COLOR_CYAN}${MYSQL_PASSWORD}${COLOR_NC}"
 output "Panel FQDN:           ${COLOR_CYAN}${FQDN}${COLOR_NC}"
 output "Timezone:             ${COLOR_CYAN}${TIMEZONE}${COLOR_NC}"
-output "Admin email:          ${COLOR_CYAN}${ADMIN_EMAIL}${COLOR_NC}"
+output "Admin email:          ${COLOR_CYAN}${USER_EMAIL}${COLOR_NC}"
 output "Admin username:       ${COLOR_CYAN}${USER_USERNAME}${COLOR_NC}"
 output "Configure SSL:        ${COLOR_CYAN}${CONFIGURE_LETSENCRYPT}${COLOR_NC}"
+[ "$CONFIGURE_LETSENCRYPT" == true ] && output "Let's Encrypt email:  ${COLOR_CYAN}${LE_EMAIL}${COLOR_NC}"
 output "Configure firewall:   ${COLOR_CYAN}${CONFIGURE_FIREWALL}${COLOR_NC}"
 print_brake 70
 warning "Write down the database password above — it will be needed for recovery."
@@ -122,12 +125,11 @@ echo ""
 echo -n "* Proceed with the installation? (y/N): "
 read -r CONFIRM_INSTALL
 if [[ ! "$CONFIRM_INSTALL" =~ [Yy] ]]; then
-  error "Installation aborted by user."
-  exit 1
+  abort_install "Installation aborted by user."
 fi
 
 export MYSQL_DB MYSQL_USER MYSQL_PASSWORD FQDN TIMEZONE
-export ADMIN_EMAIL USER_EMAIL USER_USERNAME USER_FIRSTNAME USER_LASTNAME USER_PASSWORD
-export ASSUME_SSL CONFIGURE_LETSENCRYPT CONFIGURE_FIREWALL
+export USER_EMAIL USER_USERNAME USER_FIRSTNAME USER_LASTNAME USER_PASSWORD
+export ASSUME_SSL CONFIGURE_LETSENCRYPT CONFIGURE_FIREWALL LE_EMAIL
 
 run_installer "panel"

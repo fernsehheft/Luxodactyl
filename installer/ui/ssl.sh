@@ -12,11 +12,11 @@ output "Nginx must already serve that domain on port 80 and it must resolve to t
 echo ""
 
 required_input FQDN "Domain to secure (panel.example.com): " "A domain is required."
-email_input ADMIN_EMAIL "Email for certificate registration: " "Please enter a valid email."
+email_input LE_EMAIL "Email for certificate registration: " "Please enter a valid email."
 
 install_packages "certbot python3-certbot-nginx"
 
-if certbot --nginx -d "$FQDN" --non-interactive --agree-tos -m "$ADMIN_EMAIL" --redirect; then
+if certbot --nginx -d "$FQDN" --non-interactive --agree-tos -m "$LE_EMAIL" --redirect; then
   success "SSL certificate installed for ${FQDN}."
 else
   error "Failed to obtain the SSL certificate. Check the log at ${LOG_PATH}."

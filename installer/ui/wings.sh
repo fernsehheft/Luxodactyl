@@ -21,8 +21,7 @@ echo ""
 echo -n "* Proceed with the Wings installation? (y/N): "
 read -r CONFIRM_INSTALL
 if [[ ! "$CONFIRM_INSTALL" =~ [Yy] ]]; then
-  error "Installation aborted by user."
-  exit 1
+  abort_install "Installation aborted by user."
 fi
 
 export CONFIGURE_FIREWALL

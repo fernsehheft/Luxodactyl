@@ -17,7 +17,7 @@ echo ""
 warning "This will remove the selected component. Databases are NOT dropped automatically."
 echo -n "* Are you absolutely sure? Type 'yes' to continue: "
 read -r CONFIRM
-[ "$CONFIRM" != "yes" ] && error "Uninstall aborted." && exit 1
+[ "$CONFIRM" != "yes" ] && abort_install "Uninstall aborted."
 
 uninstall_panel() {
   output "Stopping and removing the queue worker service..."
@@ -50,5 +50,5 @@ uninstall_wings() {
 case "$target" in
   0) uninstall_panel ;;
   1) uninstall_wings ;;
-  *) error "Invalid option." && exit 1 ;;
+  *) abort_install "Invalid option." ;;
 esac

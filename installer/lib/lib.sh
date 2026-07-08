@@ -76,11 +76,19 @@ print_brake() {
   echo ""
 }
 
+# Controlled, non-crash exit (user aborts, failed preconditions).
+# Exit code 3 is recognised by the bootstrap's failure handler and does
+# NOT print the "installer crashed, send the log" message.
+abort_install() {
+  warning "${1:-Installation aborted.}"
+  exit 3
+}
+
 hyperlink() {
   echo -e "\e]8;;${1}\a${1}\e]8;;\a"
 }
 
-export -f output success error warning print_brake hyperlink
+export -f output success error warning print_brake hyperlink abort_install
 
 # --------------------------------------------------------------------- #
 #                        Regular expressions                             #
@@ -221,7 +229,7 @@ check_os_supported() {
   if [ "$supported" == false ]; then
     error "Your OS (${OS} ${OS_VER}) is not supported by this installer."
     output "Supported systems: Ubuntu 22.04 / 24.04, Debian 11 / 12."
-    exit 1
+    exit 3
   fi
 
   output "Detected operating system: ${COLOR_MAGENTA}${OS} ${OS_VER} (${ARCH})${COLOR_NC}"
@@ -230,7 +238,7 @@ check_os_supported() {
 check_root() {
   if [ "$(id -u)" -ne 0 ]; then
     error "This script must be run as root (use: sudo -i)."
-    exit 1
+    exit 3
   fi
 }
 
@@ -341,14 +349,18 @@ export -f get_latest_release
 # --------------------------------------------------------------------- #
 run_ui() {
   local name="$1"
+  local file
+  file="$(fetch_source "ui/${name}.sh")" || { error "Could not load UI module '${name}'."; return 1; }
   # shellcheck source=/dev/null
-  source <(fetch_source "ui/${name}.sh")
+  source "$file"
 }
 
 run_installer() {
   local name="$1"
+  local file
+  file="$(fetch_source "installers/${name}.sh")" || { error "Could not load installer module '${name}'."; return 1; }
   # shellcheck source=/dev/null
-  source <(fetch_source "installers/${name}.sh")
+  source "$file"
 }
 
 export -f run_ui run_installer

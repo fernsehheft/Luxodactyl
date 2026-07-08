@@ -9,10 +9,10 @@
 #  Expected variables (set by ui/panel.sh):                           #
 #    MYSQL_DB, MYSQL_USER, MYSQL_PASSWORD                              #
 #    FQDN, TIMEZONE                                                    #
-#    ADMIN_EMAIL                                                       #
 #    USER_EMAIL, USER_USERNAME, USER_FIRSTNAME, USER_LASTNAME,        #
 #    USER_PASSWORD                                                     #
 #    ASSUME_SSL, CONFIGURE_LETSENCRYPT, CONFIGURE_FIREWALL            #
+#    LE_EMAIL (only when CONFIGURE_LETSENCRYPT=true)                  #
 ########################################################################
 
 # --------------------------------------------------------------------- #
@@ -50,6 +50,7 @@ install_nodejs() {
   output "Installing Node.js 22 and pnpm (required to build the panel frontend)..."
   curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
   install_packages "nodejs"
+  export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
   npm install -g corepack@latest
   corepack enable
   corepack prepare pnpm@latest --activate
@@ -123,7 +124,22 @@ panel_dl() {
   pnpm install --frozen-lockfile || pnpm install
   pnpm run build
 
-  php artisan key:generate --force
+  # Generate the application key WITHOUT invoking artisan. On this fork
+  # (Laravel 13) some service providers resolve the encrypter while the
+  # framework boots, so `artisan key:generate` fails with
+  # "No application encryption key has been specified" when the key is
+  # still empty. Writing a valid base64 key straight into .env avoids
+  # that chicken-and-egg situation; every later artisan command then
+  # boots cleanly.
+  output "Generating the application key..."
+  local app_key="base64:$(openssl rand -base64 32)"
+  sed -i "s#^APP_KEY=.*#APP_KEY=${app_key}#" .env
+
+  # Hashids salt ships empty in .env.example; set it here so we don't
+  # depend on the artisan bootstrap generating it.
+  local hashids_salt
+  hashids_salt="$(openssl rand -hex 20)"
+  sed -i "s#^HASHIDS_SALT=.*#HASHIDS_SALT=${hashids_salt}#" .env
 }
 
 configure_environment() {
@@ -133,7 +149,7 @@ configure_environment() {
   [ "$ASSUME_SSL" == true ] && app_url="https://$FQDN"
 
   php artisan p:environment:setup \
-    --author="$ADMIN_EMAIL" \
+    --author="$USER_EMAIL" \
     --url="$app_url" \
     --timezone="$TIMEZONE" \
     --cache="redis" \
@@ -336,7 +352,7 @@ letsencrypt() {
   # server block references certs that don't exist yet, so we obtain
   # the cert in webroot/standalone-friendly nginx mode.
   systemctl stop nginx || true
-  if certbot certonly --standalone -d "$FQDN" --non-interactive --agree-tos -m "$ADMIN_EMAIL"; then
+  if certbot certonly --standalone -d "$FQDN" --non-interactive --agree-tos -m "$LE_EMAIL"; then
     success "SSL certificate obtained."
   else
     warning "Failed to obtain an SSL certificate. The panel will run on HTTP until you configure SSL manually."
