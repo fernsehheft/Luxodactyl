@@ -77,6 +77,12 @@ luxo_wings_install() {
   check_os_supported
   check_virt
 
+  # Complete reinstall: stop the running daemon so the binary can be replaced.
+  if [ "${REINSTALL:-false}" == true ]; then
+    output "Reinstall: stopping the existing Wings daemon..."
+    systemctl stop wings 2>/dev/null || true
+  fi
+
   update_repos
   install_packages "curl tar unzip git"
 

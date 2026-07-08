@@ -255,6 +255,48 @@ check_virt() {
 export -f detect_os check_os_supported check_root check_virt
 
 # --------------------------------------------------------------------- #
+#                    Existing-installation detection                     #
+# --------------------------------------------------------------------- #
+panel_is_installed() {
+  [ -f "$INSTALL_DIR/.env" ] || [ -f "$INSTALL_DIR/artisan" ] || [ -f /etc/systemd/system/luxodactyl.service ]
+}
+
+wings_is_installed() {
+  [ -f /usr/local/bin/wings ] || [ -f /etc/systemd/system/wings.service ]
+}
+
+# detect_existing <panel|wings>
+#   If the component is already installed, warns the user and asks whether
+#   to completely reinstall. Sets REINSTALL=true on confirmation, otherwise
+#   aborts cleanly. Does nothing (REINSTALL=false) on a fresh machine.
+detect_existing() {
+  local kind="$1"
+  REINSTALL=false
+
+  local installed=1
+  case "$kind" in
+    panel) panel_is_installed && installed=0 ;;
+    wings) wings_is_installed && installed=0 ;;
+  esac
+
+  if [ "$installed" -eq 0 ]; then
+    warning "An existing ${kind} installation was detected on this machine."
+    echo -n "* It looks like ${kind} is already installed. Reinstall it completely? (y/N): "
+    read -r CONFIRM_REINSTALL
+    if [[ "$CONFIRM_REINSTALL" =~ [Yy] ]]; then
+      REINSTALL=true
+      warning "Reinstall mode enabled — existing ${kind} files/services will be replaced."
+    else
+      abort_install "${kind} is already installed. Nothing to do."
+    fi
+  fi
+
+  export REINSTALL
+}
+
+export -f panel_is_installed wings_is_installed detect_existing
+
+# --------------------------------------------------------------------- #
 #                        Package management                              #
 # --------------------------------------------------------------------- #
 update_repos() {

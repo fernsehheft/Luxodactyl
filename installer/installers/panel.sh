@@ -119,6 +119,15 @@ SQL
 #                          Panel installation                          #
 # --------------------------------------------------------------------- #
 panel_dl() {
+  # Complete reinstall: stop the worker and wipe the old panel files so we
+  # get a clean checkout. The database is intentionally left untouched so
+  # existing servers/users survive; drop it manually for a truly blank slate.
+  if [ "${REINSTALL:-false}" == true ] && [ -d "$INSTALL_DIR" ]; then
+    output "Reinstall: removing the existing panel at ${INSTALL_DIR} (database is kept)..."
+    systemctl stop luxodactyl.service 2>/dev/null || true
+    rm -rf "$INSTALL_DIR"
+  fi
+
   output "Downloading Luxodactyl to ${INSTALL_DIR}..."
   mkdir -p "$INSTALL_DIR"
   cd "$INSTALL_DIR" || exit 1

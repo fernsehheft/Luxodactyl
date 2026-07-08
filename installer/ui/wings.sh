@@ -7,6 +7,9 @@
 check_root
 check_os_supported
 
+# Detect an existing Wings install and offer a complete reinstall (or abort).
+detect_existing "wings"
+
 output "Starting the Wings installation wizard."
 output "Wings is the server-side daemon that runs your game servers via Docker."
 echo ""

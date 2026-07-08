@@ -11,6 +11,9 @@ check_root
 check_os_supported
 check_virt
 
+# Detect an existing panel and offer a complete reinstall (or abort).
+detect_existing "panel"
+
 output "Starting the Luxodactyl panel installation wizard."
 output "You will be asked a few questions. Press Enter to accept the [default] where offered."
 echo ""
