@@ -4,49 +4,49 @@
 @plugin "tailwind-scrollbar";
 
 @theme {
-    --color-ring: deepskyblue;
+    --color-ring: #00d8f6;
 
-    --color-brand-50: oklch(0.97 0.0143 57.59);
-    --color-brand-100: oklch(0.9354 0.0323 58.39);
-    --color-brand-200: oklch(0.8798 0.063 58.24);
-    --color-brand-300: oklch(0.818 0.0981 55.75);
-    --color-brand-400: oklch(0.7603 0.1318 54.85);
-    --color-brand-500: oklch(0.7123 0.1602 52.23);
-    --color-brand-600: oklch(0.6276 0.1636 48.48);
-    --color-brand-700: oklch(0.5108 0.1316 48.74);
-    --color-brand-800: oklch(0.3887 0.0962 49.79);
-    --color-brand-900: oklch(0.2451 0.0546 53.64);
+    --color-brand-50: #e6fdff;
+    --color-brand-100: #bbf7ff;
+    --color-brand-200: #7af0ff;
+    --color-brand-300: #33e5ff;
+    --color-brand-400: #00d2f0;
+    --color-brand-500: #00b2d1;
+    --color-brand-600: #008bb2;
+    --color-brand-700: #006b8f;
+    --color-brand-800: #065873;
+    --color-brand-900: #0b485c;
 
-    --color-cream-100: #fffdfa;
-    --color-cream-200: #fff8f0;
-    --color-cream-300: #fff5eb;
-    --color-cream-400: #fff1e0;
-    --color-cream-500: #ffedd9;
+    --color-cream-100: #f0f8ff;
+    --color-cream-200: #dbeeff;
+    --color-cream-300: #badeff;
+    --color-cream-400: #9fcbff;
+    --color-cream-500: #80b4ff;
 
-    --color-mocha-50: #867565;
-    --color-mocha-100: #78695a;
-    --color-mocha-200: #5d5246;
-    --color-mocha-300: #433b32;
-    --color-mocha-400: #29241f;
-    --color-mocha-500: #1d1816;
-    --color-mocha-600: #14110f;
-    --color-mocha-700: #0c0a09;
+    --color-mocha-50: #5b7294;
+    --color-mocha-100: #3d4d68;
+    --color-mocha-200: #242f42;
+    --color-mocha-300: #161f2e;
+    --color-mocha-400: #0d131f;
+    --color-mocha-500: #080b13;
+    --color-mocha-600: #05070a;
+    --color-mocha-700: #020305;
 
-    --color-bg: #0c0a09;
-    --color-bg-raised: #110f0d;
-    --color-bg-lowered: #0c0a09;
+    --color-bg: #05070a;
+    --color-bg-raised: #0a0e17;
+    --color-bg-lowered: #020305;
 
-    --color-primary: var(--color-cream-400);
-    --color-secondary: #fff6eb9c;
+    --color-primary: var(--color-cream-100);
+    --color-secondary: #badeffb2;
 
     --color-inherit: inherit;
     --color-current: currentColor;
     --color-transparent: transparent;
     --color-black: #000000;
-    --color-white: #fff;
+    --color-white: #ffffff;
 
-    --color-brand-grad: radial-gradient(109.26% 109.26% at 49.83% 13.37%, #ff343c 0%, #f06f53 100%);
-    --color-brand: #fa4e49;
+    --color-brand-grad: radial-gradient(109.26% 109.26% at 49.83% 13.37%, #00f2fe 0%, #0056f0 100%);
+    --color-brand: #00d8f6;
 
     --transition-duration-250: 250ms;
 

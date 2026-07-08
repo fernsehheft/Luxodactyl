@@ -51,7 +51,12 @@ export default createGlobalStyle`
         border-right-width: 3px;
         border-left-width: 3px;
         -webkit-border-radius: 9px 4px;
-        -webkit-box-shadow: inset 0 0 0 3px hsl(0deg 0% 30%);
+        -webkit-box-shadow: inset 0 0 0 3px rgba(0, 216, 246, 0.3);
+        transition: box-shadow 0.2s ease-in-out;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        -webkit-box-shadow: inset 0 0 0 3px rgba(0, 216, 246, 0.6);
     }
 
     ::-webkit-scrollbar-track-piece {
@@ -238,4 +243,60 @@ export default createGlobalStyle`
     input::placeholder {
         color: #ffffff55 !important;
     }
+
+    /* Glassmorphism & High-tech overrides */
+    .glass {
+        background: rgba(12, 14, 21, 0.6) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+    }
+    
+    .glass-hover {
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .glass-hover:hover {
+        background: rgba(12, 14, 21, 0.75) !important;
+        border-color: rgba(0, 216, 246, 0.2) !important;
+        box-shadow: 0 8px 32px 0 rgba(0, 216, 246, 0.1) !important;
+    }
+
+    /* Glow utility for status indicators */
+    .status-glow-online {
+        box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+    }
+    .status-glow-offline {
+        box-shadow: 0 0 12px rgba(239, 68, 68, 0.5);
+    }
+    .status-glow-starting {
+        box-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+    }
+
+    /* Card glow and accent lines */
+    .card-neon {
+        position: relative;
+        overflow: hidden;
+    }
+    .card-neon::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #00d8f6, transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .card-neon:hover::before {
+        opacity: 1;
+    }
+
+    /* Input focus glow */
+    input:focus, textarea:focus, select:focus {
+        border-color: rgba(0, 216, 246, 0.5) !important;
+        box-shadow: 0 0 8px rgba(0, 216, 246, 0.25) !important;
+    }
 `;
+
