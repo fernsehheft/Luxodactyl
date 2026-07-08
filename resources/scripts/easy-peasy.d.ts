@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 // noinspection ES6UnusedImports
 import { Actions, State } from 'easy-peasy';
 

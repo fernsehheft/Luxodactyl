@@ -1,7 +1,10 @@
+import { LayoutSideContent } from '@gravity-ui/icons';
 import type { IconSvgElement } from '@hugeicons/react';
 import { memo, type RefObject, useCallback, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
+import { Button } from '@/components/ui/button';
+import { useSidebar } from '@/contexts/SidebarContext';
 import { cn } from '@/lib/utils';
 
 import NavItem from './NavItem';
@@ -26,6 +29,7 @@ interface SidebarProps {
 }
 
 export default memo(function Sidebar({ navItems, className, onNavClick }: SidebarProps) {
+    const { isMinimized, toggleMinimized } = useSidebar();
     const location = useLocation();
 
     // dynamic CSS for hover and active states on mount
@@ -125,6 +129,19 @@ export default memo(function Sidebar({ navItems, className, onNavClick }: Sideba
                     );
                 })}
             </ul>
+            {isMinimized && (
+                <div className='mt-auto flex justify-center py-4'>
+                    <Button
+                        variant='secondary'
+                        size='sm'
+                        className='p-1 gap-1 rounded-full size-8'
+                        aria-label='Expand sidebar'
+                        onClick={toggleMinimized}
+                    >
+                        <LayoutSideContent width={16} height={16} />
+                    </Button>
+                </div>
+            )}
         </div>
     );
 });

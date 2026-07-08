@@ -7,7 +7,6 @@ interface ChartBlockProps {
     className?: string;
 }
 
-// eslint-disable-next-line react/display-name
 export default ({ title, legend, children, className }: ChartBlockProps) => (
     <div
         className={cn(

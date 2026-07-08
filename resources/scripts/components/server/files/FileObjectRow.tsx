@@ -79,10 +79,8 @@ const FileObjectRow = ({ file }: { file: FileObject }) => (
 );
 
 export default memo(FileObjectRow, (prevProps, nextProps) => {
-    /* eslint-disable @typescript-eslint/no-unused-vars */
     const { isArchiveType, isEditable, ...prevFile } = prevProps.file;
     const { isArchiveType: nextIsArchiveType, isEditable: nextIsEditable, ...nextFile } = nextProps.file;
-    /* eslint-enable @typescript-eslint/no-unused-vars */
 
     return isEqual(prevFile, nextFile);
 });

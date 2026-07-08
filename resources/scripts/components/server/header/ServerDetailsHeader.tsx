@@ -11,7 +11,6 @@ import { ServerContext } from '@/state/server';
 type Stats = Record<'memory' | 'cpu' | 'disk' | 'uptime' | 'rx' | 'tx', number>;
 
 // @ts-expect-error - Unused parameter in component definition
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const _Limit = ({ children }: { limit: string | null; children: React.ReactNode }) => <>{children}</>;
 
 const ServerDetailsHeader = ({ className }: { className?: string }) => {

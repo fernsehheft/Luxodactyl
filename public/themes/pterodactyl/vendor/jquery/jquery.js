@@ -73,10 +73,6 @@
         script.text = code;
         doc.head.appendChild(script).parentNode.removeChild(script);
     }
-    /* global Symbol */
-    // Defining this global in .eslintrc.json would create a danger of using the global
-    // unguarded in another place, it seems safer to define global only for this module
-
     var version = '3.1.1',
         // Define a local copy of jQuery
         jQuery = (selector, context) => {
@@ -293,8 +289,6 @@
         },
 
         isEmptyObject: (obj) => {
-            /* eslint-disable no-unused-vars */
-            // See https://github.com/eslint/eslint/issues/6125
             var name;
 
             for (name in obj) {
@@ -5398,11 +5392,9 @@
         },
     });
 
-    var /* eslint-disable max-len */
+    var
 
-        // See https://github.com/eslint/eslint/issues/3229
         rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([a-z][^/\0>\x20\t\r\n\f]*)[^>]*)\/>/gi,
-        /* eslint-enable */
 
         // Support: IE <=10 - 11, Edge 12 - 13
         // In IE/Edge using regex groups here causes severe slowdowns.
@@ -6718,10 +6710,7 @@
                     showHide([elem], true);
                 }
 
-                /* eslint-disable no-loop-func */
-
                 this.done(() => {
-                    /* eslint-enable no-loop-func */
 
                     // The final step of a "hide" animation is actually hiding the element
                     if (!hidden) {
@@ -7439,12 +7428,9 @@
     // on the option
     // The getter ensures a default option is selected
     // when in an optgroup
-    // eslint rule "no-unused-expressions" is disabled for this code
-    // since it considers such accessions noop
     if (!support.optSelected) {
         jQuery.propHooks.selected = {
             get: (elem) => {
-                /* eslint no-unused-expressions: "off" */
 
                 var parent = elem.parentNode;
                 if (parent && parent.parentNode) {
@@ -7453,8 +7439,6 @@
                 return null;
             },
             set: (elem) => {
-                /* eslint no-unused-expressions: "off" */
-
                 var parent = elem.parentNode;
                 if (parent) {
                     parent.selectedIndex;
@@ -7793,13 +7777,9 @@
                     while (i--) {
                         option = options[i];
 
-                        /* eslint-disable no-cond-assign */
-
                         if ((option.selected = jQuery.inArray(jQuery.valHooks.option.get(option), values) > -1)) {
                             optionSet = true;
                         }
-
-                        /* eslint-enable no-cond-assign */
                     }
 
                     // Force browsers to behave consistently when non-matching value is set

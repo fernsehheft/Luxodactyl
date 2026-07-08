@@ -5,6 +5,7 @@ import Logo from '@/components/elements/HydroLogo';
 import { Button } from '@/components/ui/button';
 import { useHeader } from '@/contexts/HeaderContext';
 import { useSidebar } from '@/contexts/SidebarContext';
+import { cn } from '@/lib/utils';
 
 import { MobileSidebarToggle } from '../sidebar/MobileSidebar';
 import '../sidebar/sidebar-modern.css';
@@ -57,10 +58,17 @@ const ToggleButton = memo(() => {
 ToggleButton.displayName = 'ToggleButton';
 
 const SidebarLogo = memo(() => {
+    const { isMinimized } = useSidebar();
+
     return (
-        <div className='sidebar-logo-container hidden lg:flex h-[48px] items-center justify-between mx-8 flex-none'>
+        <div
+            className={cn(
+                'sidebar-logo-container hidden lg:flex h-[48px] items-center mx-8 flex-none',
+                isMinimized ? 'justify-center' : 'justify-between',
+            )}
+        >
             <LogoSection />
-            <ToggleButton />
+            {!isMinimized && <ToggleButton />}
         </div>
     );
 });
