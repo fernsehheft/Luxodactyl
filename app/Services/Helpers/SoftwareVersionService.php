@@ -23,8 +23,19 @@ class SoftwareVersionService
         protected CacheRepository $cache,
         protected Client $client,
     ) {
-        self::$result = $this->cacheVersionData();
-        self::$latestPanelVersion = $this->cacheLatestPanelVersion();
+        // These feed an informational "update available?" banner -- if the cache
+        // store or GitHub is having a bad day, the panel should still load.
+        try {
+            self::$result = $this->cacheVersionData();
+        } catch (\Throwable) {
+            self::$result = [];
+        }
+
+        try {
+            self::$latestPanelVersion = $this->cacheLatestPanelVersion();
+        } catch (\Throwable) {
+            self::$latestPanelVersion = '';
+        }
     }
 
     /**
@@ -64,13 +75,15 @@ class SoftwareVersionService
      */
     public function isLatestPanel(): bool
     {
-        if (config('app.version') === 'canary' || self::$latestPanelVersion === '') {
+        $current = (string) config('app.version', 'canary');
+
+        if ($current === '' || $current === 'canary' || self::$latestPanelVersion === '') {
             // Either a development install (no pinned release) or we couldn't
             // reach GitHub -- don't nag the admin with a false "update available".
             return true;
         }
 
-        return version_compare(ltrim(config('app.version'), 'v'), ltrim(self::$latestPanelVersion, 'v')) >= 0;
+        return version_compare(ltrim($current, 'v'), ltrim(self::$latestPanelVersion, 'v')) >= 0;
     }
 
     /**
@@ -90,19 +103,23 @@ class SoftwareVersionService
      */
     protected function cacheVersionData(): array
     {
-        return $this->cache->remember(self::VERSION_CACHE_KEY, CarbonImmutable::now()->addMinutes(config('pterodactyl.cdn.cache_time', 60)), function () {
+        $data = $this->cache->remember(self::VERSION_CACHE_KEY, CarbonImmutable::now()->addMinutes(config('pterodactyl.cdn.cache_time', 60)), function () {
             try {
                 $response = $this->client->request('GET', config('pterodactyl.cdn.url'));
 
                 if ($response->getStatusCode() === 200) {
-                    return json_decode($response->getBody(), true);
+                    $decoded = json_decode($response->getBody(), true);
+
+                    return is_array($decoded) ? $decoded : [];
                 }
 
                 throw new CdnVersionFetchingException();
-            } catch (\Exception) {
+            } catch (\Throwable) {
                 return [];
             }
         });
+
+        return is_array($data) ? $data : [];
     }
 
     /**
@@ -115,7 +132,7 @@ class SoftwareVersionService
     {
         $channel = config('luxodactyl.updates.channel', 'release');
 
-        return $this->cache->remember(self::PANEL_RELEASE_CACHE_KEY . ":{$channel}", CarbonImmutable::now()->addMinutes(config('luxodactyl.updates.cache_time', 60)), function () use ($channel) {
+        $tag = $this->cache->remember(self::PANEL_RELEASE_CACHE_KEY . ":{$channel}", CarbonImmutable::now()->addMinutes(config('luxodactyl.updates.cache_time', 60)), function () use ($channel) {
             $repo = config('luxodactyl.updates.repo');
 
             try {
@@ -125,9 +142,9 @@ class SoftwareVersionService
                     ]);
 
                     if ($response->getStatusCode() === 200) {
-                        $releases = json_decode($response->getBody(), true) ?? [];
-                        foreach ($releases as $release) {
-                            if (($release['draft'] ?? false) === false && ($release['prerelease'] ?? false) === true) {
+                        $releases = json_decode($response->getBody(), true);
+                        foreach ((is_array($releases) ? $releases : []) as $release) {
+                            if (is_array($release) && ($release['draft'] ?? false) === false && ($release['prerelease'] ?? false) === true) {
                                 return $release['tag_name'] ?? '';
                             }
                         }
@@ -141,13 +158,19 @@ class SoftwareVersionService
                 ]);
 
                 if ($response->getStatusCode() === 200) {
-                    return json_decode($response->getBody(), true)['tag_name'] ?? '';
+                    $data = json_decode($response->getBody(), true);
+
+                    return is_array($data) ? ($data['tag_name'] ?? '') : '';
                 }
-            } catch (\Exception) {
+            } catch (\Throwable) {
                 // Swallowed -- treated as "unknown" by isLatestPanel()/getPanel().
             }
 
             return '';
         });
+
+        // Guard against a stale/corrupt cache entry from a previous version of
+        // this method holding something other than a plain string.
+        return is_string($tag) ? $tag : '';
     }
 }

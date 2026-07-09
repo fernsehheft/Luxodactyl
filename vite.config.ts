@@ -11,26 +11,28 @@ import manifestSRI from 'vite-plugin-manifest-sri';
 
 import packageJson from './package.json';
 
-function getLaravelAppVersion() {
+// The installer writes the resolved version/channel into .env (APP_VERSION,
+// APP_UPDATE_CHANNEL) before running this build, so that's the actual source
+// of truth for what's being deployed -- not config/app.php, which just reads
+// those same .env values back out at runtime via env().
+function getEnvValue(key: string, fallback: string): string {
     try {
-        const configPath = path.resolve(__dirname, 'config/app.php');
-        const configContent = fs.readFileSync(configPath, 'utf8');
+        const envPath = path.resolve(__dirname, '.env');
+        const envContent = fs.readFileSync(envPath, 'utf8');
+        const match = envContent.match(new RegExp(`^${key}=(.*)$`, 'm'));
 
-        const versionMatch = configContent.match(/'version'\s*=>\s*'(.*?)'/);
-
-        if (versionMatch?.[1]) {
-            return versionMatch[1];
+        if (match?.[1]) {
+            return match[1].trim();
         }
-
-        // Fallback to package.json version if not found in Laravel config
-        return packageJson.version;
     } catch (error) {
-        console.error('Error reading Laravel config:', error);
-        return packageJson.version;
+        console.error(`Error reading ${key} from .env:`, error);
     }
+
+    return fallback;
 }
 
-const laravelVersion = getLaravelAppVersion();
+const laravelVersion = getEnvValue('APP_VERSION', packageJson.version);
+const updateChannel = getEnvValue('APP_UPDATE_CHANNEL', 'release');
 
 let branchName: string;
 let commitHash: string;
@@ -71,6 +73,7 @@ export default defineConfig({
 
     define: {
         'import.meta.env.VITE_LUXODACTYL_VERSION': JSON.stringify(laravelVersion),
+        'import.meta.env.VITE_LUXODACTYL_CHANNEL': JSON.stringify(updateChannel),
         'import.meta.env.VITE_COMMIT_HASH': JSON.stringify(commitHash),
         'import.meta.env.VITE_BRANCH_NAME': JSON.stringify(branchName),
         'import.meta.env.VITE_LUXODACTYL_BUILD_NUMBER': JSON.stringify(packageJson.buildNumber),
