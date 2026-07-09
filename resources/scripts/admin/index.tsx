@@ -2,6 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
 
+import UsersListApp from '@/admin/users/UsersListApp';
+import '@/assets/tailwind.css';
+
 interface SystemMetrics {
     status: string;
     timestamp: string;
@@ -229,8 +232,12 @@ function AdminDashboard() {
     );
 }
 
-const container = document.getElementById('admin-dashboard');
-if (container) {
-    const root = createRoot(container);
-    root.render(<AdminDashboard />);
+const dashboardContainer = document.getElementById('admin-dashboard');
+if (dashboardContainer) {
+    createRoot(dashboardContainer).render(<AdminDashboard />);
+}
+
+const usersListContainer = document.getElementById('admin-users-app');
+if (usersListContainer) {
+    createRoot(usersListContainer).render(<UsersListApp />);
 }
