@@ -276,7 +276,7 @@ const ServerRouter = () => {
                         <MainSidebar className='hidden lg:flex lg:relative lg:shrink-0 w-[300px] bg-[#1a1a1a] flex flex-col h-full'>
                             <div className='flex flex-row items-center justify-between h-8'>
                                 <NavLink to={'/'} className='flex shrink-0 h-8 w-fit'>
-                                    <Logo uniqueId='server-desktop-sidebar' />
+                                    <Logo />
                                 </NavLink>
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>

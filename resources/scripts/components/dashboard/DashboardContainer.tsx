@@ -1,3 +1,4 @@
+import { Server as ServerIcon } from '@gravity-ui/icons';
 import { useStoreState } from 'easy-peasy';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -51,7 +52,7 @@ const DashboardContainer = () => {
 
     const { setHeaderActions, clearHeaderActions } = useHeader();
 
-    const [dashboardDisplayOption, setDashboardDisplayOption] = usePersistedState(
+    const [dashboardDisplayOption, setDashboardDisplayOption] = usePersistedState<'list' | 'grid'>(
         `${uuid}:dashboard_display_option`,
         'list',
     );
@@ -114,7 +115,11 @@ const DashboardContainer = () => {
 
     const viewTabs = useMemo(
         () => (
-            <Tabs value={dashboardDisplayOption} onValueChange={setDashboardDisplayOption} className='lg:block hidden'>
+            <Tabs
+                value={dashboardDisplayOption}
+                onValueChange={(value) => setDashboardDisplayOption(value === 'grid' ? 'grid' : 'list')}
+                className='lg:block hidden'
+            >
                 <TabsList>
                     <TabsTrigger aria-label='View servers in a list layout.' value='list'>
                         <svg
@@ -215,6 +220,17 @@ const DashboardContainer = () => {
 
     return (
         <PageContentBlock title={'Dashboard'} showFlashKey={'dashboard'}>
+            <div className='flex items-center justify-between gap-4 mb-6'>
+                <div>
+                    <h1 className='text-2xl font-bold tracking-tight'>Your Servers</h1>
+                    <p className='text-sm text-white/40'>
+                        {servers
+                            ? `${servers.pagination.total} server${servers.pagination.total === 1 ? '' : 's'}`
+                            : 'Loading…'}
+                    </p>
+                </div>
+            </div>
+
             {!servers ? null : (
                 <Pagination data={servers} onPageSelect={setPage}>
                     {({ items }) =>
@@ -232,7 +248,7 @@ const DashboardContainer = () => {
                                         className={`transform-gpu skeleton-anim-2 ${
                                             dashboardDisplayOption === 'grid'
                                                 ? items.length === 1
-                                                    ? 'w-[calc(50%-0.5rem)] max-lg:w-full'
+                                                    ? 'w-full'
                                                     : 'w-[calc(50%-0.5rem)] max-lg:w-full'
                                                 : 'mb-4'
                                         } max-lg:mb-4`}
@@ -242,32 +258,25 @@ const DashboardContainer = () => {
                                                 'linear(0,0.01,0.04 1.6%,0.161 3.3%,0.816 9.4%,1.046,1.189 14.4%,1.231,1.254 17%,1.259,1.257 18.6%,1.236,1.194 22.3%,1.057 27%,0.999 29.4%,0.955 32.1%,0.942,0.935 34.9%,0.933,0.939 38.4%,1 47.3%,1.011,1.017 52.6%,1.016 56.4%,1 65.2%,0.996 70.2%,1.001 87.2%,1)',
                                         }}
                                     >
-                                        <ServerRow
-                                            className={
-                                                dashboardDisplayOption === 'list'
-                                                    ? 'flex-row'
-                                                    : 'items-start! flex-col w-full gap-4 [&>div~div]:w-full max-lg:flex-row max-lg:items-center max-lg:gap-0 max-lg:[&>div~div]:w-auto'
-                                            }
-                                            key={server.uuid}
-                                            server={server}
-                                        />
+                                        <ServerRow layout={dashboardDisplayOption} key={server.uuid} server={server} />
                                     </div>
                                 ))}
                             </div>
                         ) : (
-                            <div
-                                className={`text-center text-sm text-zinc-400 absolute w-full left-1/2 -translate-x-1/2`}
-                            >
-                                <p className='max-w-sm mx-auto mb-5'>
+                            <div className='flex flex-col items-center text-center py-16'>
+                                <div className='flex items-center justify-center size-14 rounded-2xl bg-white/5 mb-4'>
+                                    <ServerIcon width={26} height={26} className='text-white/30' />
+                                </div>
+                                <h3 className='text-lg font-medium text-zinc-200 mb-1'>
+                                    {ownerFilter === 'admin-all' ? 'No other servers found' : 'No servers found'}
+                                </h3>
+                                <p className='max-w-sm text-sm text-zinc-400'>
                                     {ownerFilter === 'admin-all'
                                         ? 'There are no other servers to display.'
                                         : ownerFilter === 'all'
-                                          ? 'No Server Shared With your Account'
+                                          ? 'No server shared with your account.'
                                           : 'There are no servers associated with your account.'}
                                 </p>
-                                <h3 className='text-lg font-medium text-zinc-200 mb-2'>
-                                    {ownerFilter === 'admin-all' ? 'No other servers found' : 'No servers found'}
-                                </h3>
                             </div>
                         )
                     }
