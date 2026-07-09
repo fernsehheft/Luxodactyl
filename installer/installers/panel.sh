@@ -421,22 +421,54 @@ letsencrypt() {
   # Make sure the domain points here before asking Let's Encrypt for a cert.
   wait_for_dns "$FQDN"
 
+  # Cloudflare (or any reverse proxy): the record points at the proxy, so a
+  # standalone HTTP-01 challenge can't reach this server. Offer to skip the
+  # local certificate and let the proxy terminate SSL.
+  local resolved
+  resolved="$(get_dns_ip "$FQDN")"
+  if [ -n "$resolved" ] && is_cloudflare_ip "$resolved"; then
+    echo ""
+    warning "${FQDN} points to Cloudflare (proxy enabled)."
+    echo -n "* Skip the local Let's Encrypt certificate and let Cloudflare handle SSL? (Y/n): "
+    read -r CF_ANS
+    if [[ ! "$CF_ANS" =~ [Nn] ]]; then
+      warning "Skipping local certificate. In Cloudflare, set SSL/TLS mode to 'Flexible' (origin is HTTP) so visitors still get HTTPS."
+      switch_nginx_to_http
+      return 0
+    fi
+    output "Continuing with Let's Encrypt — this will only work if the record is set to 'DNS only' (grey cloud)."
+  fi
+
   output "Obtaining a Let's Encrypt certificate for ${FQDN}..."
   install_packages "certbot python3-certbot-nginx"
 
-  # Nginx must be able to start with a working config first; the SSL
-  # server block references certs that don't exist yet, so we obtain
-  # the cert in webroot/standalone-friendly nginx mode.
+  # Nginx must free port 80 for the standalone HTTP-01 challenge.
   systemctl stop nginx || true
+
   if certbot certonly --standalone -d "$FQDN" --non-interactive --agree-tos -m "$LE_EMAIL"; then
     success "SSL certificate obtained."
   else
-    warning "Failed to obtain an SSL certificate. The panel will run on HTTP until you configure SSL manually."
-    ASSUME_SSL=false
-    CONFIGURE_LETSENCRYPT=false
-    configure_nginx
+    # A stale/unknown ACME account (common after re-installs) shows up as
+    # "The account could not be found". Reset it and try once more.
+    warning "certbot failed — resetting the Let's Encrypt account and retrying..."
+    rm -rf /etc/letsencrypt/accounts 2>/dev/null || true
+    if certbot certonly --standalone -d "$FQDN" --non-interactive --agree-tos -m "$LE_EMAIL"; then
+      success "SSL certificate obtained after resetting the account."
+    else
+      warning "Could not obtain an SSL certificate. Falling back to HTTP — configure SSL later."
+      switch_nginx_to_http
+    fi
   fi
   systemctl start nginx || true
+}
+
+# Reconfigure Nginx to plain HTTP (used when SSL is skipped or fails) so the
+# server block never references certificates that don't exist.
+switch_nginx_to_http() {
+  ASSUME_SSL=false
+  CONFIGURE_LETSENCRYPT=false
+  write_nginx_plain "/etc/nginx/sites-available/luxodactyl.conf" "/run/php/php${PHP_VERSION}-fpm.sock"
+  ln -sf /etc/nginx/sites-available/luxodactyl.conf /etc/nginx/sites-enabled/luxodactyl.conf
 }
 
 # --------------------------------------------------------------------- #

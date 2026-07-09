@@ -459,6 +459,26 @@ get_dns_ip() {
   getent ahostsv4 "$1" 2>/dev/null | awk '{print $1; exit}'
 }
 
+# True if the IPv4 belongs to a Cloudflare range (proxied / orange cloud).
+# Covers Cloudflare's published ranges; used for messaging only.
+is_cloudflare_ip() {
+  case "$1" in
+    104.1[6-9].* | 104.2[0-9].* | 104.3[01].*) return 0 ;;            # 104.16.0.0/13
+    172.6[4-9].* | 172.7[01].*) return 0 ;;                           # 172.64.0.0/13
+    162.158.* | 162.159.*) return 0 ;;                                # 162.158.0.0/15
+    173.245.4[89].* | 173.245.5[0-9].* | 173.245.6[0-3].*) return 0 ;;# 173.245.48.0/20
+    108.162.*) return 0 ;;                                            # 108.162.192.0/18
+    141.101.6[4-9].* | 141.101.[7-9][0-9].* | 141.101.1[01][0-9].* | 141.101.12[0-7].*) return 0 ;; # 141.101.64.0/18
+    190.93.24[0-9].* | 190.93.25[0-5].*) return 0 ;;                  # 190.93.240.0/20
+    188.114.9[6-9].* | 188.114.1[01][0-9].*) return 0 ;;              # 188.114.96.0/20
+    197.234.24[0-3].*) return 0 ;;                                    # 197.234.240.0/22
+    198.41.12[89].* | 198.41.1[3-9][0-9].* | 198.41.2[0-5][0-9].*) return 0 ;; # 198.41.128.0/17
+    103.21.244.* | 103.21.245.* | 103.22.20[0-3].* | 103.31.[4-7].*) return 0 ;;
+    131.0.7[2-5].*) return 0 ;;                                       # 131.0.72.0/22
+    *) return 1 ;;
+  esac
+}
+
 # wait_for_dns <fqdn>
 #   Shows the required A-record, then loops until the FQDN resolves to this
 #   server. The user can recheck, skip the check, or abort at any time.
@@ -485,6 +505,14 @@ wait_for_dns() {
 
     if [ -n "$server_ip" ] && [ "$resolved" == "$server_ip" ]; then
       success "${fqdn} correctly resolves to ${server_ip}."
+      return 0
+    fi
+
+    # Cloudflare (or another proxy) in front of the record: the resolved IP is
+    # the proxy's, not this server's. The record IS set, so don't block on it.
+    if [ -n "$resolved" ] && is_cloudflare_ip "$resolved"; then
+      success "${fqdn} resolves to ${resolved} — a Cloudflare IP (proxy is enabled). The DNS record is set."
+      output "For a local Let's Encrypt certificate you would need 'DNS only' (grey cloud); otherwise use Cloudflare's own SSL."
       return 0
     fi
 
