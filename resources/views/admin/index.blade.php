@@ -103,7 +103,7 @@
     #admin-dashboard .small-box { transition: transform 0.2s ease; }
     #admin-dashboard .small-box:hover { transform: translateY(-3px); }
     .support-item { background:#222 !important; border-color:#444 !important; color:#ccc !important; }
-    .support-item:hover { background:#2a2a2a !important; border-color:#52A9FF !important; }
+    .support-item:hover { background:#161f2e !important; border-color:#00d8f6 !important; }
     .support-item .list-group-item-heading { color:#eee !important; }
     .support-item .list-group-item-text { color:#999 !important; }
   </style>

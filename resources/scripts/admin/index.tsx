@@ -34,7 +34,7 @@ function formatUptime(seconds: number): string {
     return `${days}d ${hours}h ${minutes}m`;
 }
 
-const COLORS = { used: '#52A9FF', free: '#2D5A8A', bg: '#1E3A5A' };
+const COLORS = { used: '#00d8f6', free: '#008bb2', bg: '#065873' };
 
 function UsageBar({ used, total, label, unit }: { used: number; total: number; label: string; unit?: string }) {
     const pct = total > 0 ? (used / total) * 100 : 0;
@@ -62,7 +62,7 @@ function UsageBar({ used, total, label, unit }: { used: number; total: number; l
                 <BarChart data={data} layout='vertical' margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
                     <XAxis type='number' hide domain={[0, total]} />
                     <Tooltip
-                        contentStyle={{ background: '#222', border: '1px solid #444', borderRadius: 6, fontSize: 12 }}
+                        contentStyle={{ background: '#222', border: '1px solid #444', borderRadius: 14, fontSize: 12 }}
                         formatter={(v: number) => fmt(v)}
                     />
                     <Bar dataKey='used' fill={COLORS.used} radius={[4, 0, 0, 4]} stackId='a' maxBarSize={24} />
@@ -84,7 +84,7 @@ function LoadGraph({ loads }: { loads: number[] }) {
                 <BarChart data={data} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
                     <XAxis dataKey='name' tick={{ fontSize: 10, fill: '#777' }} axisLine={false} tickLine={false} />
                     <Tooltip
-                        contentStyle={{ background: '#222', border: '1px solid #444', borderRadius: 6, fontSize: 12 }}
+                        contentStyle={{ background: '#222', border: '1px solid #444', borderRadius: 14, fontSize: 12 }}
                     />
                     <Bar dataKey='value' fill={COLORS.used} radius={[3, 3, 0, 0]} maxBarSize={32} />
                 </BarChart>
@@ -127,8 +127,8 @@ function AdminDashboard() {
                     <div
                         className='small-box'
                         style={{
-                            background: '#1a1a1a',
-                            borderRadius: 6,
+                            background: '#0d131f',
+                            borderRadius: 14,
                             padding: 16,
                             minHeight: 180,
                             maxHeight: 180,
@@ -142,8 +142,8 @@ function AdminDashboard() {
                     <div
                         className='small-box'
                         style={{
-                            background: '#1a1a1a',
-                            borderRadius: 6,
+                            background: '#0d131f',
+                            borderRadius: 14,
                             padding: 16,
                             minHeight: 180,
                             maxHeight: 180,
@@ -162,8 +162,8 @@ function AdminDashboard() {
                     <div
                         className='small-box'
                         style={{
-                            background: '#1a1a1a',
-                            borderRadius: 6,
+                            background: '#0d131f',
+                            borderRadius: 14,
                             padding: 16,
                             minHeight: 180,
                             maxHeight: 180,
@@ -177,8 +177,8 @@ function AdminDashboard() {
                     <div
                         className='small-box'
                         style={{
-                            background: '#1a1a1a',
-                            borderRadius: 6,
+                            background: '#0d131f',
+                            borderRadius: 14,
                             padding: 16,
                             minHeight: 180,
                             maxHeight: 180,
@@ -191,7 +191,7 @@ function AdminDashboard() {
             </div>
             <div className='row'>
                 <div className='col-md-6'>
-                    <div className='box' style={{ borderTop: '3px solid #52A9FF', minHeight: 140 }}>
+                    <div className='box' style={{ borderTop: '3px solid #00d8f6', minHeight: 140 }}>
                         <div className='box-header with-border'>
                             <h3 className='box-title'>System Info</h3>
                         </div>
@@ -215,7 +215,7 @@ function AdminDashboard() {
                     </div>
                 </div>
                 <div className='col-md-6'>
-                    <div className='box' style={{ borderTop: '3px solid #52A9FF' }}>
+                    <div className='box' style={{ borderTop: '3px solid #00d8f6' }}>
                         <div className='box-header with-border'>
                             <h3 className='box-title'>Load Average</h3>
                         </div>

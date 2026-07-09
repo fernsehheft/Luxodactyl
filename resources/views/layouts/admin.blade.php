@@ -65,17 +65,19 @@
   <link href="https://fonts.bunny.net/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style id="luxodactyl-admin-theme">
     .luxodactyl-admin {
-      --lux-bg: #0a0d13;
-      --lux-bg2: #0e131b;
-      --lux-surface: #141b25;
-      --lux-surface-2: #1b2431;
-      --lux-border: #222c3a;
-      --lux-text: #e6edf3;
-      --lux-muted: #8b98a9;
-      --lux-accent: #22d3ee;
-      --lux-accent-2: #06b6d4;
-      --lux-accent-dim: rgba(34, 211, 238, .12);
-      --lux-radius: 12px;
+      /* Matches the React client app's tokens 1:1 (resources/scripts/assets/tailwind.css)
+         so the admin area reads as the same product, not a differently-themed panel. */
+      --lux-bg: #05070a;
+      --lux-bg2: #0a0e17;
+      --lux-surface: #0d131f;
+      --lux-surface-2: #161f2e;
+      --lux-border: #242f42;
+      --lux-text: #f0f8ff;
+      --lux-muted: #9fb4cc;
+      --lux-accent: #00d8f6;
+      --lux-accent-2: #008bb2;
+      --lux-accent-dim: rgba(0, 216, 246, .12);
+      --lux-radius: 14px;
       --lux-font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
@@ -338,9 +340,7 @@
           @elseif($logoType === 'link' && $logoValue)
             <img src="{{ $logoValue }}" alt="{{ config('app.name', 'Panel') }}" style="max-height:30px;vertical-align:middle;">
           @else
-            <svg width="30" height="28" viewBox="0 0 100 92" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;">
-                <path d="M35.1293 92L39.2242 59.3897L44.8276 60.4695L14.2241 81.2019L0 57.0141L32.7586 45.3521V47.7277L0 33.4742L14.2241 8.85446L45.6896 33.2582L39.2242 34.1221L34.4828 0H65.5172L61.4225 33.9061L56.681 32.8263L85.7759 8.85446L100 33.4742L66.1638 47.7277V45.5681L99.569 57.0141L85.3448 81.2019L57.5431 59.3897H61.638L66.1638 92H35.1293Z" fill="#22d3ee" />
-            </svg>
+            <img src="{{ asset('brand/luxodactyl-mark.png') }}" alt="{{ config('app.name', 'Panel') }}" style="max-height:30px;vertical-align:middle;">
           @endif
         </span>
         <span class="logo-lg">
@@ -349,9 +349,7 @@
           @elseif($logoType === 'link' && $logoValue)
             <img src="{{ $logoValue }}" alt="" style="max-height:30px;vertical-align:middle;margin-right:6px;">
           @else
-            <svg width="30" height="28" viewBox="0 0 100 92" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;margin-right:6px;">
-                <path d="M35.1293 92L39.2242 59.3897L44.8276 60.4695L14.2241 81.2019L0 57.0141L32.7586 45.3521V47.7277L0 33.4742L14.2241 8.85446L45.6896 33.2582L39.2242 34.1221L34.4828 0H65.5172L61.4225 33.9061L56.681 32.8263L85.7759 8.85446L100 33.4742L66.1638 47.7277V45.5681L99.569 57.0141L85.3448 81.2019L57.5431 59.3897H61.638L66.1638 92H35.1293Z" fill="#22d3ee" />
-            </svg>
+            <img src="{{ asset('brand/luxodactyl-mark.png') }}" alt="" style="max-height:30px;vertical-align:middle;margin-right:6px;">
           @endif
           <b>{{ config('app.name', 'Luxodactyl') }}</b>
         </span>

@@ -116,7 +116,7 @@
               @php $isCurrent = fn($entry) => $logoType && $logoValue && $entry['type'] === $logoType && $entry['value'] === $logoValue; @endphp
               @foreach($history as $index => $entry)
               <div class="col-md-2 col-sm-3 col-xs-4 text-center" style="margin-bottom:15px;">
-                <div class="logo-history-item" style="border:2px solid {{ $isCurrent($entry) ? '#52A9FF' : '#444' }};border-radius:8px;padding:10px;cursor:pointer;transition:all 0.2s;{{ $isCurrent($entry) ? 'box-shadow:0 0 8px rgba(82,169,255,0.3);' : '' }}" onclick="rewindLogo({{ $index }})" title="Click to use this logo">
+                <div class="logo-history-item" style="border:2px solid {{ $isCurrent($entry) ? '#00d8f6' : '#242f42' }};border-radius:8px;padding:10px;cursor:pointer;transition:all 0.2s;{{ $isCurrent($entry) ? 'box-shadow:0 0 8px rgba(0,216,246,0.3);' : '' }}" onclick="rewindLogo({{ $index }})" title="Click to use this logo">
                   @if($entry['type'] === 'upload')
                     <img src="{{ url('storage/' . $entry['value']) }}" alt="Logo {{ $index + 1 }}" style="max-width:100%;max-height:80px;border-radius:4px;" onerror="this.closest('.logo-history-item').style.display='none'">
                   @else
@@ -163,8 +163,8 @@
     dropZone.addEventListener('dragover', function(e) {
       e.preventDefault();
       e.stopPropagation();
-      this.style.borderColor = '#52A9FF';
-      this.style.background = 'rgba(82,169,255,0.1)';
+      this.style.borderColor = '#00d8f6';
+      this.style.background = 'rgba(0,216,246,0.1)';
     });
 
     dropZone.addEventListener('dragleave', function(e) {
