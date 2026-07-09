@@ -13,6 +13,20 @@
 @endsection
 
 @section('content')
+  @if(!$version->isLatestPanel())
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="callout callout-warning">
+          <h4><i class="fa fa-arrow-circle-up"></i> Update available</h4>
+          You are running <code>{{ config('app.version') }}</code>, but <code>{{ $version->getPanel() }}</code> has
+          been released. Run the <strong>Update the panel</strong> option in the Luxodactyl installer to upgrade, or
+          see the
+          <a href="https://github.com/{{ config('luxodactyl.updates.repo') }}/releases/tag/{{ $version->getPanel() }}" target="_blank" rel="noopener">release notes</a>.
+        </div>
+      </div>
+    </div>
+  @endif
+
   <div class="row">
     <div class="col-xs-12">
       <div class="box">

@@ -359,7 +359,11 @@ detect_existing() {
       REINSTALL=true
       warning "Reinstall mode enabled — existing ${kind} files/services will be replaced."
     else
-      abort_install "${kind} is already installed. Nothing to do."
+      if [ "$kind" == "panel" ]; then
+        abort_install "${kind} is already installed. Nothing to do. (Looking to upgrade instead? Choose 'Update the panel' from the main menu.)"
+      else
+        abort_install "${kind} is already installed. Nothing to do."
+      fi
     fi
   fi
 
@@ -548,7 +552,19 @@ get_latest_release() {
     sed -E 's/.*"([^"]+)".*/\1/'
 }
 
-export -f get_latest_release
+# set_env_value <key> <value> <env-file>
+#   Replaces KEY=... in the given .env file, or appends it if the key isn't
+#   present yet (e.g. upgrading an install from before that key existed).
+set_env_value() {
+  local key="$1" value="$2" file="$3"
+  if grep -q "^${key}=" "$file" 2>/dev/null; then
+    sed -i "s#^${key}=.*#${key}=${value}#" "$file"
+  else
+    echo "${key}=${value}" >>"$file"
+  fi
+}
+
+export -f get_latest_release set_env_value
 
 # --------------------------------------------------------------------- #
 #                    Download / run orchestration                        #

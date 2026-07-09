@@ -3,6 +3,23 @@
 return [
     /*
     |--------------------------------------------------------------------------
+    | Update Checking
+    |--------------------------------------------------------------------------
+    |
+    | Where the panel looks to find out whether a newer release exists. This
+    | is informational only -- the panel never updates itself; it just tells
+    | admins when the installer's "Update the panel" option has something to
+    | do. See app/Services/Helpers/SoftwareVersionService.php.
+    |
+    */
+
+    'updates' => [
+        'repo' => env('LUXODACTYL_UPDATE_REPO', 'fernsehheft/Luxodactyl'),
+        'cache_time' => (int) env('LUXODACTYL_UPDATE_CACHE_TIME', 60),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Marketplace (Plugin & Mod Installer)
     |--------------------------------------------------------------------------
     |

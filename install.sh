@@ -168,6 +168,7 @@ while [ "$done" == false ]; do
     "Install the panel"
     "Install Wings"
     "Install both the panel and Wings on this machine"
+    "Update an existing panel installation"
     "Configure Let's Encrypt SSL only"
     "Uninstall panel or wings"
   )
@@ -176,6 +177,7 @@ while [ "$done" == false ]; do
     "panel"
     "wings"
     "panel;wings"
+    "update"
     "ssl"
     "uninstall"
   )
