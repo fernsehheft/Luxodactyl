@@ -72,6 +72,10 @@ fi
 # --------------------------------------------------------------------- #
 installer_failed() {
   local code=$?
+  # Stop error handling immediately so the exit below unwinds cleanly and
+  # doesn't re-enter this trap (avoids the bash 'pop_var_context' warning).
+  set +e
+  trap - ERR
   # Exit code 3 is a controlled abort (user cancelled, unmet precondition).
   # Those already printed their own message, so don't add the crash notice.
   if [ "$code" -eq 3 ]; then

@@ -134,11 +134,31 @@ spin() {
   if [ "$rc" -eq 0 ]; then
     printf '\r  \033[32m✔\033[0m %s\033[K\n' "$label" >&3 2>/dev/null || true
     echo "[OK] $label" >>"$LOG_PATH"
-  else
-    printf '\r  \033[31m✘\033[0m %s\033[K\n' "$label" >&3 2>/dev/null || true
-    echo "[FAILED] $label (rc=$rc)" >>"$LOG_PATH"
-    return "$rc"
+    return 0
   fi
+
+  # --- failure path ---------------------------------------------------- #
+  printf '\r  \033[31m✘\033[0m %s\033[K\n' "$label" >&3 2>/dev/null || true
+  echo "[FAILED] $label (rc=$rc)" >>"$LOG_PATH"
+
+  # The step's output was redirected to the log, so surface the tail right
+  # here — the user (or an AI) gets the actual error without digging.
+  {
+    echo ""
+    echo -e "  \033[31mThis step failed.\033[0m Last lines of the log:"
+    echo "  ------------------------------------------------------------------"
+    tail -n 25 "$LOG_PATH" 2>/dev/null | sed 's/^/  | /'
+    echo "  ------------------------------------------------------------------"
+    echo -e "  Full log: \033[36m${LOG_PATH}\033[0m  (send it to support or an AI)"
+    echo ""
+  } >&3 2>/dev/null || true
+
+  # Clear the error trap and errexit before exiting so the shell unwinds
+  # cleanly (prevents the bash 'pop_var_context' warning) and doesn't
+  # re-enter installer_failed.
+  set +e
+  trap - ERR
+  exit "$rc"
 }
 export -f spin
 
