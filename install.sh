@@ -182,6 +182,15 @@ while [ "$done" == false ]; do
     "uninstall"
   )
 
+  if panel_is_installed; then
+    installed_version="$(grep -E '^APP_VERSION=' "${INSTALL_DIR}/.env" 2>/dev/null | cut -d= -f2-)"
+    installed_channel="$(grep -E '^APP_UPDATE_CHANNEL=' "${INSTALL_DIR}/.env" 2>/dev/null | cut -d= -f2-)"
+    [ -z "$installed_version" ] && installed_version="unknown (development install, not pinned to a release)"
+    [ -z "$installed_channel" ] && installed_channel="release"
+    output "Installed panel version: ${COLOR_CYAN}${installed_version}${COLOR_NC} (${installed_channel} channel)"
+    echo ""
+  fi
+
   output "What would you like to do?"
 
   for i in "${!options[@]}"; do
