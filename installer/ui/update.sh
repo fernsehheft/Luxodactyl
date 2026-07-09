@@ -55,6 +55,17 @@ print_brake 60
 
 if [ "$TARGET_CHANNEL" == "$CURRENT_CHANNEL" ] && [ "$CURRENT_VERSION" == "$LATEST_TAG" ]; then
   success "You are already running the latest ${CURRENT_CHANNEL} version (${LATEST_TAG})."
+
+  # Beta has nowhere "more stable" below it, but it's easy to forget a stable
+  # release track even exists -- release has nothing equivalent to mention.
+  if [ "$CURRENT_CHANNEL" == "beta" ]; then
+    STABLE_TAG="$(get_release_for_channel "fernsehheft/Luxodactyl" "release")"
+    if [ -n "$STABLE_TAG" ]; then
+      output "Tip: a stable release channel is also available (currently ${STABLE_TAG})."
+      output "Run this again and choose channel [0] Stable to switch to it."
+    fi
+  fi
+
   exit 0
 fi
 
