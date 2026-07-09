@@ -62,7 +62,6 @@
     "autoload": {
         "files": ["app/helpers.php"],
         "psr-4": {
-            "Pterodactyl\\": "app/",
             "Luxodactyl\\": "app/",
             "Database\\Factories\\": "database/Factories/",
             "Database\\Seeders\\": "database/Seeders/"
@@ -70,7 +69,6 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Pterodactyl\\Tests\\": "tests/",
             "Luxodactyl\\Tests\\": "tests/"
         }
     },
