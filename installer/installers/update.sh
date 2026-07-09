@@ -25,6 +25,12 @@ pull_release() {
   ensure_git_safe_directory "$INSTALL_DIR"
   git fetch --tags origin
   git checkout "$UPDATE_TARGET_TAG"
+
+  # Written here (before the frontend build) rather than after, because
+  # vite.config.ts reads APP_VERSION/APP_UPDATE_CHANNEL straight out of .env
+  # at build time to bake the displayed version into the compiled JS.
+  set_env_value APP_VERSION "$UPDATE_TARGET_TAG" "$INSTALL_DIR/.env"
+  set_env_value APP_UPDATE_CHANNEL "$UPDATE_TARGET_CHANNEL" "$INSTALL_DIR/.env"
 }
 
 install_dependencies() {
@@ -38,8 +44,6 @@ build_frontend() {
 
 run_migrations() {
   php artisan migrate --force
-  set_env_value APP_VERSION "$UPDATE_TARGET_TAG" "$INSTALL_DIR/.env"
-  set_env_value APP_UPDATE_CHANNEL "$UPDATE_TARGET_CHANNEL" "$INSTALL_DIR/.env"
   php artisan config:clear
   php artisan view:clear
   php artisan cache:clear

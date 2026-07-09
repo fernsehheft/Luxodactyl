@@ -6,7 +6,7 @@ const Logo = ({ className }: { className?: string } = {}) => {
         <img
             src={customLogo || '/brand/luxodactyl-mark.png'}
             alt='Logo'
-            className={className || 'flex h-full w-full shrink-0 object-contain'}
+            className={className || 'flex h-full w-auto shrink-0 object-contain'}
             style={{ maxWidth: '100%', maxHeight: '100%' }}
         />
     );
