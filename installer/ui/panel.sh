@@ -19,6 +19,35 @@ output "You will be asked a few questions. Press Enter to accept the [default] w
 echo ""
 
 # --------------------------------------------------------------------- #
+#                           Release channel                              #
+# --------------------------------------------------------------------- #
+# On a reinstall, default to whatever channel the previous install was on.
+PREVIOUS_CHANNEL="release"
+if [ -f "${INSTALL_DIR}/.env" ]; then
+  DETECTED_CHANNEL="$(grep -E '^APP_UPDATE_CHANNEL=' "${INSTALL_DIR}/.env" 2>/dev/null | cut -d= -f2-)"
+  [ -n "$DETECTED_CHANNEL" ] && PREVIOUS_CHANNEL="$DETECTED_CHANNEL"
+fi
+
+ask_channel INSTALL_CHANNEL "$PREVIOUS_CHANNEL"
+
+output "Checking for the latest ${INSTALL_CHANNEL} release..."
+INSTALL_TARGET_TAG="$(get_release_for_channel "fernsehheft/Luxodactyl" "$INSTALL_CHANNEL")"
+
+if [ -z "$INSTALL_TARGET_TAG" ] && [ "$INSTALL_CHANNEL" == "beta" ]; then
+  warning "No beta release is currently available — installing the latest stable release instead."
+  INSTALL_CHANNEL="release"
+  INSTALL_TARGET_TAG="$(get_release_for_channel "fernsehheft/Luxodactyl" "$INSTALL_CHANNEL")"
+fi
+
+if [ -z "$INSTALL_TARGET_TAG" ]; then
+  warning "Could not reach GitHub to resolve a release — installing the latest development code from '${LUXO_BRANCH}' instead."
+else
+  output "Installing ${COLOR_CYAN}${INSTALL_TARGET_TAG}${COLOR_NC} (${INSTALL_CHANNEL} channel)."
+fi
+
+export INSTALL_CHANNEL INSTALL_TARGET_TAG
+
+# --------------------------------------------------------------------- #
 #                              Database                                 #
 # --------------------------------------------------------------------- #
 print_brake 40
@@ -111,6 +140,8 @@ echo ""
 print_brake 70
 output "Installation summary"
 print_brake 70
+output "Release channel:      ${COLOR_CYAN}${INSTALL_CHANNEL}${COLOR_NC}"
+output "Version:              ${COLOR_CYAN}${INSTALL_TARGET_TAG:-$LUXO_BRANCH (development)}${COLOR_NC}"
 output "Database name:        ${COLOR_CYAN}${MYSQL_DB}${COLOR_NC}"
 output "Database user:        ${COLOR_CYAN}${MYSQL_USER}${COLOR_NC}"
 output "Database password:    ${COLOR_CYAN}${MYSQL_PASSWORD}${COLOR_NC}"

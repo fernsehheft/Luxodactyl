@@ -8,7 +8,7 @@
 #  exact tag, rebuilds it in place, and restarts services.            #
 #                                                                      #
 #  Expected variables (set by ui/update.sh):                          #
-#    UPDATE_TARGET_TAG                                                #
+#    UPDATE_TARGET_TAG, UPDATE_TARGET_CHANNEL                         #
 ########################################################################
 
 maintenance_down() {
@@ -20,6 +20,9 @@ stop_worker() {
 }
 
 pull_release() {
+  # Root running git against a directory that a previous install already
+  # chown'd to www-data trips git's "dubious ownership" safety check.
+  ensure_git_safe_directory "$INSTALL_DIR"
   git fetch --tags origin
   git checkout "$UPDATE_TARGET_TAG"
 }
@@ -36,6 +39,7 @@ build_frontend() {
 run_migrations() {
   php artisan migrate --force
   set_env_value APP_VERSION "$UPDATE_TARGET_TAG" "$INSTALL_DIR/.env"
+  set_env_value APP_UPDATE_CHANNEL "$UPDATE_TARGET_CHANNEL" "$INSTALL_DIR/.env"
   php artisan config:clear
   php artisan view:clear
   php artisan cache:clear

@@ -106,16 +106,37 @@ class SoftwareVersionService
     }
 
     /**
-     * Fetches the latest published release tag for this fork from GitHub. Returns
-     * an empty string (rather than null) on failure so the result still gets
-     * cached -- otherwise a GitHub outage would cause a fresh API call on every
-     * single request.
+     * Fetches the latest published release tag for this fork from GitHub, for
+     * whichever channel this install is configured to track. Returns an empty
+     * string (rather than null) on failure so the result still gets cached --
+     * otherwise a GitHub outage would cause a fresh API call on every request.
      */
     protected function cacheLatestPanelVersion(): string
     {
-        return $this->cache->remember(self::PANEL_RELEASE_CACHE_KEY, CarbonImmutable::now()->addMinutes(config('luxodactyl.updates.cache_time', 60)), function () {
+        $channel = config('luxodactyl.updates.channel', 'release');
+
+        return $this->cache->remember(self::PANEL_RELEASE_CACHE_KEY . ":{$channel}", CarbonImmutable::now()->addMinutes(config('luxodactyl.updates.cache_time', 60)), function () use ($channel) {
+            $repo = config('luxodactyl.updates.repo');
+
             try {
-                $response = $this->client->request('GET', 'https://api.github.com/repos/' . config('luxodactyl.updates.repo') . '/releases/latest', [
+                if ($channel === 'beta') {
+                    $response = $this->client->request('GET', "https://api.github.com/repos/{$repo}/releases", [
+                        'headers' => ['Accept' => 'application/vnd.github+json'],
+                    ]);
+
+                    if ($response->getStatusCode() === 200) {
+                        $releases = json_decode($response->getBody(), true) ?? [];
+                        foreach ($releases as $release) {
+                            if (($release['draft'] ?? false) === false && ($release['prerelease'] ?? false) === true) {
+                                return $release['tag_name'] ?? '';
+                            }
+                        }
+                    }
+
+                    return '';
+                }
+
+                $response = $this->client->request('GET', "https://api.github.com/repos/{$repo}/releases/latest", [
                     'headers' => ['Accept' => 'application/vnd.github+json'],
                 ]);
 

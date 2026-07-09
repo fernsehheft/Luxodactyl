@@ -16,6 +16,9 @@ return [
     'updates' => [
         'repo' => env('LUXODACTYL_UPDATE_REPO', 'fernsehheft/Luxodactyl'),
         'cache_time' => (int) env('LUXODACTYL_UPDATE_CACHE_TIME', 60),
+        // Which release channel this install tracks -- set by the installer's
+        // channel prompt (install/update/reinstall). "release" or "beta".
+        'channel' => env('APP_UPDATE_CHANNEL', 'release'),
     ],
 
     /*

@@ -1,0 +1,74 @@
+name: Auto Release
+
+# The whole release process boils down to one rule: bump the version number
+# in the VERSION file and push it. This workflow notices, works out whether
+# it was pushed to `main` (stable) or `beta` (pre-release), and publishes a
+# matching GitHub Release -- unless one for that exact version already
+# exists, in which case it does nothing.
+on:
+  push:
+    branches:
+      - main
+      - beta
+    paths:
+      - VERSION
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Work out the tag for this push
+        id: tag
+        run: |
+          VERSION="$(tr -d '[:space:]' < VERSION)"
+          if [ "${{ github.ref_name }}" = "beta" ]; then
+            echo "tag=v${VERSION}-beta" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=v${VERSION}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check whether that release already exists
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view "${{ steps.tag.outputs.tag }}" --repo "${{ github.repository }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Skip (release already exists)
+        if: steps.check.outputs.exists == 'true'
+        run: echo "Release ${{ steps.tag.outputs.tag }} already exists -- nothing to do."
+
+      - name: Publish stable release
+        if: steps.check.outputs.exists == 'false' && github.ref_name == 'main'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ steps.tag.outputs.tag }}" \
+            --repo "${{ github.repository }}" \
+            --title "${{ steps.tag.outputs.tag }}" \
+            --target "${{ github.sha }}" \
+            --generate-notes
+
+      - name: Publish beta release
+        if: steps.check.outputs.exists == 'false' && github.ref_name == 'beta'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ steps.tag.outputs.tag }}" \
+            --repo "${{ github.repository }}" \
+            --title "${{ steps.tag.outputs.tag }}" \
+            --target "${{ github.sha }}" \
+            --prerelease \
+            --generate-notes

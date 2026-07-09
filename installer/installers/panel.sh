@@ -161,14 +161,32 @@ panel_dl() {
   cd "$INSTALL_DIR" || exit 1
 
   if [ -d "$INSTALL_DIR/.git" ]; then
-    git fetch --all
-    git checkout "$LUXO_BRANCH"
-    git pull origin "$LUXO_BRANCH"
+    # Root running git against a directory a previous install already
+    # chown'd to www-data trips git's "dubious ownership" safety check.
+    ensure_git_safe_directory "$INSTALL_DIR"
+    git fetch --all --tags
+    if [ -n "${INSTALL_TARGET_TAG:-}" ]; then
+      git checkout "$INSTALL_TARGET_TAG"
+    else
+      git checkout "$LUXO_BRANCH"
+      git pull origin "$LUXO_BRANCH"
+    fi
   else
-    git clone --branch "$LUXO_BRANCH" "$LUXO_REPO" .
+    git clone "$LUXO_REPO" .
+    ensure_git_safe_directory "$INSTALL_DIR"
+    if [ -n "${INSTALL_TARGET_TAG:-}" ]; then
+      git checkout "$INSTALL_TARGET_TAG"
+    else
+      git checkout "$LUXO_BRANCH"
+    fi
   fi
 
   cp .env.example .env
+
+  # Record the resolved release (if any) and the chosen channel so a later
+  # "Update the panel" run knows what it's comparing against.
+  set_env_value APP_UPDATE_CHANNEL "${INSTALL_CHANNEL:-release}" .env
+  [ -n "${INSTALL_TARGET_TAG:-}" ] && set_env_value APP_VERSION "$INSTALL_TARGET_TAG" .env
 
   output "Installing PHP dependencies via Composer..."
   COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader --no-interaction
@@ -521,6 +539,7 @@ luxo_panel_install() {
   echo ""
   print_brake 70
   success "Luxodactyl panel installed successfully!"
+  output "Version: ${COLOR_CYAN}${INSTALL_TARGET_TAG:-$LUXO_BRANCH (development)}${COLOR_NC} (${INSTALL_CHANNEL:-release} channel)"
   output "Access your panel at: ${COLOR_CYAN}${proto}://${FQDN}${COLOR_NC}"
   output "Admin login: ${USER_EMAIL}"
   print_brake 70

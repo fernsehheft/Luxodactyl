@@ -545,11 +545,56 @@ export -f get_server_ip get_dns_ip wait_for_dns
 # --------------------------------------------------------------------- #
 #                      Release / version helpers                         #
 # --------------------------------------------------------------------- #
-get_latest_release() {
-  # $1 = owner/repo
-  curl -fsSL "https://api.github.com/repos/$1/releases/latest" 2>/dev/null |
-    grep '"tag_name":' |
-    sed -E 's/.*"([^"]+)".*/\1/'
+
+# ensure_jq
+#   jq is needed to reliably pick out the latest beta: the /releases list
+#   endpoint returns every release with both `tag_name` and `prerelease`
+#   fields, and correlating the right pair per entry isn't something plain
+#   grep/sed can do safely. Installs it once on demand if it's missing.
+ensure_jq() {
+  command -v jq >/dev/null 2>&1 && return 0
+  DEBIAN_FRONTEND=noninteractive apt-get -y install jq >/dev/null 2>&1
+}
+
+# get_release_for_channel <owner/repo> [release|beta]
+#   Echoes the tag name of the latest release on that channel. Echoes
+#   nothing if none exists yet (e.g. no beta has ever been published) --
+#   callers must handle that rather than treating it as a hard error.
+get_release_for_channel() {
+  local repo="$1" channel="${2:-release}"
+
+  if [ "$channel" == "beta" ]; then
+    ensure_jq
+    curl -fsSL "https://api.github.com/repos/${repo}/releases" 2>/dev/null |
+      jq -r '[.[] | select(.draft == false and .prerelease == true)][0].tag_name // empty'
+  else
+    curl -fsSL "https://api.github.com/repos/${repo}/releases/latest" 2>/dev/null |
+      grep '"tag_name":' |
+      sed -E 's/.*"([^"]+)".*/\1/'
+  fi
+}
+
+# ask_channel <resultvar> [current-channel]
+#   Prompts the user to pick "release" or "beta", defaulting to whichever
+#   channel is already active (or "release" on a fresh install).
+ask_channel() {
+  local __resultvar="$1"
+  local current="${2:-release}"
+  local default_choice="0"
+  [ "$current" == "beta" ] && default_choice="1"
+
+  echo ""
+  output "Which release channel do you want to use?"
+  output "[0] Stable releases (recommended)"
+  output "[1] Beta / pre-releases (newer, less tested)"
+  echo -n "* Input 0-1 [${default_choice}]: "
+  read -r channel_choice
+  [ -z "$channel_choice" ] && channel_choice="$default_choice"
+
+  case "$channel_choice" in
+    1) printf -v "$__resultvar" 'beta' ;;
+    *) printf -v "$__resultvar" 'release' ;;
+  esac
 }
 
 # set_env_value <key> <value> <env-file>
@@ -564,7 +609,15 @@ set_env_value() {
   fi
 }
 
-export -f get_latest_release set_env_value
+# ensure_git_safe_directory <dir>
+#   Root running git against a directory owned by another user (e.g. after
+#   permissions were set to www-data post-install) trips git's "dubious
+#   ownership" safety check. Whitelisting the install dir avoids that.
+ensure_git_safe_directory() {
+  git config --global --add safe.directory "$1" 2>/dev/null || true
+}
+
+export -f ensure_jq get_release_for_channel ask_channel set_env_value ensure_git_safe_directory
 
 # --------------------------------------------------------------------- #
 #                    Download / run orchestration                        #
