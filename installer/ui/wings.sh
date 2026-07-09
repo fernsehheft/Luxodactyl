@@ -18,6 +18,15 @@ warning "Wings must run on a machine with a real (non-virtualised) kernel that s
 warning "OpenVZ / LXC containers usually do NOT work."
 echo ""
 
+# Optional: this node usually needs its own domain (FQDN) with an A-record
+# pointing here, so the panel can reach it over SSL. Offer a DNS check.
+echo -n "* Node domain/FQDN to verify its DNS A-record (leave empty to skip): "
+read -r WINGS_FQDN
+if [ -n "$WINGS_FQDN" ]; then
+  wait_for_dns "$WINGS_FQDN"
+fi
+
+echo ""
 ask_firewall CONFIGURE_FIREWALL
 
 echo ""

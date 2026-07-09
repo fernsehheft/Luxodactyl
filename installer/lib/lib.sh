@@ -442,6 +442,75 @@ firewall_allow_ports() {
 export -f ask_firewall install_firewall firewall_allow_ports
 
 # --------------------------------------------------------------------- #
+#                        DNS / A-record checking                         #
+# --------------------------------------------------------------------- #
+# Best-effort public IPv4 of this machine.
+get_server_ip() {
+  local ip=""
+  ip="$(curl -fsSL --max-time 8 https://api.ipify.org 2>/dev/null)" || ip=""
+  [ -z "$ip" ] && ip="$(curl -fsSL --max-time 8 https://ifconfig.me 2>/dev/null)" || true
+  [ -z "$ip" ] && ip="$(curl -fsSL --max-time 8 https://ipv4.icanhazip.com 2>/dev/null | tr -d '[:space:]')" || true
+  [ -z "$ip" ] && ip="$(hostname -I 2>/dev/null | awk '{print $1}')" || true
+  echo "$ip"
+}
+
+# Resolve the first IPv4 an FQDN currently points to (empty if unresolved).
+get_dns_ip() {
+  getent ahostsv4 "$1" 2>/dev/null | awk '{print $1; exit}'
+}
+
+# wait_for_dns <fqdn>
+#   Shows the required A-record, then loops until the FQDN resolves to this
+#   server. The user can recheck, skip the check, or abort at any time.
+wait_for_dns() {
+  local fqdn="$1"
+  local server_ip
+  server_ip="$(get_server_ip)"
+
+  echo ""
+  print_brake 60
+  output "DNS check for ${COLOR_CYAN}${fqdn}${COLOR_NC}"
+  print_brake 60
+  output "Before a certificate can be issued, this domain must point to THIS server."
+  output "Create the following DNS record at your domain provider:"
+  echo ""
+  output "    Type:  ${COLOR_CYAN}A${COLOR_NC}"
+  output "    Name:  ${COLOR_CYAN}${fqdn}${COLOR_NC}"
+  output "    Value: ${COLOR_CYAN}${server_ip:-<your server IP>}${COLOR_NC}"
+  echo ""
+
+  while true; do
+    local resolved
+    resolved="$(get_dns_ip "$fqdn")"
+
+    if [ -n "$server_ip" ] && [ "$resolved" == "$server_ip" ]; then
+      success "${fqdn} correctly resolves to ${server_ip}."
+      return 0
+    fi
+
+    if [ -n "$resolved" ]; then
+      warning "${fqdn} currently resolves to '${resolved}', expected '${server_ip}'. DNS may still be propagating."
+    else
+      warning "${fqdn} does not resolve yet (record missing or still propagating)."
+    fi
+
+    echo -n "* [Enter] recheck   [s] skip check & continue   [a] abort : "
+    if ! read -r DNS_ANS; then
+      # No interactive input available (EOF) — don't spin forever.
+      warning "No input available — skipping DNS verification."
+      return 0
+    fi
+    case "$DNS_ANS" in
+      s | S) warning "Skipping DNS verification — continuing without it."; return 0 ;;
+      a | A) abort_install "Aborted before SSL setup." ;;
+      *) : ;; # loop and recheck
+    esac
+  done
+}
+
+export -f get_server_ip get_dns_ip wait_for_dns
+
+# --------------------------------------------------------------------- #
 #                      Release / version helpers                         #
 # --------------------------------------------------------------------- #
 get_latest_release() {

@@ -19,22 +19,31 @@
 #                            Dependencies                               #
 # --------------------------------------------------------------------- #
 install_composer() {
+  if command -v composer >/dev/null 2>&1; then
+    output "Composer already installed — skipping."
+    return
+  fi
   output "Installing Composer..."
   curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 }
 
 install_php() {
-  output "Setting up the PHP ${PHP_VERSION} repository..."
-  if [ "$OS" == "ubuntu" ]; then
-    install_packages "software-properties-common ca-certificates lsb-release apt-transport-https gnupg"
-    LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
-  elif [ "$OS" == "debian" ]; then
-    install_packages "ca-certificates apt-transport-https lsb-release gnupg"
-    curl -sSL https://packages.sury.org/php/apt.gpg -o /etc/apt/trusted.gpg.d/sury-php.gpg
-    echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" >/etc/apt/sources.list.d/sury-php.list
+  # Skip the (slow) repository setup if PHP is already present; still run the
+  # package install below so any missing extensions get added.
+  if command -v "php${PHP_VERSION}" >/dev/null 2>&1; then
+    output "PHP ${PHP_VERSION} already installed — skipping repository setup, verifying extensions."
+  else
+    output "Setting up the PHP ${PHP_VERSION} repository..."
+    if [ "$OS" == "ubuntu" ]; then
+      install_packages "software-properties-common ca-certificates lsb-release apt-transport-https gnupg"
+      LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
+    elif [ "$OS" == "debian" ]; then
+      install_packages "ca-certificates apt-transport-https lsb-release gnupg"
+      curl -sSL https://packages.sury.org/php/apt.gpg -o /etc/apt/trusted.gpg.d/sury-php.gpg
+      echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" >/etc/apt/sources.list.d/sury-php.list
+    fi
+    update_repos
   fi
-
-  update_repos
 
   output "Installing PHP ${PHP_VERSION} and extensions..."
   install_packages "php${PHP_VERSION} php${PHP_VERSION}-cli php${PHP_VERSION}-gd \
@@ -47,28 +56,47 @@ install_php() {
 }
 
 install_nodejs() {
-  output "Installing Node.js 22 and pnpm (required to build the panel frontend)..."
-  curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
-  install_packages "nodejs"
   export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
-  npm install -g corepack@latest
+  if command -v node >/dev/null 2>&1; then
+    output "Node.js already installed ($(node -v 2>/dev/null)) — skipping, ensuring pnpm is available."
+  else
+    output "Installing Node.js 22 (required to build the panel frontend)..."
+    curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+    install_packages "nodejs"
+    npm install -g corepack@latest
+  fi
   corepack enable
   corepack prepare pnpm@latest --activate
 }
 
 install_mariadb() {
+  if command -v mariadb >/dev/null 2>&1 || command -v mysql >/dev/null 2>&1; then
+    output "MariaDB/MySQL already installed — skipping install, ensuring it runs."
+    systemctl enable --now mariadb 2>/dev/null || systemctl enable --now mysql 2>/dev/null || true
+    return
+  fi
   output "Installing MariaDB server..."
   install_packages "mariadb-server mariadb-client"
   systemctl enable --now mariadb
 }
 
 install_redis() {
+  if command -v redis-server >/dev/null 2>&1; then
+    output "Redis already installed — skipping install, ensuring it runs."
+    systemctl enable --now redis-server 2>/dev/null || true
+    return
+  fi
   output "Installing Redis..."
   install_packages "redis-server"
   systemctl enable --now redis-server
 }
 
 install_nginx() {
+  if command -v nginx >/dev/null 2>&1; then
+    output "Nginx already installed — skipping install."
+    systemctl enable nginx 2>/dev/null || true
+    return
+  fi
   output "Installing Nginx web server..."
   install_packages "nginx"
   systemctl enable nginx
@@ -201,16 +229,28 @@ configure_environment() {
   output "Running database migrations and seeders..."
   php artisan migrate --seed --force
 
-  output "Creating the administrator account..."
-  # NOTE: --admin is a boolean flag (no value); passing --admin=1 errors out.
-  php artisan p:user:make \
-    --email="$USER_EMAIL" \
-    --username="$USER_USERNAME" \
-    --name-first="$USER_FIRSTNAME" \
-    --name-last="$USER_LASTNAME" \
-    --password="$USER_PASSWORD" \
-    --admin \
-    --no-interaction
+  # Only create the admin if that email/username isn't already present. On a
+  # reinstall the database is kept, so the account from a previous run may
+  # still exist — creating it again would fail with "email already taken".
+  local existing
+  existing="$(mysql -u root -N -B -D "${MYSQL_DB}" \
+    -e "SELECT COUNT(*) FROM users WHERE email='${USER_EMAIL}' OR username='${USER_USERNAME}';" 2>/dev/null | tr -dc '0-9')"
+  [ -z "$existing" ] && existing=0
+
+  if [ "$existing" -gt 0 ]; then
+    warning "An account with email '${USER_EMAIL}' or username '${USER_USERNAME}' already exists — skipping admin creation."
+  else
+    output "Creating the administrator account..."
+    # NOTE: --admin is a boolean flag (no value); passing --admin=1 errors out.
+    php artisan p:user:make \
+      --email="$USER_EMAIL" \
+      --username="$USER_USERNAME" \
+      --name-first="$USER_FIRSTNAME" \
+      --name-last="$USER_LASTNAME" \
+      --password="$USER_PASSWORD" \
+      --admin \
+      --no-interaction
+  fi
 }
 
 set_permissions() {
@@ -377,6 +417,9 @@ EOF
 # --------------------------------------------------------------------- #
 letsencrypt() {
   [ "$CONFIGURE_LETSENCRYPT" != true ] && return 0
+
+  # Make sure the domain points here before asking Let's Encrypt for a cert.
+  wait_for_dns "$FQDN"
 
   output "Obtaining a Let's Encrypt certificate for ${FQDN}..."
   install_packages "certbot python3-certbot-nginx"
