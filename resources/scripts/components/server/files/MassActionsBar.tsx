@@ -95,7 +95,9 @@ const MassActionsBar = () => {
                 <div
                     className={'pointer-events-none fixed bottom-0 left-0 right-0 mb-6 flex justify-center w-full z-50'}
                 >
-                    <div className={`flex items-center space-x-4 pointer-events-auto rounded-sm p-4 bg-black/50`}>
+                    <div
+                        className={`flex items-center space-x-4 pointer-events-auto rounded-xl p-4 bg-mocha-500/80 backdrop-blur-sm border border-mocha-400 shadow-lg`}
+                    >
                         <Button onClick={() => setShowMove(true)} disabled={loading}>
                             {loading && loadingMessage.includes('Moving') && <Spinner size='small' />}
                             Move

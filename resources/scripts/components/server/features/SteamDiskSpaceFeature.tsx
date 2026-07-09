@@ -57,7 +57,7 @@ const SteamDiskSpaceFeature = () => {
                         </p>
                         <p className='mt-3'>
                             Ensure the machine has enough disk space by typing{' '}
-                            <code className={`font-mono bg-zinc-900 rounded-sm py-1 px-2`}>df -h</code> on the machine
+                            <code className={`font-mono bg-mocha-400 rounded-md py-1 px-2`}>df -h</code> on the machine
                             hosting this server. Delete files or increase the available disk space to resolve the issue.
                         </p>
                     </>

@@ -55,7 +55,7 @@ const FileUploadList = () => {
         <Tooltip.Provider>
             <div className={'space-y-2 mt-6'}>
                 {uploads.map(([name, file]) => (
-                    <div key={name} className={'flex items-center space-x-3 bg-zinc-700 p-3 rounded-sm'}>
+                    <div key={name} className={'flex items-center space-x-3 bg-mocha-400 p-3 rounded-lg'}>
                         <Tooltip.Root delayDuration={200}>
                             <Tooltip.Trigger asChild>
                                 <div className={'shrink-0'}>

@@ -81,11 +81,11 @@ const HytaleOauthRequireFeature = () => {
                     </div>
 
                     <div className='relative flex justify-center text-zinc-400 uppercase text-sm tracking-wider'>
-                        <span className='bg-zinc-900 px-5'>OR ENTER CODE MANUALLY</span>
+                        <span className='bg-mocha-500 px-5'>OR ENTER CODE MANUALLY</span>
                     </div>
                 </div>
 
-                <div className='bg-zinc-900 border border-zinc-700 rounded p-4 text-center'>
+                <div className='bg-mocha-400 border border-mocha-300 rounded-lg p-4 text-center'>
                     <div className='text-zinc-400 text-sm mb-2'>DEVICE CODE</div>
                     {userCode ? (
                         <button

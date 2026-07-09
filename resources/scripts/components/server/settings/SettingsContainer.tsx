@@ -47,12 +47,12 @@ const SettingsContainer = () => {
                 <TitledGreyBox title={'Debug Information'}>
                     <div className={`flex items-center justify-between text-sm`}>
                         <p>Node</p>
-                        <code className={`font-mono bg-zinc-900 rounded-sm py-1 px-2`}>{node}</code>
+                        <code className={`font-mono bg-mocha-400 rounded-md py-1 px-2`}>{node}</code>
                     </div>
                     <CopyOnClick text={uuid}>
                         <div className={`flex items-center justify-between mt-2 text-sm`}>
                             <p>Server ID</p>
-                            <code className={`font-mono bg-zinc-900 rounded-sm py-1 px-2`}>{uuid}</code>
+                            <code className={`font-mono bg-mocha-400 rounded-md py-1 px-2`}>{uuid}</code>
                         </div>
                     </CopyOnClick>
                 </TitledGreyBox>
@@ -62,7 +62,7 @@ const SettingsContainer = () => {
                             <Label>Server Address</Label>
                             <CopyOnClick text={`sftp://${ip(sftp.ip)}:${sftp.port}`}>
                                 <code
-                                    className={`font-mono bg-zinc-900 rounded-sm py-1 px-2`}
+                                    className={`font-mono bg-mocha-400 rounded-md py-1 px-2`}
                                 >{`sftp://${ip(sftp.ip)}:${sftp.port}`}</code>
                             </CopyOnClick>
                         </div>
@@ -70,7 +70,7 @@ const SettingsContainer = () => {
                             <Label>Username</Label>
                             <CopyOnClick text={`${username}.${id}`}>
                                 <code
-                                    className={`font-mono bg-zinc-900 rounded-sm py-1 px-2`}
+                                    className={`font-mono bg-mocha-400 rounded-md py-1 px-2`}
                                 >{`${username}.${id}`}</code>
                             </CopyOnClick>
                         </div>

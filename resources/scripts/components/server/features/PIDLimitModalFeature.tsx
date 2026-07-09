@@ -60,9 +60,9 @@ const PIDLimitModalFeature = () => {
                     <>
                         <p>
                             This server has reached the maximum process, thread, or memory limit. Increasing{' '}
-                            <code className={`font-mono bg-zinc-900`}>container_pid_limit</code> in the Wings
-                            configuration, <code className={`font-mono bg-zinc-900`}>config.yml</code>, might help
-                            resolve this issue.
+                            <code className={`font-mono bg-mocha-400 rounded-md`}>container_pid_limit</code> in the
+                            Wings configuration, <code className={`font-mono bg-mocha-400 rounded-md`}>config.yml</code>
+                            , might help resolve this issue.
                         </p>
                         <p className='mt-3'>
                             <b>Note: Wings must be restarted for the configuration file changes to take effect</b>
@@ -75,7 +75,7 @@ const PIDLimitModalFeature = () => {
                             administrator and give them the error below.
                         </p>
                         <p className='mt-3'>
-                            <code className={`font-mono bg-zinc-900`}>
+                            <code className={`font-mono bg-mocha-400 rounded-md`}>
                                 pthread_create failed, Possibly out of memory or process/resource limits reached
                             </code>
                         </p>

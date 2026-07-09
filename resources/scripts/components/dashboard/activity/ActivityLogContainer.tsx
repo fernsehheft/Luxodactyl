@@ -266,7 +266,7 @@ const ActivityLogContainer = () => {
                                         id='activity-event-type'
                                         value={selectedEventType}
                                         onChange={(e) => setSelectedEventType(e.target.value)}
-                                        className='w-full px-3 py-2 bg-zinc-800 border border-zinc-600 rounded-lg text-zinc-100 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 hover:border-zinc-500 transition-colors duration-150'
+                                        className='w-full px-3 py-2 bg-mocha-400 border border-mocha-300 rounded-lg text-zinc-100 focus:border-brand focus:ring-1 focus:ring-brand hover:border-mocha-200 transition-colors duration-150'
                                     >
                                         <option value='' style={{ backgroundColor: '#27272a', color: '#f4f4f5' }}>
                                             All Events
@@ -294,7 +294,7 @@ const ActivityLogContainer = () => {
                                         id='activity-time-range'
                                         value={dateRange}
                                         onChange={(e) => setDateRange(e.target.value)}
-                                        className='w-full px-3 py-2 bg-zinc-800 border border-zinc-600 rounded-lg text-zinc-100 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 hover:border-zinc-500 transition-colors duration-150'
+                                        className='w-full px-3 py-2 bg-mocha-400 border border-mocha-300 rounded-lg text-zinc-100 focus:border-brand focus:ring-1 focus:ring-brand hover:border-mocha-200 transition-colors duration-150'
                                     >
                                         <option value='all' style={{ backgroundColor: '#27272a', color: '#f4f4f5' }}>
                                             All Time

@@ -99,7 +99,7 @@ const ScheduleTaskRow = ({ schedule, task }: Props) => {
               <p className={`text-xs uppercase text-zinc-400 mb-1`}>Ignoring files & folders:</p>
             )}
             <div
-              className={`font-mono bg-zinc-800 rounded-sm py-1 px-2 text-sm w-auto inline-block whitespace-pre-wrap break-all`}
+              className={`font-mono bg-mocha-400 rounded-md py-1 px-2 text-sm w-auto inline-block whitespace-pre-wrap break-all`}
             >
               {task.payload && task.payload.length > 100
                 ? `${task.payload.substring(0, 100)}...`
