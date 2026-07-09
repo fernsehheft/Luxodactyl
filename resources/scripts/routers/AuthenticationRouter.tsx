@@ -33,8 +33,8 @@ const AuthenticationRouter = () => {
                         <Route path='*' element={<NotFound />} />
                     </Routes>
                 </div>
-                <div className='w-full relative'>
-                    <div className='flex items-center gap-4 h-6 absolute right-(--page-padding) top-(--page-padding) text-lg'>
+                <div className='w-full relative overflow-hidden'>
+                    <div className='flex items-center gap-4 h-6 absolute right-(--page-padding) top-(--page-padding) text-lg z-10'>
                         <Logo className='h-full w-full flex inset-0' />
                         <div className='border-l border-gray-200 h-full' />
                         Games
@@ -45,6 +45,26 @@ const AuthenticationRouter = () => {
                         <div className='absolute inset-0 bg-gradient-to-tr from-transparent via-brand-400/5 to-brand-600/10' />
                         <div className='absolute inset-0 bg-gradient-to-tr to-transparent via-brand-400/5 from-brand-600/10' />
                         <div className='absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-brand-500/13 to-transparent' />
+                    </div>
+
+                    {/* Soft glow accent behind the hero copy */}
+                    <div
+                        className='pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl'
+                        style={{ background: 'var(--color-brand-grad)' }}
+                    />
+
+                    <div className='relative z-2 flex flex-col justify-center h-full max-w-md mx-auto px-(--page-padding) gap-4'>
+                        <span className='text-sm font-medium tracking-wide uppercase text-secondary'>
+                            Game server management
+                        </span>
+                        <h1 className='text-4xl font-medium leading-tight text-primary'>
+                            Your servers,
+                            <br />
+                            always within reach.
+                        </h1>
+                        <p className='text-secondary text-base'>
+                            Sign in to start, stop, and configure your servers from one place.
+                        </p>
                     </div>
                 </div>
             </div>

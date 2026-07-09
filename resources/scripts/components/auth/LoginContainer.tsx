@@ -1,5 +1,7 @@
+import { Eye, EyeSlash, Lock, Person } from '@gravity-ui/icons';
 import type { FormikHelpers } from 'formik';
 import { Formik } from 'formik';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { object, string } from 'yup';
 import login from '@/api/auth/login';
@@ -29,6 +31,7 @@ interface ErrorResponse {
 function LoginContainer() {
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
 
     const onSubmit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         // clearFlashes();
@@ -93,7 +96,8 @@ function LoginContainer() {
         >
             {({ isSubmitting }) => (
                 <LoginFormContainer className={`flex flex-col gap-6`}>
-                    <TitleSection title='Login' />
+                    <TitleSection title='Welcome back' subtitle='Sign in to manage your servers' />
+
                     <div className=''>
                         <Field
                             id='user'
@@ -101,21 +105,45 @@ function LoginContainer() {
                             label={'Username or Email'}
                             name={'user'}
                             disabled={isSubmitting}
+                            autoComplete='username'
+                            autoFocus
+                            icon={<Person width={16} height={16} fill='currentColor' />}
                         />
                     </div>
 
-                    <div className={`relative mt-6`}>
+                    <div className={`relative`}>
                         <Field
                             id='password'
-                            type={'password'}
+                            type={showPassword ? 'text' : 'password'}
                             label={'Password'}
                             name={'password'}
                             disabled={isSubmitting}
+                            autoComplete='current-password'
+                            icon={<Lock width={16} height={16} fill='currentColor' />}
+                            rightElement={
+                                <button
+                                    type='button'
+                                    tabIndex={-1}
+                                    onClick={() => setShowPassword((s) => !s)}
+                                    className='pointer-events-auto flex items-center text-[#ffffff55] hover:text-white/80 transition-colors'
+                                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                                >
+                                    {showPassword ? (
+                                        <EyeSlash width={16} height={16} fill='currentColor' />
+                                    ) : (
+                                        <Eye width={16} height={16} fill='currentColor' />
+                                    )}
+                                </button>
+                            }
                         />
                     </div>
 
+                    <div className='flex justify-end -mt-2'>
+                        <SecondaryLink to='/auth/password'>Forgot your password?</SecondaryLink>
+                    </div>
+
                     <Captcha
-                        className='mt-6'
+                        className='-mt-2'
                         onError={(error) => {
                             console.error('Captcha error:', error);
                             clearAndAddHttpError({
@@ -124,18 +152,16 @@ function LoginContainer() {
                         }}
                     />
 
-                    <div className='flex w-full justify-between items-center'>
-                        <Button
-                            className={`bg-mocha-100 rounded-lg p-2 px-4 text-black hover:cursor-pointer hover:bg-mocha-200 ease-in-out`}
-                            type={'submit'}
-                            size={'xlarge'}
-                            isLoading={isSubmitting}
-                            disabled={isSubmitting}
-                        >
-                            Sign in
-                        </Button>
-                        <SecondaryLink to='/auth/password'>Forgot your password?</SecondaryLink>
-                    </div>
+                    <Button
+                        className={`w-full rounded-lg p-2.5 px-4 text-black font-medium hover:cursor-pointer hover:opacity-90 active:scale-[0.99] transition-all duration-150 ease-in-out`}
+                        style={{ background: 'var(--color-brand-grad)' }}
+                        type={'submit'}
+                        size={'xlarge'}
+                        isLoading={isSubmitting}
+                        disabled={isSubmitting}
+                    >
+                        Sign in
+                    </Button>
                 </LoginFormContainer>
             )}
         </Formik>

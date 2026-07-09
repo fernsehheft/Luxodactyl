@@ -232,13 +232,28 @@ configure_environment() {
   # Only create the admin if that email/username isn't already present. On a
   # reinstall the database is kept, so the account from a previous run may
   # still exist — creating it again would fail with "email already taken".
+  #
+  # Previously we just skipped account creation in that case, which silently
+  # left the OLD password in place while the installer had just asked for
+  # (and appeared to set) a NEW one. Logging in with the password just typed
+  # into the installer then failed with "No account matching those
+  # credentials could be found" — the same generic message Luxodactyl shows
+  # for both "user not found" and "wrong password", so it looked like the
+  # account was never created at all. Instead, reset the existing account's
+  # password (and make sure it's still an admin) so the credentials entered
+  # during this run actually work.
   local existing
   existing="$(mysql -u root -N -B -D "${MYSQL_DB}" \
     -e "SELECT COUNT(*) FROM users WHERE email='${USER_EMAIL}' OR username='${USER_USERNAME}';" 2>/dev/null | tr -dc '0-9')"
   [ -z "$existing" ] && existing=0
 
   if [ "$existing" -gt 0 ]; then
-    warning "An account with email '${USER_EMAIL}' or username '${USER_USERNAME}' already exists — skipping admin creation."
+    warning "An account with email '${USER_EMAIL}' or username '${USER_USERNAME}' already exists — updating its password instead of creating a new one."
+    php artisan p:user:password \
+      --email="$USER_EMAIL" \
+      --password="$USER_PASSWORD" \
+      --admin \
+      --no-interaction
   else
     output "Creating the administrator account..."
     # NOTE: --admin is a boolean flag (no value); passing --admin=1 errors out.
