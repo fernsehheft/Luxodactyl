@@ -91,6 +91,58 @@ hyperlink() {
 export -f output success error warning print_brake hyperlink abort_install
 
 # --------------------------------------------------------------------- #
+#                     Animated progress (spinner)                        #
+# --------------------------------------------------------------------- #
+# spin "<label>" <command> [args...]
+#   Runs the command with ALL of its output redirected to the log file,
+#   while showing an animated spinner on the terminal (fd 3, which
+#   bypasses the tee so frames never land in the log). Prints a green
+#   check on success or a red cross + non-zero return on failure.
+#   Falls back to a plain status line when no terminal is available.
+spin() {
+  local label="$1"
+  shift
+  local rc=0
+
+  # No animation possible (piped/non-tty): run plainly.
+  if [ "${LUX_ANIMATE:-0}" != "1" ]; then
+    output "$label ..."
+    ( "$@" >>"$LOG_PATH" 2>&1 ) || rc=$?
+    if [ "$rc" -eq 0 ]; then
+      output "  ${COLOR_GREEN}[done]${COLOR_NC} $label"
+    else
+      output "  ${COLOR_RED}[failed]${COLOR_NC} $label (see $LOG_PATH)"
+      return "$rc"
+    fi
+    return 0
+  fi
+
+  ( "$@" >>"$LOG_PATH" 2>&1 ) &
+  local pid=$!
+  local frames=('⠋' '⠙' '⠹' '⠸' '⠼' '⠴' '⠦' '⠧' '⠇' '⠏')
+  local n=${#frames[@]} i=0
+
+  printf '\033[?25l' >&3 2>/dev/null || true
+  while kill -0 "$pid" 2>/dev/null; do
+    printf '\r  \033[36m%s\033[0m %s ' "${frames[i % n]}" "$label" >&3 2>/dev/null || true
+    sleep 0.1
+    i=$((i + 1))
+  done
+  wait "$pid" || rc=$?
+  printf '\033[?25h' >&3 2>/dev/null || true
+
+  if [ "$rc" -eq 0 ]; then
+    printf '\r  \033[32m✔\033[0m %s\033[K\n' "$label" >&3 2>/dev/null || true
+    echo "[OK] $label" >>"$LOG_PATH"
+  else
+    printf '\r  \033[31m✘\033[0m %s\033[K\n' "$label" >&3 2>/dev/null || true
+    echo "[FAILED] $label (rc=$rc)" >>"$LOG_PATH"
+    return "$rc"
+  fi
+}
+export -f spin
+
+# --------------------------------------------------------------------- #
 #                        Regular expressions                             #
 # --------------------------------------------------------------------- #
 email_regex="^(([A-Za-z0-9]+((\.|\-|\_|\+)?[A-Za-z0-9]?)*[A-Za-z0-9]+)|[A-Za-z0-9]+)@(([A-Za-z0-9]+)+((\.|\-|\_)?([A-Za-z0-9]+)+)*)+\.([A-Za-z]{2,})+$"
@@ -412,15 +464,41 @@ export -f run_ui run_installer
 # --------------------------------------------------------------------- #
 welcome() {
   clear
+
+  # Small helper: print a line, then pause briefly for a reveal effect
+  # (only when we have a real terminal, so piped output stays instant).
+  local d="0.045"
+  [ "${LUX_ANIMATE:-0}" = "1" ] || d="0"
+
   echo -e "${COLOR_CYAN}${COLOR_BOLD}"
-  print_brake 70
-  echo "#                                                                    #"
-  echo "#                     Luxodactyl Installer                           #"
-  echo "#                                                                    #"
-  echo "#   Modern game server management panel — forked from Pterodactyl    #"
-  echo "#                                                                    #"
-  print_brake 70
+  local lines=(
+    "######################################################################"
+    "#                                                                    #"
+    "#                     Luxodactyl Installer                           #"
+    "#                                                                    #"
+    "#   Modern game server management panel — forked from Pterodactyl    #"
+    "#                                                                    #"
+    "######################################################################"
+  )
+  local line
+  for line in "${lines[@]}"; do
+    echo "$line"
+    [ "$d" != "0" ] && sleep "$d"
+  done
   echo -e "${COLOR_NC}"
+
+  # A short cyan "loading" sweep under the banner.
+  if [ "${LUX_ANIMATE:-0}" = "1" ]; then
+    local bar=""
+    printf '  '
+    for _ in $(seq 1 24); do
+      bar="${bar}━"
+      printf '\r  \033[36m%s\033[0m' "$bar"
+      sleep 0.02
+    done
+    printf '\n\n'
+  fi
+
   output "Copyright (C) 2026 — present, Luxodactyl contributors."
   output "This installer is not officially associated with Pterodactyl."
   echo ""

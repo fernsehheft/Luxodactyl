@@ -168,6 +168,10 @@ panel_dl() {
 }
 
 configure_environment() {
+  # Ensure we are in the panel directory: this runs in its own subshell
+  # under spin(), so it can't rely on a cd made by panel_dl.
+  cd "$INSTALL_DIR" || { error "Panel directory ${INSTALL_DIR} is missing."; return 1; }
+
   output "Configuring the panel environment (.env)..."
 
   local app_url="http://$FQDN"
@@ -406,13 +410,16 @@ firewall() {
 #                                 Main                                  #
 # --------------------------------------------------------------------- #
 luxo_panel_install() {
-  dep_install
-  configure_database
-  panel_dl
-  configure_environment
-  set_permissions
-  install_services
-  configure_nginx
+  echo ""
+  spin "Installing dependencies (PHP ${PHP_VERSION}, MariaDB, Redis, Nginx, Node.js)" dep_install
+  spin "Configuring the database" configure_database
+  spin "Downloading and building the panel (this can take a few minutes)" panel_dl
+  spin "Configuring environment and running migrations" configure_environment
+  spin "Setting file permissions" set_permissions
+  spin "Installing services (queue worker + scheduler)" install_services
+  spin "Configuring Nginx" configure_nginx
+
+  # These may print meaningful output / need port 80, so run them normally.
   letsencrypt
   firewall
 

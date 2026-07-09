@@ -47,6 +47,17 @@ export LOG_PATH
 # Mirror all stdout/stderr to the log (append) while keeping it on screen.
 exec > >(tee -a "$LOG_PATH") 2>&1
 
+# Open a direct handle to the terminal (fd 3) for animations, bypassing the
+# tee so spinner frames never end up in the log. Disable animation if there
+# is no usable terminal (e.g. output is being piped somewhere).
+if ( : >/dev/tty ) 2>/dev/null; then
+  exec 3>/dev/tty
+  export LUX_ANIMATE=1
+else
+  exec 3>&1
+  export LUX_ANIMATE=0
+fi
+
 {
   echo ""
   echo "==================================================================="

@@ -83,12 +83,12 @@ luxo_wings_install() {
     systemctl stop wings 2>/dev/null || true
   fi
 
-  update_repos
-  install_packages "curl tar unzip git"
-
-  install_docker
-  install_wings_binary
-  install_wings_service
+  echo ""
+  spin "Updating package repositories" update_repos
+  spin "Installing base packages" install_packages "curl tar unzip git"
+  spin "Installing Docker" install_docker
+  spin "Downloading the Wings binary" install_wings_binary
+  spin "Creating the Wings service" install_wings_service
   wings_firewall
 
   echo ""
