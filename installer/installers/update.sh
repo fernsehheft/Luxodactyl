@@ -25,7 +25,9 @@ pull_release() {
   ensure_git_safe_directory "$INSTALL_DIR"
   # --tags alone only fetches tags -- also need branch tips updated so a
   # branch name or an arbitrary commit reachable from one actually resolves.
-  git fetch --all --tags origin
+  # (--all fetches from every configured remote and can't take a repository
+  # argument, so it doesn't combine with naming "origin" explicitly here.)
+  git fetch origin --tags
   git checkout "$UPDATE_TARGET_TAG"
 
   # Written here (before the frontend build) rather than after, because
