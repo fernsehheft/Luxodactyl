@@ -18,8 +18,9 @@
       <div class="col-xs-12">
         <div class="callout callout-warning">
           <h4><i class="fa fa-arrow-circle-up"></i> Update available</h4>
+          @php $onBeta = config('luxodactyl.updates.channel') === 'beta'; @endphp
           You are running <code>{{ config('app.version') }}</code>, but <code>{{ $version->getPanel() }}</code> has
-          been released@if(config('luxodactyl.updates.channel') === 'beta') on the <strong>beta</strong> channel @endif.
+          been released{{ $onBeta ? ' on the beta channel' : '' }}.
           Run the <strong>Update the panel</strong> option in the Luxodactyl installer to upgrade, or see the
           <a href="https://github.com/{{ config('luxodactyl.updates.repo') }}/releases/tag/{{ $version->getPanel() }}" target="_blank" rel="noopener">release notes</a>.
         </div>
