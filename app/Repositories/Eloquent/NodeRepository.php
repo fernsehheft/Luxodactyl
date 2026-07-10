@@ -38,7 +38,9 @@ class NodeRepository extends EloquentRepository implements NodeRepositoryInterfa
                     $maxUsage = $baseLimit * (1 + ($node->{$key . '_overallocate'} / 100));
                 }
 
-                $percent = ($value / $baseLimit) * 100;
+                // A 0 base limit (unlimited/unset) must not divide -- that would
+                // throw DivisionByZeroError on PHP 8+ and 500 the node page.
+                $percent = $baseLimit > 0 ? ($value / $baseLimit) * 100 : 0;
 
                 return [
                     $key => [
