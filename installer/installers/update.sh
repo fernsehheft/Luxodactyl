@@ -23,7 +23,9 @@ pull_release() {
   # Root running git against a directory that a previous install already
   # chown'd to www-data trips git's "dubious ownership" safety check.
   ensure_git_safe_directory "$INSTALL_DIR"
-  git fetch --tags origin
+  # --tags alone only fetches tags -- also need branch tips updated so a
+  # branch name or an arbitrary commit reachable from one actually resolves.
+  git fetch --all --tags origin
   git checkout "$UPDATE_TARGET_TAG"
 
   # Written here (before the frontend build) rather than after, because

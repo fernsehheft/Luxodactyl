@@ -23,26 +23,36 @@ echo ""
 # --------------------------------------------------------------------- #
 # On a reinstall, default to whatever channel the previous install was on.
 PREVIOUS_CHANNEL="release"
+PREVIOUS_REF=""
 if [ -f "${INSTALL_DIR}/.env" ]; then
   DETECTED_CHANNEL="$(grep -E '^APP_UPDATE_CHANNEL=' "${INSTALL_DIR}/.env" 2>/dev/null | cut -d= -f2-)"
   [ -n "$DETECTED_CHANNEL" ] && PREVIOUS_CHANNEL="$DETECTED_CHANNEL"
+  PREVIOUS_REF="$(grep -E '^APP_VERSION=' "${INSTALL_DIR}/.env" 2>/dev/null | cut -d= -f2-)"
 fi
 
-ask_channel INSTALL_CHANNEL "$PREVIOUS_CHANNEL"
+ask_channel INSTALL_CHANNEL INSTALL_REF "$PREVIOUS_CHANNEL" "$PREVIOUS_REF"
 
-output "Checking for the latest ${INSTALL_CHANNEL} release..."
-INSTALL_TARGET_TAG="$(get_release_for_channel "fernsehheft/Luxodactyl" "$INSTALL_CHANNEL")"
-
-if [ -z "$INSTALL_TARGET_TAG" ] && [ "$INSTALL_CHANNEL" == "beta" ]; then
-  warning "No beta release is currently available — installing the latest stable release instead."
-  INSTALL_CHANNEL="release"
-  INSTALL_TARGET_TAG="$(get_release_for_channel "fernsehheft/Luxodactyl" "$INSTALL_CHANNEL")"
-fi
-
-if [ -z "$INSTALL_TARGET_TAG" ]; then
-  warning "Could not reach GitHub to resolve a release — installing the latest development code from '${LUXO_BRANCH}' instead."
+if [ "$INSTALL_CHANNEL" == "commit" ]; then
+  if [ -z "$INSTALL_REF" ]; then
+    abort_install "You need to enter a commit, branch, or tag to install."
+  fi
+  INSTALL_TARGET_TAG="$INSTALL_REF"
+  output "Installing ${COLOR_CYAN}${INSTALL_TARGET_TAG}${COLOR_NC} (pinned commit/branch/tag, not a tracked release)."
 else
-  output "Installing ${COLOR_CYAN}${INSTALL_TARGET_TAG}${COLOR_NC} (${INSTALL_CHANNEL} channel)."
+  output "Checking for the latest ${INSTALL_CHANNEL} release..."
+  INSTALL_TARGET_TAG="$(get_release_for_channel "fernsehheft/Luxodactyl" "$INSTALL_CHANNEL")"
+
+  if [ -z "$INSTALL_TARGET_TAG" ] && [ "$INSTALL_CHANNEL" == "beta" ]; then
+    warning "No beta release is currently available — installing the latest stable release instead."
+    INSTALL_CHANNEL="release"
+    INSTALL_TARGET_TAG="$(get_release_for_channel "fernsehheft/Luxodactyl" "$INSTALL_CHANNEL")"
+  fi
+
+  if [ -z "$INSTALL_TARGET_TAG" ]; then
+    warning "Could not reach GitHub to resolve a release — installing the latest development code from '${LUXO_BRANCH}' instead."
+  else
+    output "Installing ${COLOR_CYAN}${INSTALL_TARGET_TAG}${COLOR_NC} (${INSTALL_CHANNEL} channel)."
+  fi
 fi
 
 export INSTALL_CHANNEL INSTALL_TARGET_TAG

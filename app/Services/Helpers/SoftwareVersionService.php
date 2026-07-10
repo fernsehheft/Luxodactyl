@@ -77,9 +77,15 @@ class SoftwareVersionService
     {
         $current = (string) config('app.version', 'canary');
 
-        if ($current === '' || $current === 'canary' || self::$latestPanelVersion === '') {
-            // Either a development install (no pinned release) or we couldn't
-            // reach GitHub -- don't nag the admin with a false "update available".
+        if (
+            $current === ''
+            || $current === 'canary'
+            || config('luxodactyl.updates.channel') === 'commit'
+            || self::$latestPanelVersion === ''
+        ) {
+            // A development install, a pinned commit/branch/tag (nothing "latest"
+            // to compare that against), or we couldn't reach GitHub -- don't nag
+            // the admin with a false "update available".
             return true;
         }
 
@@ -131,6 +137,12 @@ class SoftwareVersionService
     protected function cacheLatestPanelVersion(): string
     {
         $channel = config('luxodactyl.updates.channel', 'release');
+
+        if ($channel === 'commit') {
+            // Pinned to a specific commit/branch/tag rather than tracking a
+            // release -- there's no "latest" to look up.
+            return '';
+        }
 
         $tag = $this->cache->remember(self::PANEL_RELEASE_CACHE_KEY . ":{$channel}", CarbonImmutable::now()->addMinutes(config('luxodactyl.updates.cache_time', 60)), function () use ($channel) {
             $repo = config('luxodactyl.updates.repo');

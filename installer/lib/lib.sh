@@ -574,26 +574,48 @@ get_release_for_channel() {
   fi
 }
 
-# ask_channel <resultvar> [current-channel]
-#   Prompts the user to pick "release" or "beta", defaulting to whichever
-#   channel is already active (or "release" on a fresh install).
+# ask_channel <channel-resultvar> <ref-resultvar> [current-channel] [current-ref]
+#   Prompts the user to pick "release", "beta", or a specific commit/branch/tag
+#   (for testing unreleased work without cutting a release first), defaulting
+#   to whichever channel is already active. <ref-resultvar> is only populated
+#   (with the entered commit/branch/tag) when channel "commit" is chosen;
+#   otherwise it's set to an empty string.
 ask_channel() {
-  local __resultvar="$1"
-  local current="${2:-release}"
+  local __channel_var="$1"
+  local __ref_var="$2"
+  local current="${3:-release}"
+  local current_ref="${4:-}"
   local default_choice="0"
   [ "$current" == "beta" ] && default_choice="1"
+  [ "$current" == "commit" ] && default_choice="2"
 
   echo ""
   output "Which release channel do you want to use?"
   output "[0] Stable releases (recommended)"
   output "[1] Beta / pre-releases (newer, less tested)"
-  echo -n "* Input 0-1 [${default_choice}]: "
+  output "[2] A specific commit, branch, or tag (advanced -- for testing unreleased changes)"
+  echo -n "* Input 0-2 [${default_choice}]: "
   read -r channel_choice
   [ -z "$channel_choice" ] && channel_choice="$default_choice"
 
   case "$channel_choice" in
-    1) printf -v "$__resultvar" 'beta' ;;
-    *) printf -v "$__resultvar" 'release' ;;
+    1)
+      printf -v "$__channel_var" 'beta'
+      printf -v "$__ref_var" ''
+      ;;
+    2)
+      local ref_prompt="* Commit SHA, branch, or tag"
+      [ -n "$current_ref" ] && ref_prompt="${ref_prompt} [${current_ref}]"
+      echo -n "${ref_prompt}: "
+      read -r ref_choice
+      [ -z "$ref_choice" ] && ref_choice="$current_ref"
+      printf -v "$__channel_var" 'commit'
+      printf -v "$__ref_var" '%s' "$ref_choice"
+      ;;
+    *)
+      printf -v "$__channel_var" 'release'
+      printf -v "$__ref_var" ''
+      ;;
   esac
 }
 
