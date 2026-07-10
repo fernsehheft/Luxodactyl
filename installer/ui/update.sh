@@ -3,9 +3,10 @@
 ########################################################################
 #                 Luxodactyl Installer — Update Wizard                 #
 #                                                                      #
-#  Lets the user stay on or switch release channels, checks whether a #
-#  newer release exists on that channel, and if so confirms with the  #
-#  user before handing off to installers/update.sh.                   #
+#  Lets the user stay on or switch release channels (including a      #
+#  specific commit/branch/tag for testing unreleased work), checks    #
+#  whether a newer release exists when on release/beta, and confirms  #
+#  with the user before handing off to installers/update.sh.          #
 ########################################################################
 
 check_root
@@ -22,27 +23,35 @@ fi
 CURRENT_CHANNEL="$(grep -E '^APP_UPDATE_CHANNEL=' "${INSTALL_DIR}/.env" 2>/dev/null | cut -d= -f2-)"
 [ -z "$CURRENT_CHANNEL" ] && CURRENT_CHANNEL="release"
 
-ask_channel TARGET_CHANNEL "$CURRENT_CHANNEL"
-
-output "Checking for updates on the ${TARGET_CHANNEL} channel..."
-LATEST_TAG="$(get_release_for_channel "fernsehheft/Luxodactyl" "$TARGET_CHANNEL")"
-
-if [ -z "$LATEST_TAG" ] && [ "$TARGET_CHANNEL" != "$CURRENT_CHANNEL" ]; then
-  warning "No ${TARGET_CHANNEL} release is currently available."
-  echo -n "* Stay on the ${CURRENT_CHANNEL} channel instead? (Y/n): "
-  read -r STAY_ON_CURRENT
-  if [[ "$STAY_ON_CURRENT" =~ [Nn] ]]; then
-    abort_install "Update cancelled — no ${TARGET_CHANNEL} release to switch to."
-  fi
-  TARGET_CHANNEL="$CURRENT_CHANNEL"
-  LATEST_TAG="$(get_release_for_channel "fernsehheft/Luxodactyl" "$TARGET_CHANNEL")"
-fi
-
-if [ -z "$LATEST_TAG" ]; then
-  abort_install "Could not find a ${TARGET_CHANNEL} release. Either GitHub is unreachable, or none has been published yet."
-fi
-
 CURRENT_VERSION="$(grep -E '^APP_VERSION=' "${INSTALL_DIR}/.env" 2>/dev/null | cut -d= -f2-)"
+
+ask_channel TARGET_CHANNEL TARGET_REF "$CURRENT_CHANNEL" "$CURRENT_VERSION"
+
+if [ "$TARGET_CHANNEL" == "commit" ]; then
+  if [ -z "$TARGET_REF" ]; then
+    abort_install "You need to enter a commit, branch, or tag to update to."
+  fi
+  LATEST_TAG="$TARGET_REF"
+else
+  output "Checking for updates on the ${TARGET_CHANNEL} channel..."
+  LATEST_TAG="$(get_release_for_channel "fernsehheft/Luxodactyl" "$TARGET_CHANNEL")"
+
+  if [ -z "$LATEST_TAG" ] && [ "$TARGET_CHANNEL" != "$CURRENT_CHANNEL" ]; then
+    warning "No ${TARGET_CHANNEL} release is currently available."
+    echo -n "* Stay on the ${CURRENT_CHANNEL} channel instead? (Y/n): "
+    read -r STAY_ON_CURRENT
+    if [[ "$STAY_ON_CURRENT" =~ [Nn] ]]; then
+      abort_install "Update cancelled — no ${TARGET_CHANNEL} release to switch to."
+    fi
+    TARGET_CHANNEL="$CURRENT_CHANNEL"
+    LATEST_TAG="$(get_release_for_channel "fernsehheft/Luxodactyl" "$TARGET_CHANNEL")"
+  fi
+
+  if [ -z "$LATEST_TAG" ]; then
+    abort_install "Could not find a ${TARGET_CHANNEL} release. Either GitHub is unreachable, or none has been published yet."
+  fi
+fi
+
 [ -z "$CURRENT_VERSION" ] && CURRENT_VERSION="unknown (development install, not pinned to a release)"
 
 echo ""
@@ -50,11 +59,11 @@ print_brake 60
 output "Current channel:      ${COLOR_CYAN}${CURRENT_CHANNEL}${COLOR_NC}"
 output "Currently installed:  ${COLOR_CYAN}${CURRENT_VERSION}${COLOR_NC}"
 output "Target channel:       ${COLOR_CYAN}${TARGET_CHANNEL}${COLOR_NC}"
-output "Latest available:     ${COLOR_CYAN}${LATEST_TAG}${COLOR_NC}"
+output "Target:               ${COLOR_CYAN}${LATEST_TAG}${COLOR_NC}"
 print_brake 60
 
 if [ "$TARGET_CHANNEL" == "$CURRENT_CHANNEL" ] && [ "$CURRENT_VERSION" == "$LATEST_TAG" ]; then
-  success "You are already running the latest ${CURRENT_CHANNEL} version (${LATEST_TAG})."
+  success "You are already running ${LATEST_TAG} (${CURRENT_CHANNEL})."
 
   # Beta has nowhere "more stable" below it, but it's easy to forget a stable
   # release track even exists -- release has nothing equivalent to mention.
@@ -70,10 +79,14 @@ if [ "$TARGET_CHANNEL" == "$CURRENT_CHANNEL" ] && [ "$CURRENT_VERSION" == "$LATE
 fi
 
 echo ""
-warning "Updating pulls the panel's code to ${LATEST_TAG}, reinstalls dependencies, rebuilds the"
-warning "frontend and runs database migrations. The panel is put into maintenance mode for the"
-warning "duration of the update (existing servers keep running; the web panel briefly won't)."
-echo -n "* Update to ${LATEST_TAG} (${TARGET_CHANNEL} channel) now? (y/N): "
+if [ "$TARGET_CHANNEL" == "commit" ]; then
+  warning "This pins the panel to ${LATEST_TAG} directly -- it won't be tracked as a release, and"
+  warning "future 'Update the panel' runs will ask again rather than silently drifting off it."
+fi
+warning "Updating pulls the panel's code, reinstalls dependencies, rebuilds the frontend and runs"
+warning "database migrations. The panel is put into maintenance mode for the duration of the"
+warning "update (existing servers keep running; the web panel briefly won't)."
+echo -n "* Update to ${LATEST_TAG} (${TARGET_CHANNEL}) now? (y/N): "
 read -r CONFIRM_UPDATE
 if [[ ! "$CONFIRM_UPDATE" =~ [Yy] ]]; then
   abort_install "Update cancelled."
