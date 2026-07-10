@@ -36,7 +36,19 @@
   @include('layouts.scripts')
 
   @section('scripts')
-  @if(file_exists(public_path('build/manifest.json')))
+  @php
+    // @vite() throws if the entry isn't in the manifest (e.g. a partial/failed
+    // frontend build) -- checking the manifest content directly, rather than
+    // just that the file exists, means a bad build degrades this admin JS
+    // widget away instead of taking down every admin page with a 500.
+    $_viteManifestPath = public_path('build/manifest.json');
+    $_viteAdminEntryReady = false;
+    if (file_exists($_viteManifestPath)) {
+      $_viteManifestData = json_decode(file_get_contents($_viteManifestPath), true);
+      $_viteAdminEntryReady = is_array($_viteManifestData) && isset($_viteManifestData['resources/scripts/admin/index.tsx']);
+    }
+  @endphp
+  @if($_viteAdminEntryReady)
   @vite('resources/scripts/admin/index.tsx')
   @endif
   {!! Theme::css('vendor/select2/select2.min.css?t={cache-version}') !!}
