@@ -34,8 +34,13 @@ class NodeController extends Controller
             $stats = app('Luxodactyl\Repositories\Eloquent\NodeRepository')->getUsageStatsRaw($node);
             // NOTE: Pre-creating stats so we donn't do it in the blade
 
-            $memoryPercent = ($stats['memory']['value'] / $stats['memory']['base_limit']) * 100;
-            $diskPercent = ($stats['disk']['value'] / $stats['disk']['base_limit']) * 100;
+            // A node's memory/disk limit is allowed to be 0 (unlimited / not
+            // set). Dividing by it would throw DivisionByZeroError on PHP 8+
+            // and 500 the whole nodes list, so treat a 0 base limit as 0% used.
+            $memoryBase = $stats['memory']['base_limit'];
+            $diskBase = $stats['disk']['base_limit'];
+            $memoryPercent = $memoryBase > 0 ? ($stats['memory']['value'] / $memoryBase) * 100 : 0;
+            $diskPercent = $diskBase > 0 ? ($stats['disk']['value'] / $diskBase) * 100 : 0;
 
             $node->memory_percent = round($memoryPercent);
             $node->memory_color = $memoryPercent < 50 ? '#50af51' : ($memoryPercent < 70 ? '#e0a800' : '#d9534f');

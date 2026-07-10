@@ -107,8 +107,10 @@
       @endif
         @php
       $stats = app('Luxodactyl\Repositories\Eloquent\NodeRepository')->getUsageStatsRaw($node);
-      $memoryPercent = ($stats['memory']['value'] / $stats['memory']['base_limit']) * 100;
-      $diskPercent = ($stats['disk']['value'] / $stats['disk']['base_limit']) * 100;
+      // A 0 base limit means unlimited/unset -- guard the division so it doesn't
+      // throw DivisionByZeroError (PHP 8+) and 500 the node view.
+      $memoryPercent = $stats['memory']['base_limit'] > 0 ? ($stats['memory']['value'] / $stats['memory']['base_limit']) * 100 : 0;
+      $diskPercent = $stats['disk']['base_limit'] > 0 ? ($stats['disk']['value'] / $stats['disk']['base_limit']) * 100 : 0;
 
       $memoryColor = $memoryPercent < 50 ? '#50af51' : ($memoryPercent < 70 ? '#e0a800' : '#d9534f');
       $diskColor = $diskPercent < 50 ? '#50af51' : ($diskPercent < 70 ? '#e0a800' : '#d9534f');
